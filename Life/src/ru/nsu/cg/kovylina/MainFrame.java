@@ -37,7 +37,9 @@ public class MainFrame extends JFrame {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception e) {
         }
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         toolBar = new JToolBar("Main toolbar");
@@ -56,6 +58,7 @@ public class MainFrame extends JFrame {
         this();
         setSize(x, y);
         setLocationByPlatform(true);
+        setLocationRelativeTo(null);
         setTitle(title);
     }
 

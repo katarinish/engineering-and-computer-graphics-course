@@ -6,37 +6,46 @@ import javax.swing.JOptionPane;
 public class MainWindow extends MainFrame {
 
     public MainWindow() {
-        super(600, 400, "Init application");
+        super(600, 400, "Life Game");
 
         try {
             addSubMenu("File", KeyEvent.VK_F);
-            addMenuItem("File/Exit", "Exit application", KeyEvent.VK_X, "Exit.gif", "onExit");
-            addSubMenu("Help", KeyEvent.VK_H);
-            addMenuItem("Help/About...", "Shows program version and copyright information", KeyEvent.VK_A, "About.gif", "onAbout");
+            addMenuItem("File/Exit",
+                    "Exit application",
+                    KeyEvent.VK_X,
+                    "Exit.gif",
+                    "onExit");
+
+            addSubMenu("Help",
+                    KeyEvent.VK_H);
+            addMenuItem("Help/About...",
+                    "Shows program version and copyright information",
+                    KeyEvent.VK_A,
+                    "About.gif",
+                    "onAbout");
 
             addToolBarButton("File/Exit");
             addToolBarSeparator();
             addToolBarButton("Help/About...");
 
-            add(new InitView());
+            add(new GameField());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public static void main(String[] args) {
-        MainWindow mainFrame = new MainWindow();
-        mainFrame.setVisible(true);
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.setVisible(true);
     }
     public void onAbout() {
         JOptionPane.showMessageDialog(this,
-                "Init, version 1.0\nCopyright � 2010 Vasya Pupkin, FF, group 1234",
-                "About Init", JOptionPane.INFORMATION_MESSAGE);
+                "2019 Kovylina Yekaterina, FIT, group 16205",
+                "About Init",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void onExit() {
         System.exit(0);
     }
-
-
 }
