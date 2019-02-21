@@ -8,8 +8,10 @@ import javax.swing.*;
 
 public class GameField extends JPanel {
     private Graphics g = null;
+    private int hexagonSide = 30;
 
     public GameField() {
+
     }
 
     private void drawBresenhamLine(int x1, int y1, int x2, int y2) {
@@ -66,6 +68,25 @@ public class GameField extends JPanel {
         }
     }
 
+    private void drawHexagon(int sideSize, int centerX, int centerY) {
+        int [] cornersX = new int[6];
+        int [] cornersY = new int[6];
+
+        for (int i = 0; i < 6; ++i) {
+            int angleDegree = 60 * i + 30;
+            double angleRadian = Math.toRadians(angleDegree);
+
+            cornersX[i] = centerX + (int)(sideSize * Math.cos(angleRadian));
+            cornersY[i] = centerY + (int)(sideSize * Math.sin(angleRadian));
+        }
+
+        for (int i = 0; i < 6; ++i) {
+            int nextIndex = (i + 1) % 6;
+            drawBresenhamLine(cornersX[i], cornersY[i], cornersX[nextIndex], cornersY[nextIndex]);
+        }
+
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         this.g = g;
@@ -76,8 +97,9 @@ public class GameField extends JPanel {
 
 
         this.setBackground(Color.LIGHT_GRAY);
-        drawBresenhamLine(200, 25, 295, 150);
 
+        drawHexagon(100, 150, 150);
+//        drawBresenhamLine(200, 25, 295, 150);
 //        g.drawLine(0, 0, getBounds().width - 1, getBounds().height - 1);
 //        g.drawLine(0, getBounds().height - 1, getBounds().width - 1, 0);
 
