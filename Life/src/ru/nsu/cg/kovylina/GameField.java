@@ -10,7 +10,7 @@ public class GameField extends JPanel {
     private Graphics g = null;
     private int fieldHeight;
     private int fieldWidth;
-    private int hexagonSide = 30;
+    private int hexagonSide = 61;
 
     public GameField() {
     }
@@ -19,15 +19,17 @@ public class GameField extends JPanel {
         int cellHeight = 2 * this.hexagonSide;
         int cellWidth = (int)((Math.sqrt(3) / 2) * cellHeight);
 
-        int xStart = 0;
-        int yStart = 0;
         int offsetX = cellWidth / 2;
-        int offsetY = cellHeight * 3 / 4;
+        int offsetY = cellHeight / 2 + 1;
 
         int columnCount = width / cellWidth;
+        int rowsCount = height / cellHeight;
 
         for (int i = 0; i < columnCount; ++i) {
-            drawHexagon(this.hexagonSide, offsetX + (i * (cellWidth - 1) ) , offsetY);
+            for (int j = 0; j < rowsCount; ++j) {
+                int addOff = (j % 2 == 0) ? offsetX : 0;
+                drawHexagon(this.hexagonSide,addOff + offsetX + (i * (cellWidth - 1) ) , offsetY +(j * (cellHeight * 3 / 4)));
+            }
         }
 //        int rowCount =
     }
@@ -117,12 +119,5 @@ public class GameField extends JPanel {
         this.setBackground(Color.LIGHT_GRAY);
 
         drawField(this.fieldWidth, this.fieldHeight);
-
-//        drawHexagon(this.hexagonSide, 150, 150);
-//        drawBresenhamLine(200, 25, 295, 150);
-//        g.drawLine(0, 0, getBounds().width - 1, getBounds().height - 1);
-//        g.drawLine(0, getBounds().height - 1, getBounds().width - 1, 0);
-
-//        g.drawLine(0, 0, 10, 10);
     }
 }
