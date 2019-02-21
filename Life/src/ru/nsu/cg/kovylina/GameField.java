@@ -13,41 +13,57 @@ public class GameField extends JPanel {
     }
 
     private void drawBresenhamLine(int x1, int y1, int x2, int y2) {
-        int x = x1;
-        int y = y1;
-
         int deltaX = Math.abs(x2 - x1);
         int deltaY = Math.abs(y2 - y1);
-        int maxDelta = deltaX > deltaY ? deltaX : deltaY;
-
-        if (deltaY > deltaX) {
-
-        }
 
         int error = 0;
-        int deltaErr = 2 * deltaY; // (deltaY / deltaX) * deltaX
 
-        int directionY = (y2 - y1) ;
-        if (directionY > 0) directionY = 1;
-        if (directionY < 0) directionY = -1;
+        if (deltaX > deltaY) {
+            int deltaErr = 2 * deltaY; // (deltaY / deltaX) * deltaX
 
-        int directionX = (x2 - x1);
-        if (directionX > 0) directionX = 1;
-        if (directionX < 0) directionX = -1;
+            int directionY = (y2 - y1) ;
+            if (directionY > 0) directionY = 1;
+            if (directionY < 0) directionY = -1;
 
-        for (int i = 0; i < maxDelta; ++i) {
-            this.g.drawLine(x, y, x, y);
+            int directionX = (x2 - x1);
+            if (directionX > 0) directionX = 1;
+            if (directionX < 0) directionX = -1;
 
-            x += directionX;
-            error += deltaErr;
+            for (int i = 0; i < deltaX; ++i) {
+                this.g.drawLine(x1, y1, x1, y1);
 
-            if (error > deltaX) {
-                error -= 2 * deltaX;
-                y += directionY;
+                x1 += directionX;
+                error += deltaErr;
+
+                if (error > deltaX) {
+                    error -= 2 * deltaX;
+                    y1 += directionY;
+                }
+
             }
+        } else {
+            int deltaErr = 2 * deltaX; // (deltaY / deltaX) * deltaX
 
+            int directionY = (y2 - y1) ;
+            if (directionY > 0) directionY = 1;
+            if (directionY < 0) directionY = -1;
+
+            int directionX = (x2 - x1);
+            if (directionX > 0) directionX = 1;
+            if (directionX < 0) directionX = -1;
+
+            for (int i = 0; i < deltaY; ++i) {
+                this.g.drawLine(x1, y1, x1, y1);
+
+                y1 += directionY;
+                error += deltaErr;
+
+                if (error > deltaX) {
+                    error -= 2 * deltaY;
+                    x1 += directionX;
+                }
+            }
         }
-
     }
 
     @Override
@@ -60,7 +76,7 @@ public class GameField extends JPanel {
 
 
         this.setBackground(Color.LIGHT_GRAY);
-        drawBresenhamLine(200, 25, 205, 50);
+        drawBresenhamLine(200, 25, 295, 150);
 
 //        g.drawLine(0, 0, getBounds().width - 1, getBounds().height - 1);
 //        g.drawLine(0, getBounds().height - 1, getBounds().width - 1, 0);
