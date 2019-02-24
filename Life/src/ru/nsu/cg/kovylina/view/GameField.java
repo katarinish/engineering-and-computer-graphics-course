@@ -1,4 +1,4 @@
-package ru.nsu.cg.kovylina;
+package ru.nsu.cg.kovylina.view;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -31,7 +31,6 @@ public class GameField extends JPanel {
                 drawHexagon(this.hexagonSide,addOff + offsetX + (i * (cellWidth - 1) ) , offsetY +(j * (cellHeight * 3 / 4)));
             }
         }
-//        int rowCount =
     }
 
     private void drawBresenhamLine(int x1, int y1, int x2, int y2) {

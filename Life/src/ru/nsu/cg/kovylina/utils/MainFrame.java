@@ -1,4 +1,4 @@
-package ru.nsu.cg.kovylina;
+package ru.nsu.cg.kovylina.utils;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;

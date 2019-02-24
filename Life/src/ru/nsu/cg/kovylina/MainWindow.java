@@ -1,5 +1,8 @@
 package ru.nsu.cg.kovylina;
 
+import ru.nsu.cg.kovylina.utils.MainFrame;
+import ru.nsu.cg.kovylina.view.GameField;
+
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
