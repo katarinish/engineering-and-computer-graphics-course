@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class MainWindow extends MainFrame {
 
     public MainWindow() {
-        super(600, 400, "Life Game");
+        super(600, 600, "Life Game");
 
         try {
             addSubMenu("File", KeyEvent.VK_F);
@@ -31,7 +31,7 @@ public class MainWindow extends MainFrame {
             addToolBarSeparator();
             addToolBarButton("Help/About...");
 
-            add(new GameField());
+            add(new GameField(30, 10, 10));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

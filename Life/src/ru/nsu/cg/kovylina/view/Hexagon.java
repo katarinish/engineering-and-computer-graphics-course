@@ -3,6 +3,7 @@ package ru.nsu.cg.kovylina.view;
 import ru.nsu.cg.kovylina.utils.DrawingUtils;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Hexagon {
     private static int VERTEXES_NUM = 6;
@@ -33,6 +34,10 @@ public class Hexagon {
         calculateAllVertexes();
     }
 
+    public Hexagon (int sideSize) {
+        this(sideSize, 0, 0);
+    }
+
     private void calculateParameters() {
         this.t = this.size / 2;
         this.r = (int) (this.size * Math.cos(Math.toRadians(30)));
@@ -55,7 +60,7 @@ public class Hexagon {
         vertexes[5] = new Point(centerX - r, centerY - t);
     }
 
-    public void draw(Graphics g) {
+    public void draw(BufferedImage image) {
         for (int i = 0; i < Hexagon.VERTEXES_NUM; ++i) {
             int nextIndex = (i + 1) % 6;
 
@@ -65,12 +70,20 @@ public class Hexagon {
             int x2 = vertexes[nextIndex].x;
             int y2 = vertexes[nextIndex].y;
 
-            DrawingUtils.drawBresenhamLine(g, x1, y1, x2, y2);
+            DrawingUtils.drawBresenhamLine(image, x1, y1, x2, y2);
         }
     }
 
     public Point[] getVertexes() {
         return vertexes;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public int getHor() {
@@ -79,6 +92,10 @@ public class Hexagon {
 
     public int getVert() {
         return vert;
+    }
+
+    public int getR() {
+        return r;
     }
 
     public void setNewCenterPoint(int x0, int y0) {
