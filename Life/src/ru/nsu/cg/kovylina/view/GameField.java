@@ -117,6 +117,9 @@ public class GameField extends JPanel {
 
         this.setBackground(Color.LIGHT_GRAY);
 
-        drawField(this.fieldWidth, this.fieldHeight);
+        Hexagon hex = new Hexagon(55, 100, 100);
+        hex.draw(g);
+
+//        drawField(this.fieldWidth, this.fieldHeight);
     }
 }

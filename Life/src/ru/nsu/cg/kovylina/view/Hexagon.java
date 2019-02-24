@@ -1,6 +1,15 @@
 package ru.nsu.cg.kovylina.view;
 
+import ru.nsu.cg.kovylina.utils.DrawingUtils;
+
+import java.awt.*;
+
 public class Hexagon {
+    private static int VERTEXES_NUM = 6;
+
+    private int centerX;
+    private int centerY;
+
     private int size;
 
     private int t;  // short leg of 30deg triangle
@@ -12,9 +21,16 @@ public class Hexagon {
     private int hor; // horizontal distance between centers of two adjacent hex's
     private int vert; // vertical distance between centers of two adjacent hex's
 
-    public Hexagon(int sideSize) {
+    private Point[] vertexes;
+
+
+    public Hexagon(int sideSize, int x0, int y0) {
         this.size = sideSize;
+        this.centerX = x0;
+        this.centerY = y0;
+
         calculateParameters();
+        calculateAllVertexes();
     }
 
     private void calculateParameters() {
@@ -28,4 +44,47 @@ public class Hexagon {
         this.vert = this.size + this.t;
     }
 
+    private void calculateAllVertexes() {
+        vertexes = new Point[Hexagon.VERTEXES_NUM];
+
+        vertexes[0] = new Point(centerX, centerY - size);
+        vertexes[1] = new Point(centerX + r, centerY - t);
+        vertexes[2] = new Point(centerX + r, centerY + t);
+        vertexes[3] = new Point(centerX, centerY + size);
+        vertexes[4] = new Point(centerX - r, centerY + t);
+        vertexes[5] = new Point(centerX - r, centerY - t);
+    }
+
+    public void draw(Graphics g) {
+        for (int i = 0; i < Hexagon.VERTEXES_NUM; ++i) {
+            int nextIndex = (i + 1) % 6;
+
+            int x1 = vertexes[i].x;
+            int y1 = vertexes[i].y;
+
+            int x2 = vertexes[nextIndex].x;
+            int y2 = vertexes[nextIndex].y;
+
+            DrawingUtils.drawBresenhamLine(g, x1, y1, x2, y2);
+        }
+    }
+
+    public Point[] getVertexes() {
+        return vertexes;
+    }
+
+    public int getHor() {
+        return hor;
+    }
+
+    public int getVert() {
+        return vert;
+    }
+
+    public void setNewCenterPoint(int x0, int y0) {
+        centerX = x0;
+        centerY = y0;
+
+        calculateAllVertexes();
+    }
 }
