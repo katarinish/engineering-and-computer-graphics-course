@@ -28,6 +28,18 @@ public class GameField extends JPanel {
         this.image = new BufferedImage((columns + 1) * hexagon.getWidth(),
                 (rows + 1) * hexagon.getHeight(),
                 BufferedImage.TYPE_INT_ARGB);
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Point p = e.getPoint();
+                DrawingUtils.fillWithSpan(image,
+                        DrawingUtils.aliveCellColor,
+                        p.x, p.y);
+
+                repaint();
+            }
+        });
     }
 
     private void drawField() {
