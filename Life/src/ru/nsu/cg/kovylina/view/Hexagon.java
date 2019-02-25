@@ -62,7 +62,7 @@ public class Hexagon {
 
     public void draw(BufferedImage image) {
         for (int i = 0; i < Hexagon.VERTEXES_NUM; ++i) {
-            int nextIndex = (i + 1) % 6;
+            int nextIndex = (i + 1) % Hexagon.VERTEXES_NUM;
 
             int x1 = vertexes[i].x;
             int y1 = vertexes[i].y;

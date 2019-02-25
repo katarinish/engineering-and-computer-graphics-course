@@ -1,5 +1,7 @@
 package ru.nsu.cg.kovylina.view;
 
+import ru.nsu.cg.kovylina.utils.DrawingUtils;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,16 +31,13 @@ public class GameField extends JPanel {
     }
 
     private void drawField() {
-        int offsetX = 20;
-        int offsetY = 20;
         for (int i = 1; i <= rows; ++i) {
             int addOffset = i % 2 == 0 ? hexagon.getR() : 0;
             int columns = i % 2 == 0 ? this.columns - 1 : this.columns;
 
             for (int j = 1; j <= columns; ++j) {
-                hexagon.setNewCenterPoint(offsetX + addOffset + (j * hexagon.getHor()),
-                        offsetY + (i * hexagon.getVert()));
-
+                hexagon.setNewCenterPoint(addOffset + (j * hexagon.getHor()),
+                        i * hexagon.getVert());
                 hexagon.draw(image);
             }
         }
@@ -52,5 +51,10 @@ public class GameField extends JPanel {
 
         drawField();
         g.drawImage(image, 0, 0, null);
+        DrawingUtils.fillWithSpan(
+                image,
+                DrawingUtils.aliveCellColor,
+                hexagon.getHor(),
+                hexagon.getVert());
     }
 }
