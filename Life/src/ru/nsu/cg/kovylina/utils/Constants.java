@@ -1,0 +1,20 @@
+package ru.nsu.cg.kovylina.utils;
+
+public class Constants {
+    public static int ROWS = 10;
+    public static int COLUMS = 10;
+    public static int HEX_SIDE = 30;
+    public static int BOUNDARY_WIDTH = 2;
+
+    public static Mode MODE = Mode.REPLACE;
+
+    public static double LIFE_BEGIN = 2.0;
+    public static double LIFE_END = 3.3;
+    public static double BIRTH_BEGIN = 2.3;
+    public static double BIRTH_END = 2.9;
+    public static double FIRST_IMPACT = 1.0;
+    public static double SECOND_IMPACT = 0.3;
+
+    public static double START_IMPACT = 0.0;
+
+}

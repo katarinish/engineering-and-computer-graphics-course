@@ -1,4 +1,4 @@
-package ru.nsu.cg.kovylina.view;
+package ru.nsu.cg.kovylina.buisness_logic;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

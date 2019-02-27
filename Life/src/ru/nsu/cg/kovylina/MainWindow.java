@@ -1,7 +1,7 @@
 package ru.nsu.cg.kovylina;
 
 import ru.nsu.cg.kovylina.utils.MainFrame;
-import ru.nsu.cg.kovylina.view.GameField;
+import ru.nsu.cg.kovylina.view.GameFieldView;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -31,7 +31,7 @@ public class MainWindow extends MainFrame {
             addToolBarSeparator();
             addToolBarButton("Help/About...");
 
-            add(new GameField(30, 10, 10));
+//            add(new GameFieldView(50, 10, 10));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

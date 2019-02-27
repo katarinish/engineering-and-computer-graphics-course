@@ -1,6 +1,6 @@
 package ru.nsu.cg.kovylina.utils;
 
-import ru.nsu.cg.kovylina.view.Span;
+import ru.nsu.cg.kovylina.buisness_logic.Span;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,13 +9,15 @@ import java.util.Stack;
 public class DrawingUtils {
     public static Color boundaryColor = new Color(22, 73, 201);
     public static Color aliveCellColor = new Color(107, 51, 176);
+
     public DrawingUtils() {
     }
 
     public static void drawBresenhamLine(BufferedImage image,
+                                         Stroke stroke,
                                          int x1, int y1, int x2, int y2) {
         Graphics2D g = (Graphics2D) image.getGraphics();
-        g.setStroke(new BasicStroke(10, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND, 10));
+        g.setStroke(stroke);
         g.setColor(boundaryColor);
 
         int deltaX = Math.abs(x2 - x1);
@@ -35,8 +37,8 @@ public class DrawingUtils {
             if (directionX < 0) directionX = -1;
 
             for (int i = 0; i < deltaX; ++i) {
-                image.setRGB(x1, y1, boundaryColor.getRGB());
-//                g.drawLine(x1, y1, x1, y1);
+//                image.setRGB(x1, y1, boundaryColor.getRGB());
+                g.drawLine(x1, y1, x1, y1);
                 x1 += directionX;
                 error += deltaErr;
 
@@ -58,8 +60,8 @@ public class DrawingUtils {
             if (directionX < 0) directionX = -1;
 
             for (int i = 0; i < deltaY; ++i) {
-//                g.drawLine(x1, y1, x1, y1);
-                image.setRGB(x1, y1, boundaryColor.getRGB());
+                g.drawLine(x1, y1, x1, y1);
+//                image.setRGB(x1, y1, boundaryColor.getRGB());
                 y1 += directionY;
                 error += deltaErr;
 

@@ -1,17 +1,15 @@
-package ru.nsu.cg.kovylina.view;
+package ru.nsu.cg.kovylina.model;
 
-import ru.nsu.cg.kovylina.utils.DrawingUtils;
-
+import javax.swing.event.SwingPropertyChangeSupport;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class Hexagon {
-    private static int VERTEXES_NUM = 6;
+public class HexagonModel {
+    private SwingPropertyChangeSupport propChangeFirer;
 
-    private int centerX;
-    private int centerY;
+    public static int VERTEXES_NUM = 6;
 
     private int size;
+    private int boundaryWidth;
 
     private int t;  // short leg of 30deg triangle
     private int r;  // long leg of the 30deg triangle
@@ -22,20 +20,11 @@ public class Hexagon {
     private int hor; // horizontal distance between centers of two adjacent hex's
     private int vert; // vertical distance between centers of two adjacent hex's
 
-    private Point[] vertexes;
-
-
-    public Hexagon(int sideSize, int x0, int y0) {
-        this.size = sideSize;
-        this.centerX = x0;
-        this.centerY = y0;
+    public HexagonModel(int size, int boundaryWidth) {
+        this.size = size;
+        this.boundaryWidth = boundaryWidth;
 
         calculateParameters();
-        calculateAllVertexes();
-    }
-
-    public Hexagon (int sideSize) {
-        this(sideSize, 0, 0);
     }
 
     private void calculateParameters() {
@@ -49,8 +38,8 @@ public class Hexagon {
         this.vert = this.size + this.t;
     }
 
-    private void calculateAllVertexes() {
-        vertexes = new Point[Hexagon.VERTEXES_NUM];
+    public Point[] getAllVertexes(int centerX, int centerY) {
+        Point[] vertexes = new Point[VERTEXES_NUM];
 
         vertexes[0] = new Point(centerX, centerY - size);
         vertexes[1] = new Point(centerX + r, centerY - t);
@@ -58,24 +47,16 @@ public class Hexagon {
         vertexes[3] = new Point(centerX, centerY + size);
         vertexes[4] = new Point(centerX - r, centerY + t);
         vertexes[5] = new Point(centerX - r, centerY - t);
-    }
 
-    public void draw(BufferedImage image) {
-        for (int i = 0; i < Hexagon.VERTEXES_NUM; ++i) {
-            int nextIndex = (i + 1) % Hexagon.VERTEXES_NUM;
-
-            int x1 = vertexes[i].x;
-            int y1 = vertexes[i].y;
-
-            int x2 = vertexes[nextIndex].x;
-            int y2 = vertexes[nextIndex].y;
-
-            DrawingUtils.drawBresenhamLine(image, x1, y1, x2, y2);
-        }
-    }
-
-    public Point[] getVertexes() {
         return vertexes;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getBoundaryWidth() {
+        return boundaryWidth;
     }
 
     public int getWidth() {
@@ -98,10 +79,20 @@ public class Hexagon {
         return r;
     }
 
-    public void setNewCenterPoint(int x0, int y0) {
-        centerX = x0;
-        centerY = y0;
+    public void setSize(int size) {
+        this.size = size;
 
-        calculateAllVertexes();
+        calculateParameters();
+        // Уведомить View об изменении параметра
+    }
+
+    public void setBoundaryWidth(int boundaryWidth) {
+        this.boundaryWidth = boundaryWidth;
+
+        //Уведомить View об изменении ширины
+    }
+
+    public void setPropChangeFirer(SwingPropertyChangeSupport propChangeFirer) {
+        this.propChangeFirer = propChangeFirer;
     }
 }
