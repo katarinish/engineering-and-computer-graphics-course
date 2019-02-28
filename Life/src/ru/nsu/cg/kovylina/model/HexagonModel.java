@@ -24,10 +24,10 @@ public class HexagonModel {
         this.size = size;
         this.boundaryWidth = boundaryWidth;
 
-        calculateParameters();
+        initParameters();
     }
 
-    private void calculateParameters() {
+    private void initParameters() {
         this.t = this.size / 2;
         this.r = (int) (this.size * Math.cos(Math.toRadians(30)));
 
@@ -82,7 +82,7 @@ public class HexagonModel {
     public void setSize(int size) {
         this.size = size;
 
-        calculateParameters();
+        initParameters();
         // Уведомить View об изменении параметра
     }
 

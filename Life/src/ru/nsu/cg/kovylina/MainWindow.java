@@ -4,11 +4,11 @@ import ru.nsu.cg.kovylina.utils.MainFrame;
 import ru.nsu.cg.kovylina.view.GameFieldView;
 
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class MainWindow extends MainFrame {
 
-    public MainWindow() {
+    public MainWindow(GameFieldView gameFieldView) {
         super(600, 600, "Life Game");
 
         try {
@@ -30,17 +30,13 @@ public class MainWindow extends MainFrame {
             addToolBarButton("File/Exit");
             addToolBarSeparator();
             addToolBarButton("Help/About...");
-
-//            add(new GameFieldView(50, 10, 10));
+            add(new JScrollPane(gameFieldView));
+//            add(gameFieldView);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void main(String[] args) {
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.setVisible(true);
-    }
     public void onAbout() {
         JOptionPane.showMessageDialog(this,
                 "2019 Kovylina Yekaterina, FIT, group 16205",

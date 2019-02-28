@@ -7,18 +7,16 @@ import java.awt.image.BufferedImage;
 import java.util.Stack;
 
 public class DrawingUtils {
-    public static Color boundaryColor = new Color(22, 73, 201);
-    public static Color aliveCellColor = new Color(107, 51, 176);
-
     public DrawingUtils() {
     }
 
+    @SuppressWarnings("Duplicates")
     public static void drawBresenhamLine(BufferedImage image,
                                          Stroke stroke,
                                          int x1, int y1, int x2, int y2) {
         Graphics2D g = (Graphics2D) image.getGraphics();
         g.setStroke(stroke);
-        g.setColor(boundaryColor);
+        g.setColor(Constants.BOUNDARY_COLOR);
 
         int deltaX = Math.abs(x2 - x1);
         int deltaY = Math.abs(y2 - y1);
@@ -76,14 +74,14 @@ public class DrawingUtils {
     public static void fillWithSpan(BufferedImage image,
                                    Color colorToFill,
                                    int seedX, int seedY) {
-        if (image.getRGB(seedX, seedY) == DrawingUtils.boundaryColor.getRGB()) return;
+        if (image.getRGB(seedX, seedY) == Constants.BOUNDARY_COLOR.getRGB()) return;
 
         Stack <Span> spanStack = new Stack<>();
         spanStack.push(DrawingUtils.getSpan(image, seedX, seedY));
 
         while(!spanStack.isEmpty()) {
             Span span = spanStack.pop();
-            span.fill(DrawingUtils.aliveCellColor);
+            span.fill(colorToFill);
 
             boolean isAbove = false;
             boolean isBelow = false;
@@ -92,7 +90,7 @@ public class DrawingUtils {
             for (int x = span.getX0() + 1; x < span.getX1(); x++) {
 
                 // pixel above is not a bound and not filled with desired color yet
-                if (image.getRGB(x, y - 1) != DrawingUtils.boundaryColor.getRGB()
+                if (image.getRGB(x, y - 1) != Constants.BOUNDARY_COLOR.getRGB()
                         && image.getRGB(x, y - 1) != colorToFill.getRGB()) {
 
                     if (!isAbove) {
@@ -104,7 +102,7 @@ public class DrawingUtils {
                 }
 
                 // pixel below is not a bound and not filled with desired color yet
-                if (image.getRGB(x, y + 1) != DrawingUtils.boundaryColor.getRGB()
+                if (image.getRGB(x, y + 1) != Constants.BOUNDARY_COLOR.getRGB()
                         && image.getRGB(x, y + 1) != colorToFill.getRGB()) {
                     if (!isBelow) {
                         spanStack.push(DrawingUtils.getSpan(image, x, y + 1));
@@ -122,11 +120,11 @@ public class DrawingUtils {
         int xRight = x0;
         int xLeft = x0;
 
-        while (image.getRGB(xLeft, y0) != DrawingUtils.boundaryColor.getRGB()) {
+        while (image.getRGB(xLeft, y0) != Constants.BOUNDARY_COLOR.getRGB()) {
             xLeft--;
         }
 
-        while (image.getRGB(xRight, y0) != DrawingUtils.boundaryColor.getRGB()) {
+        while (image.getRGB(xRight, y0) != Constants.BOUNDARY_COLOR.getRGB()) {
             xRight++;
         }
 

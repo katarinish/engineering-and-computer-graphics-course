@@ -18,8 +18,8 @@ public class HexagonView {
                 10);
     }
 
-    public HexagonView(Stroke stroke, BufferedImage image) {
-        this.stroke = stroke;
+    public HexagonView(int w, BufferedImage image) {
+        this(w);
         this.image = image;
     }
 
@@ -29,15 +29,16 @@ public class HexagonView {
     }
 
     public void fillCell(Cell hex){
-
+        DrawingUtils.fillWithSpan(
+                image,
+                hex.getCellState().getColor(),
+                hex.getCenterX(), hex.getCenterY());
     }
 
     public void printImpact(Cell hex){
 
     }
 
-
-    //TODO: рисовка границ, заливка, импакт
     public void drawBoundaries(Cell hex) {
         Point[] vertexes = hex.getVertexes();
         for (int i = 0; i < HexagonModel.VERTEXES_NUM; ++i) {

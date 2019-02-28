@@ -7,6 +7,7 @@ import ru.nsu.cg.kovylina.utils.Constants;
 import ru.nsu.cg.kovylina.utils.Mode;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,8 @@ import java.util.Map;
 public class GameFieldModel {
     private int columns;
     private int rows;
+
+    private BufferedImage image;
     private Mode mode = null;
 
     //TODO: проверять корректность параметров
@@ -31,11 +34,22 @@ public class GameFieldModel {
 
         this.hexagonModel = hexModel;
 
+        initImage();
         initLifeParameters(
                 Constants.LIFE_BEGIN, Constants.LIFE_END,
                 Constants.BIRTH_BEGIN, Constants.BIRTH_END,
                 Constants.FIRST_IMPACT, Constants.SECOND_IMPACT);
         initField();
+    }
+
+    private void initImage() {
+        int width = (columns + 1) * hexagonModel.getWidth();
+//        int height = (rows / 2 + (rows / 2 == 1 ? 2 : 1)) * hexagonModel.getHeight()
+//                + (rows / 2) * hexagonModel.getSize();
+
+        int height = (rows + 1) * hexagonModel.getHeight();
+
+        this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
 
     private void initLifeParameters(
@@ -80,17 +94,31 @@ public class GameFieldModel {
         return rows;
     }
 
+    public BufferedImage getImage() {
+        return image;
+    }
+
     public void setColumns(int columns) {
         this.columns = columns;
+        initImage();
         initField();
     }
 
     public void setRows(int rows) {
         this.rows = rows;
+        initImage();
         initField();
+    }
+
+    public Cell[][] getField() {
+        return field;
     }
 
     public void setMode(Mode mode) {
         this.mode = mode;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 }

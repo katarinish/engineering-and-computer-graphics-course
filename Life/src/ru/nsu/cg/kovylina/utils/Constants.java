@@ -1,5 +1,7 @@
 package ru.nsu.cg.kovylina.utils;
 
+import java.awt.*;
+
 public class Constants {
     public static int ROWS = 10;
     public static int COLUMS = 10;
@@ -16,5 +18,10 @@ public class Constants {
     public static double SECOND_IMPACT = 0.3;
 
     public static double START_IMPACT = 0.0;
+
+    public static Color BOUNDARY_COLOR = new Color(0, 0, 0);
+    public static Color FONT_COLOR = new Color(1, 1, 1);
+    public static Color BACKGROUND_COLOR = new Color (255, 255, 255);
+
 
 }

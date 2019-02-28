@@ -1,6 +1,7 @@
 package ru.nsu.cg.kovylina.view;
 
 import ru.nsu.cg.kovylina.buisness_logic.Cell;
+import ru.nsu.cg.kovylina.utils.Constants;
 import ru.nsu.cg.kovylina.utils.DrawingUtils;
 
 import java.awt.*;
@@ -12,30 +13,43 @@ public class GameFieldView extends JPanel {
     private BufferedImage image;
     private HexagonView hexagonView;
 
-    public GameFieldView(HexagonView hexagonView) {
+    public GameFieldView(HexagonView hexagonView, BufferedImage image) {
         this.hexagonView = hexagonView;
+        this.image = image;
 
-        //Dm. шестиуголника создавать тут?
-
+        this.setBackground(Constants.BACKGROUND_COLOR);
     }
 
-    private void drawField(Cell[][] cellField) {
-        for (int i = 0; i < cellField.length; ++i) {
-            for (int j = 0; j < cellField[i].length; ++j) {
-                Cell cell = cellField[i][j];
+    public void drawField(Cell[][] cellField) {
+        for (Cell[] aCellField : cellField) {
+            for (Cell cell : aCellField) {
                 if (cell == null) continue;
 
                 hexagonView.drawFullCell(cell);
             }
         }
+
+        repaint();
+    }
+
+    public void updateField() {
+        repaint();
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+        updateField();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        this.setBackground(Color.LIGHT_GRAY);
-
         g.drawImage(image, 0, 0, null);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(image.getWidth(), image.getHeight());
     }
 }
