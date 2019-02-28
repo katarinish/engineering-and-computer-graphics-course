@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Constants {
     public static int ROWS = 10;
-    public static int COLUMS = 10;
+    public static int COLUMNS = 10;
     public static int HEX_SIDE = 30;
     public static int BOUNDARY_WIDTH = 2;
 

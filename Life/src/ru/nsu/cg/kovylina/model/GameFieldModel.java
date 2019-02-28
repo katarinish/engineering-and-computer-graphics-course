@@ -44,10 +44,10 @@ public class GameFieldModel {
 
     private void initImage() {
         int width = (columns + 1) * hexagonModel.getWidth();
-//        int height = (rows / 2 + (rows / 2 == 1 ? 2 : 1)) * hexagonModel.getHeight()
-//                + (rows / 2) * hexagonModel.getSize();
+        int height = (rows / 2 + (rows / 2 == 1 ? 2 : 1)) * hexagonModel.getHeight()
+                + (rows / 2) * hexagonModel.getSize();
 
-        int height = (rows + 1) * hexagonModel.getHeight();
+//        int height = (rows + 1) * hexagonModel.getHeight();
 
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }

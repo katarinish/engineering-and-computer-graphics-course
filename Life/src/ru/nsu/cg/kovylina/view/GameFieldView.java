@@ -2,7 +2,6 @@ package ru.nsu.cg.kovylina.view;
 
 import ru.nsu.cg.kovylina.buisness_logic.Cell;
 import ru.nsu.cg.kovylina.utils.Constants;
-import ru.nsu.cg.kovylina.utils.DrawingUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
