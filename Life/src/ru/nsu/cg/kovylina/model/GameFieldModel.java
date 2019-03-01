@@ -44,11 +44,9 @@ public class GameFieldModel {
 
     private void initImage() {
         int width = (columns + 1) * hexagonModel.getWidth();
-        int height = (rows / 2 + (rows / 2 == 1 ? 2 : 1)) * hexagonModel.getHeight()
-                + (rows / 2) * hexagonModel.getSize();
-
-//        int height = (rows + 1) * hexagonModel.getHeight();
-
+        int add = (rows / 2 == 1 ? 2 : 1);
+        int height = (rows / 2 + add) * hexagonModel.getHeight()
+                + (rows / 2 + add) * hexagonModel.getSize();
         this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
 
@@ -102,16 +100,66 @@ public class GameFieldModel {
         this.columns = columns;
         initImage();
         initField();
+
+        //уведомить View о смене параметра
     }
 
     public void setRows(int rows) {
         this.rows = rows;
         initImage();
         initField();
+
+        //уведомить View о смене параметра
     }
 
     public Cell[][] getField() {
         return field;
+    }
+
+    public Cell getCell(int x, int y) {
+        if (x >= image.getWidth() || y >= image.getHeight()) return null;
+
+        int offsetX = hexagonModel.getR();
+        int offsetY = hexagonModel.getSize() / 2;
+        // This is necessary for moving hexagon grid to the (0,0) point
+        x -= offsetX;
+        y -= offsetY;
+
+        int rectWidth = hexagonModel.getWidth();
+        int rectHeight = hexagonModel.getSize()/2 + hexagonModel.getSize();
+
+        int row = y / rectHeight;
+        boolean isOddRow = (row % 2) == 1;
+        int oddRowOffset = rectWidth/2;
+        int column;
+
+        if (isOddRow) {
+            column = (x - oddRowOffset) / rectWidth;
+        } else {
+            column = x / rectWidth;
+        }
+
+        double relY = y - (row * rectHeight);
+        double relX;
+        if (isOddRow) {
+            relX = (x - (column * rectWidth)) - (double)oddRowOffset;
+        } else {
+            relX = (x - (column * rectWidth));
+        }
+
+        double c = (double) (hexagonModel.getSize() / 2);
+        double r = (double) (hexagonModel.getWidth() / 2);
+        double m = c / r;
+
+        if (relY <  (-m * relX) + c) {
+            row--;
+            if (!isOddRow) column--;
+        } else if (relY < (m * relX) - c) {
+            row--;
+            if(isOddRow) column++;
+        }
+
+        return field[row][column];
     }
 
     public void setMode(Mode mode) {

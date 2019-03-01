@@ -69,7 +69,7 @@ public class Cell {
         this.cellState = cellState;
     }
 
-    public void setImpact(int impact) {
+    public void setImpact(double impact) {
         this.impact = impact;
 
         defineCellState();

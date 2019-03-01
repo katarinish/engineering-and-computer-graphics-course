@@ -3,9 +3,9 @@ package ru.nsu.cg.kovylina.utils;
 import java.awt.*;
 
 public class Constants {
-    public static int ROWS = 10;
-    public static int COLUMNS = 10;
-    public static int HEX_SIDE = 30;
+    public static int ROWS = 20;
+    public static int COLUMNS = 30;
+    public static int HEX_SIDE = 25;
     public static int BOUNDARY_WIDTH = 2;
 
     public static Mode MODE = Mode.REPLACE;
@@ -22,6 +22,4 @@ public class Constants {
     public static Color BOUNDARY_COLOR = new Color(0, 0, 0);
     public static Color FONT_COLOR = new Color(1, 1, 1);
     public static Color BACKGROUND_COLOR = new Color (255, 255, 255);
-
-
 }

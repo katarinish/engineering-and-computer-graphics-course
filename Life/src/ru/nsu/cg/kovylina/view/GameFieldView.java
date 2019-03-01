@@ -1,9 +1,12 @@
 package ru.nsu.cg.kovylina.view;
 
 import ru.nsu.cg.kovylina.buisness_logic.Cell;
+import ru.nsu.cg.kovylina.controller.LifeGameController;
 import ru.nsu.cg.kovylina.utils.Constants;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -12,11 +15,26 @@ public class GameFieldView extends JPanel {
     private BufferedImage image;
     private HexagonView hexagonView;
 
-    public GameFieldView(HexagonView hexagonView, BufferedImage image) {
+    private LifeGameController controller;
+
+    public GameFieldView(HexagonView hexagonView,
+                         BufferedImage image,
+                         LifeGameController controller) {
         this.hexagonView = hexagonView;
         this.image = image;
+        this.controller = controller;
 
         this.setBackground(Constants.BACKGROUND_COLOR);
+        addEventListeners();
+    }
+
+    private void addEventListeners() {
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.handleGameFieldClick(e);
+            }
+        });
     }
 
     public void drawField(Cell[][] cellField) {
@@ -33,6 +51,10 @@ public class GameFieldView extends JPanel {
 
     public void updateField() {
         repaint();
+    }
+
+    public void setController(LifeGameController controller) {
+        this.controller = controller;
     }
 
     public void setImage(BufferedImage image) {
