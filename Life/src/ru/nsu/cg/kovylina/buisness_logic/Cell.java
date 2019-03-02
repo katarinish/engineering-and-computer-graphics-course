@@ -12,7 +12,7 @@ public class Cell {
 
     private CellState cellState;
     private double impact;
-    private Map<LifeParameters, Double> lifeParameters = null;
+    private Map<LifeParameters, Double> lifeParameters;
 
     public Cell(Point position,
                 Point center, Point[] vertexes,
@@ -101,5 +101,15 @@ public class Cell {
 
     public int getColumnPosition() {
         return columnPosition;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
+        Cell otherCell = (Cell) obj;
+        return (centerX == otherCell.centerX) && (centerY == otherCell.centerY);
     }
 }

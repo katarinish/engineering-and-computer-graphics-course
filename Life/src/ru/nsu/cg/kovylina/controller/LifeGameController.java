@@ -61,7 +61,7 @@ public class LifeGameController {
         int y = e.getY();
 
         if (x >= image.getWidth() || y >= image.getHeight()) return;
-        if (image.getRGB(x, y) == Constants.BACKGROUND_COLOR.getRGB()) return;
+        if (image.getRGB(x, y) == Constants.TRANSPARENT_COLOR_RGB) return;
 
         Cell clickedCell = gameFieldModel.getCell(x, y);
         if (clickedCell == null) return;
@@ -89,13 +89,13 @@ public class LifeGameController {
         cell.setImpact(Constants.START_DEAD_IMPACT);
         cell.setCellState(CellState.DEAD);
 
-        //TODO: удалить из списка активных
+        gameFieldModel.getActiveCells().remove(cell);
     }
 
     private void makeItAlive(Cell cell) {
         cell.setImpact(Constants.START_ALIVE_IMPACT);
         cell.setCellState(CellState.ALIVE);
 
-        //TODO: добавить в список активных
+        gameFieldModel.getActiveCells().add(cell);
     }
 }

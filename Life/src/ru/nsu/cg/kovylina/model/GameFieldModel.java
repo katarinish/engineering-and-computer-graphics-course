@@ -8,8 +8,8 @@ import ru.nsu.cg.kovylina.utils.Mode;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class GameFieldModel {
@@ -23,7 +23,7 @@ public class GameFieldModel {
     private Map<LifeParameters, Double> lifeParameters = new HashMap<>();
 
     private Cell[][] field = null;
-    private ArrayList<Cell> activeCells = new ArrayList<>();
+    private HashSet<Cell> activeCells = new HashSet<>();
 
     private HexagonModel hexagonModel;
 
@@ -98,6 +98,10 @@ public class GameFieldModel {
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public HashSet<Cell> getActiveCells() {
+        return activeCells;
     }
 
     public void setColumns(int columns) {
