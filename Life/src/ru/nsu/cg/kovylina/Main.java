@@ -3,7 +3,6 @@ package ru.nsu.cg.kovylina;
 import ru.nsu.cg.kovylina.controller.LifeGameController;
 import ru.nsu.cg.kovylina.utils.Configuration;
 import ru.nsu.cg.kovylina.utils.Constants;
-import ru.nsu.cg.kovylina.utils.Mode;
 
 public class Main {
     public static void main(String[] args) {

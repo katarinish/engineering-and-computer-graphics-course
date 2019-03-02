@@ -17,7 +17,7 @@ public class GameFieldModel {
     private int rows;
 
     private BufferedImage image;
-    private Mode mode = null;
+    private Mode mode;
 
     //TODO: проверять корректность параметров
     private Map<LifeParameters, Double> lifeParameters = new HashMap<>();
@@ -78,7 +78,7 @@ public class GameFieldModel {
                         new Point(centerX, centerY),
                         hexagonModel.getAllVertexes(centerX, centerY),
                         CellState.DEAD,
-                        Constants.START_IMPACT,
+                        Constants.START_DEAD_IMPACT,
                         lifeParameters);
             }
         }
@@ -90,6 +90,10 @@ public class GameFieldModel {
 
     public int getRows() {
         return rows;
+    }
+
+    public Mode getMode() {
+        return mode;
     }
 
     public BufferedImage getImage() {

@@ -1,10 +1,8 @@
 package ru.nsu.cg.kovylina.controller;
 
-import ru.nsu.cg.kovylina.MainWindow;
-import ru.nsu.cg.kovylina.buisness_logic.Cell;
+import ru.nsu.cg.kovylina.buisness_logic.*;
 import ru.nsu.cg.kovylina.model.*;
-import ru.nsu.cg.kovylina.utils.Configuration;
-import ru.nsu.cg.kovylina.utils.Constants;
+import ru.nsu.cg.kovylina.utils.*;
 import ru.nsu.cg.kovylina.view.*;
 
 import java.awt.event.MouseEvent;
@@ -18,6 +16,8 @@ public class LifeGameController {
 
     private HexagonModel hexagonModel;
     private GameFieldModel gameFieldModel;
+
+    private boolean isLifeRunning = false;
 
     public LifeGameController(Configuration c) {
         this.config = c;
@@ -54,7 +54,8 @@ public class LifeGameController {
     }
 
     public void handleGameFieldClick(MouseEvent e) {
-        // TODO: Добавить клетки в список активных
+        if (isLifeRunning) return;
+
         BufferedImage image = gameFieldModel.getImage();
         int x = e.getX();
         int y = e.getY();
@@ -65,9 +66,36 @@ public class LifeGameController {
         Cell clickedCell = gameFieldModel.getCell(x, y);
         if (clickedCell == null) return;
 
-        clickedCell.setImpact(3.0);
+        switch (gameFieldModel.getMode()) {
+            case XOR:
+                if ((clickedCell.getCellState() == CellState.ALIVE)) {
+                    makeItDead(clickedCell);
+                } else {
+                    makeItAlive(clickedCell);
+                }
+                break;
+
+            case REPLACE:
+                if (clickedCell.getCellState() == CellState.ALIVE) return;
+                makeItAlive(clickedCell);
+                break;
+        }
 
         hexagonView.fillCell(clickedCell);
         gameFieldView.updateField();
+    }
+
+    private void makeItDead(Cell cell) {
+        cell.setImpact(Constants.START_DEAD_IMPACT);
+        cell.setCellState(CellState.DEAD);
+
+        //TODO: удалить из списка активных
+    }
+
+    private void makeItAlive(Cell cell) {
+        cell.setImpact(Constants.START_ALIVE_IMPACT);
+        cell.setCellState(CellState.ALIVE);
+
+        //TODO: добавить в список активных
     }
 }

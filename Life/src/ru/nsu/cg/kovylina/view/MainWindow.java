@@ -1,4 +1,4 @@
-package ru.nsu.cg.kovylina;
+package ru.nsu.cg.kovylina.view;
 
 import ru.nsu.cg.kovylina.utils.MainFrame;
 import ru.nsu.cg.kovylina.view.GameFieldView;

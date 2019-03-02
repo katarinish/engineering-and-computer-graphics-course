@@ -8,7 +8,7 @@ public class Constants {
     public static int HEX_SIDE = 25;
     public static int BOUNDARY_WIDTH = 2;
 
-    public static Mode MODE = Mode.REPLACE;
+    public static Mode MODE = Mode.XOR;
 
     public static double LIFE_BEGIN = 2.0;
     public static double LIFE_END = 3.3;
@@ -17,7 +17,8 @@ public class Constants {
     public static double FIRST_IMPACT = 1.0;
     public static double SECOND_IMPACT = 0.3;
 
-    public static double START_IMPACT = 0.0;
+    public static double START_ALIVE_IMPACT = 3.0;
+    public static double START_DEAD_IMPACT = 0.0;
 
     public static Color BOUNDARY_COLOR = new Color(0, 0, 0);
     public static Color FONT_COLOR = new Color(1, 1, 1);
