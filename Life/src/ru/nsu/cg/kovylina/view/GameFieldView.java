@@ -7,6 +7,7 @@ import ru.nsu.cg.kovylina.utils.Constants;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -32,6 +33,13 @@ public class GameFieldView extends JPanel {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                controller.handleGameFieldClick(e);
+            }
+        });
+
+        this.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
                 controller.handleGameFieldClick(e);
             }
         });

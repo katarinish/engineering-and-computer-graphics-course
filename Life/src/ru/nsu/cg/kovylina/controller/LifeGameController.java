@@ -46,7 +46,7 @@ public class LifeGameController {
     }
 
     public void start() {
-        MainWindow window = new MainWindow(this.gameFieldView);
+        MainWindowView window = new MainWindowView(this.gameFieldView, this);
         gameFieldView.drawField(gameFieldModel.getField());
         window.pack();
         window.setLocationRelativeTo(null);
@@ -60,7 +60,8 @@ public class LifeGameController {
         int x = e.getX();
         int y = e.getY();
 
-        if (x >= image.getWidth() || y >= image.getHeight()) return;
+        if (x >= image.getWidth() || y >= image.getHeight()
+            || x < 0 || y < 0) return;
         if (image.getRGB(x, y) == Constants.TRANSPARENT_COLOR_RGB) return;
 
         Cell clickedCell = gameFieldModel.getCell(x, y);
@@ -83,6 +84,18 @@ public class LifeGameController {
 
         hexagonView.fillCell(clickedCell);
         gameFieldView.updateField();
+    }
+
+    public void handleStartGame() {
+        isLifeRunning = true;
+
+        while (isLifeRunning) {
+
+        }
+    }
+
+    public void addAction() {
+        System.exit(0);
     }
 
     private void makeItDead(Cell cell) {
