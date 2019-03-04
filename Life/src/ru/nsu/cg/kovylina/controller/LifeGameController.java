@@ -7,6 +7,7 @@ import ru.nsu.cg.kovylina.view.*;
 
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class LifeGameController {
     private Configuration config;

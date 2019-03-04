@@ -8,7 +8,7 @@ public class Constants {
     public static int HEX_SIDE = 25;
     public static int BOUNDARY_WIDTH = 2;
 
-    public static Mode MODE = Mode.REPLACE;
+    public static Mode MODE = Mode.XOR;
 
     public static double LIFE_BEGIN = 2.0;
     public static double LIFE_END = 3.3;

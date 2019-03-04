@@ -8,9 +8,7 @@ import ru.nsu.cg.kovylina.utils.Mode;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class GameFieldModel {
     private int columns;
@@ -84,44 +82,61 @@ public class GameFieldModel {
         }
     }
 
-    public int getColumns() {
-        return columns;
+    public ArrayList<Cell> firstNeighboursRing(Cell cell) {
+        int x = cell.getRowPosition();
+        int y = cell.getColumnPosition();
+        int oddRowOffset = x % 2;
+        Point[] coordinates = new Point[6];
+
+        coordinates[0] = new Point(x - 1, y - 1 + oddRowOffset);
+        coordinates[1] = new Point(x - 1, y + oddRowOffset);
+        coordinates[2] = new Point(x, y + 1);
+        coordinates[3] = new Point(x + 1, y + oddRowOffset);
+        coordinates[4] = new Point(x + 1, y - 1 + oddRowOffset);
+        coordinates[5] = new Point(x, y - 1);
+
+        ArrayList<Cell> neighbors = new ArrayList<>();
+        for (Point coordinate: coordinates) {
+            if (!isInField(coordinate.x, coordinate.y)) continue;
+            neighbors.add(field[coordinate.x][coordinate.y]);
+        }
+
+        return neighbors;
     }
 
-    public int getRows() {
-        return rows;
+    public ArrayList<Cell> secondNeighboursRing(Cell cell) {
+        int x = cell.getRowPosition();
+        int y = cell.getColumnPosition();
+        int oddRowOffset = x % 2;
+        Point[] coordinates = new Point[6];
+
+        coordinates[0] = new Point(x - 2, y);
+        coordinates[1] = new Point(x - 1, y + 1 + oddRowOffset);
+        coordinates[2] = new Point(x + 1 , y + 1 + oddRowOffset);
+        coordinates[3] = new Point(x + 2, y);
+        coordinates[4] = new Point(x + 1, y - 2 + oddRowOffset);
+        coordinates[5] = new Point(x - 1, y - 2 + oddRowOffset);
+
+
+        ArrayList<Cell> neighbors = new ArrayList<>();
+        for (Point coordinate: coordinates) {
+            if (!isInField(coordinate.x, coordinate.y)) continue;
+            neighbors.add(field[coordinate.x][coordinate.y]);
+        }
+
+        return neighbors;
     }
 
-    public Mode getMode() {
-        return mode;
+    private boolean isInField(int x, int y) {
+        if (x >= rows || y >= columns
+                || x < 0 || y < 0) return false;
+
+        Cell neighbor = field[x][y];
+        return neighbor != null;
     }
 
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public HashSet<Cell> getActiveCells() {
-        return activeCells;
-    }
-
-    public void setColumns(int columns) {
-        this.columns = columns;
-        initImage();
-        initField();
-
-        //уведомить View о смене параметра
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
-        initImage();
-        initField();
-
-        //уведомить View о смене параметра
-    }
-
-    public Cell[][] getField() {
-        return field;
+    private double calculateImpact(Cell cell) {
+        return 0.0;
     }
 
     public Cell getCell(int x, int y) {
@@ -168,6 +183,58 @@ public class GameFieldModel {
         }
 
         return field[row][column];
+    }
+
+    public void nextGeneration() {
+        for (Cell activeCell : activeCells) {
+            //Updating own impact
+            calculateImpact(activeCell);
+            //Updating impact od cells which active cell has influence to
+            // Calculate state
+            //Adding those cells to activeList
+
+
+        }
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public Mode getMode() {
+        return mode;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public HashSet<Cell> getActiveCells() {
+        return activeCells;
+    }
+
+    public void setColumns(int columns) {
+        this.columns = columns;
+        initImage();
+        initField();
+
+        //уведомить View о смене параметра
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+        initImage();
+        initField();
+
+        //уведомить View о смене параметра
+    }
+
+    public Cell[][] getField() {
+        return field;
     }
 
     public void setMode(Mode mode) {

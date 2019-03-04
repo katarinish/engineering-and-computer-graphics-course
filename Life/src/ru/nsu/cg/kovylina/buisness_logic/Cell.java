@@ -60,7 +60,6 @@ public class Cell {
         }
     }
 
-
     public void setVertexes(Point[] vertexes) {
         this.vertexes = vertexes;
     }
@@ -72,7 +71,7 @@ public class Cell {
     public void setImpact(double impact) {
         this.impact = impact;
 
-        defineCellState();
+//        defineCellState();
     }
 
     public int getCenterX() {
