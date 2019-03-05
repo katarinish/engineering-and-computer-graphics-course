@@ -225,10 +225,10 @@ public class GameFieldModel {
 
 //        Update all (active + potentially active) cells impact
         for (Cell activeCell: new HashSet<>(activeCells)) {
-            if (activeCell.getImpact() == Constants.NON_ACTIVE_IMPACT) {
-                activeCells.remove(activeCell);
-                continue;
-            }
+//            if (activeCell.getImpact() == Constants.NON_ACTIVE_IMPACT) {
+//                activeCells.remove(activeCell);
+//                continue;
+//            }
 
             //Updating own impact
             double newImpact = calculateImpact(activeCell);

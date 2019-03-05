@@ -8,6 +8,7 @@ import ru.nsu.cg.kovylina.view.*;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.HashSet;
 
 public class LifeGameController {
     private Configuration config;
@@ -128,8 +129,11 @@ public class LifeGameController {
 
     private void nextGeneration() {
         gameFieldModel.nextGeneration();
-        for(Cell activeCell: gameFieldModel.getActiveCells()) {
+        for(Cell activeCell: new HashSet<>(gameFieldModel.getActiveCells())) {
             hexagonView.drawFullCell(activeCell);
+            if (activeCell.getImpact() == Constants.NON_ACTIVE_IMPACT) {
+                gameFieldModel.getActiveCells().remove(activeCell);
+            }
         }
 
 //        for (Cell[] aCellField : gameFieldModel.getField()) {
