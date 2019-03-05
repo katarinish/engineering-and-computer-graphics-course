@@ -140,4 +140,9 @@ public class LifeGameController {
 //        }
         gameFieldView.updateField();
     }
+
+    public void handleNextGen() {
+        gameFieldModel.setLifeRunning(true);
+        nextGeneration();
+    }
 }

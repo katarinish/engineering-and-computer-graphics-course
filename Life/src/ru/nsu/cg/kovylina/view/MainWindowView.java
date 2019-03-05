@@ -42,6 +42,7 @@ public class MainWindowView extends JFrame {
         JMenu gameMenu = new JMenu("Game");
         gameMenu.setFont(font);
         addMenuItem(gameMenu, "Start", controller::handleStartGame);
+        addMenuItem(gameMenu, "Next Generation", controller::handleNextGen);
         addMenuItem(gameMenu, "Pause", controller::handlePauseGame);
 
 

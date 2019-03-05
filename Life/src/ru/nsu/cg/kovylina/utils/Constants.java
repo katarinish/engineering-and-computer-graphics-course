@@ -21,7 +21,7 @@ public class Constants {
     public static double START_DEAD_IMPACT = 0.0;
     public static double NON_ACTIVE_IMPACT = 0.0;
 
-    public static int TIMER_DELAY = 200;
+    public static int TIMER_DELAY = 100;
 
 
     public static int TRANSPARENT_COLOR_RGB = 0;
