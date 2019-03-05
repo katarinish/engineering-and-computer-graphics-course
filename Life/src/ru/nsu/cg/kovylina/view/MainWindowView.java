@@ -42,6 +42,8 @@ public class MainWindowView extends JFrame {
         JMenu gameMenu = new JMenu("Game");
         gameMenu.setFont(font);
         addMenuItem(gameMenu, "Start", controller::handleStartGame);
+        addMenuItem(gameMenu, "Pause", controller::handlePauseGame);
+
 
         menuBar.add(fileMenu);
         menuBar.add(gameMenu);
@@ -53,12 +55,7 @@ public class MainWindowView extends JFrame {
         JMenuItem menuItem = new JMenuItem(item);
         menuItem.setFont(font);
         menu.add(menuItem);
-        menuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listener.execute();
-            }
-        });
+        menuItem.addActionListener(e -> listener.execute());
     }
 
     private void initToolBar() {

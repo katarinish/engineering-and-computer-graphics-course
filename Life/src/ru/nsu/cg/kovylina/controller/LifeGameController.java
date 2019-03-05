@@ -102,6 +102,10 @@ public class LifeGameController {
         timer.start();
     }
 
+    public void handlePauseGame() {
+        gameFieldModel.setLifeRunning(false);
+    }
+
     public void addAction() {
         System.exit(0);
     }
