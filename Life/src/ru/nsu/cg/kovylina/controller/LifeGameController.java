@@ -5,9 +5,9 @@ import ru.nsu.cg.kovylina.model.*;
 import ru.nsu.cg.kovylina.utils.*;
 import ru.nsu.cg.kovylina.view.*;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class LifeGameController {
     private Configuration config;
@@ -18,10 +18,20 @@ public class LifeGameController {
     private HexagonModel hexagonModel;
     private GameFieldModel gameFieldModel;
 
-    private boolean isLifeRunning = false;
+    Timer timer;
+
+//    private boolean isLifeRunning = false;
 
     public LifeGameController(Configuration c) {
         this.config = c;
+        timer = new Timer(Constants.TIMER_DELAY, e -> {
+            if (!gameFieldModel.isLifeRunning()) {
+                timer.stop();
+                return;
+            }
+
+            nextGeneration();
+        });
 
         initModels();
         initViews();
@@ -55,7 +65,7 @@ public class LifeGameController {
     }
 
     public void handleGameFieldClick(MouseEvent e) {
-        if (isLifeRunning) return;
+        if (gameFieldModel.isLifeRunning()) return;
 
         BufferedImage image = gameFieldModel.getImage();
         int x = e.getX();
@@ -88,11 +98,8 @@ public class LifeGameController {
     }
 
     public void handleStartGame() {
-        isLifeRunning = true;
-
-        while (isLifeRunning) {
-
-        }
+        gameFieldModel.setLifeRunning(true);
+        timer.start();
     }
 
     public void addAction() {
@@ -111,5 +118,13 @@ public class LifeGameController {
         cell.setCellState(CellState.ALIVE);
 
         gameFieldModel.getActiveCells().add(cell);
+    }
+
+    private void nextGeneration() {
+        gameFieldModel.nextGeneration();
+        for(Cell activeCell: gameFieldModel.getActiveCells()) {
+            hexagonView.drawFullCell(activeCell);
+        }
+        gameFieldView.updateField();
     }
 }

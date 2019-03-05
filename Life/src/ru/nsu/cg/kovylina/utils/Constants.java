@@ -3,9 +3,9 @@ package ru.nsu.cg.kovylina.utils;
 import java.awt.*;
 
 public class Constants {
-    public static int ROWS = 20;
-    public static int COLUMNS = 30;
-    public static int HEX_SIDE = 25;
+    public static int ROWS = 50;
+    public static int COLUMNS = 50;
+    public static int HEX_SIDE = 15;
     public static int BOUNDARY_WIDTH = 2;
 
     public static Mode MODE = Mode.XOR;
@@ -19,6 +19,10 @@ public class Constants {
 
     public static double START_ALIVE_IMPACT = 3.0;
     public static double START_DEAD_IMPACT = 0.0;
+    public static double NON_ACTIVE_IMPACT = 0.0;
+
+    public static int TIMER_DELAY = 200;
+
 
     public static int TRANSPARENT_COLOR_RGB = 0;
     public static Color BOUNDARY_COLOR = new Color(0, 0, 0);

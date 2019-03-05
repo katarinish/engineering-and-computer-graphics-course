@@ -39,23 +39,17 @@ public class Cell {
         defineCellState();
     }
 
-    private void defineCellState() {
+    public void defineCellState() {
         if (cellState == CellState.DEAD
             && impact >= lifeParameters.get(LifeParameters.BIRTH_BEGIN)
             && impact <= lifeParameters.get(LifeParameters.BIRTH_END)){
             cellState = CellState.READY_TO_BORN;
-        }
-
-        if (impact >= lifeParameters.get(LifeParameters.LIVE_BEGIN)
+        } else if (impact >= lifeParameters.get(LifeParameters.LIVE_BEGIN)
             && impact <= lifeParameters.get(LifeParameters.LIVE_END)) {
             cellState = CellState.ALIVE;
-        }
-
-        if (impact < lifeParameters.get(LifeParameters.LIVE_BEGIN)) {
+        } else if (impact < lifeParameters.get(LifeParameters.LIVE_BEGIN)) {
             cellState = CellState.LONELY;
-        }
-
-        if (impact > lifeParameters.get(LifeParameters.LIVE_END)) {
+        } else if (impact > lifeParameters.get(LifeParameters.LIVE_END)) {
             cellState = CellState.OVERPOPULATED;
         }
     }

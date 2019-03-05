@@ -1,13 +1,12 @@
 package ru.nsu.cg.kovylina.model;
 
-import ru.nsu.cg.kovylina.buisness_logic.Cell;
-import ru.nsu.cg.kovylina.buisness_logic.CellState;
-import ru.nsu.cg.kovylina.buisness_logic.LifeParameters;
-import ru.nsu.cg.kovylina.utils.Constants;
-import ru.nsu.cg.kovylina.utils.Mode;
+import ru.nsu.cg.kovylina.buisness_logic.*;
+import ru.nsu.cg.kovylina.utils.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class GameFieldModel {
@@ -24,6 +23,7 @@ public class GameFieldModel {
     private HashSet<Cell> activeCells = new HashSet<>();
 
     private HexagonModel hexagonModel;
+    private boolean isLifeRunning = false;
 
     public GameFieldModel(int columns, int rows, Mode mode, HexagonModel hexModel) {
         this.columns = columns;
@@ -131,12 +131,25 @@ public class GameFieldModel {
         if (x >= rows || y >= columns
                 || x < 0 || y < 0) return false;
 
-        Cell neighbor = field[x][y];
-        return neighbor != null;
+        Cell cell = field[x][y];
+        return cell != null;
     }
 
     private double calculateImpact(Cell cell) {
-        return 0.0;
+        double impact = 0.0;
+        ArrayList<Cell> firstNghbrs = firstNeighboursRing(cell);
+        ArrayList<Cell> secondNghbrs = secondNeighboursRing(cell);
+
+        //TODO: брать импакт из конфига
+        for (Cell fstN: firstNghbrs) {
+            if (fstN.getCellState() == CellState.ALIVE) impact += Constants.FIRST_IMPACT;
+        }
+        for (Cell sndN: secondNghbrs) {
+            if (sndN.getCellState() == CellState.ALIVE) impact += Constants.SECOND_IMPACT;
+        }
+
+//        return impact;
+        return new BigDecimal(impact).setScale(1, RoundingMode.HALF_UP).doubleValue();
     }
 
     public Cell getCell(int x, int y) {
@@ -182,18 +195,54 @@ public class GameFieldModel {
             if(isOddRow) column++;
         }
 
+        if (!isInField(row, column)) return null;
+
         return field[row][column];
     }
 
+    @SuppressWarnings("Duplicates")
     public void nextGeneration() {
-        for (Cell activeCell : activeCells) {
+        if (activeCells.isEmpty()) {
+            isLifeRunning = false;
+            return;
+        }
+
+        //Update all (active + potentially active) cells impact
+        for (Cell activeCell: new HashSet<>(activeCells)) {
             //Updating own impact
-            calculateImpact(activeCell);
-            //Updating impact od cells which active cell has influence to
-            // Calculate state
-            //Adding those cells to activeList
+            double newImpact = calculateImpact(activeCell);
+            activeCell.setImpact(newImpact);
+            if (newImpact == Constants.NON_ACTIVE_IMPACT) {
+                activeCells.remove(activeCell);
+                continue;
+            }
 
+            //Updating first-ring slave cells impact
+            for (Cell slaveCell: firstNeighboursRing(activeCell)) {
+                if (activeCells.contains(slaveCell)) continue;
 
+                double slaveImpact = calculateImpact(slaveCell);
+                slaveCell.setImpact(slaveImpact);
+
+                //If slave cell is being active then add it to active list
+                if (slaveImpact == Constants.NON_ACTIVE_IMPACT) continue;
+                activeCells.add(slaveCell);
+            }
+            //Updating second-ring slave cells impact
+            for (Cell slaveCell: secondNeighboursRing(activeCell)) {
+                if (activeCells.contains(slaveCell)) continue;
+
+                double slaveImpact = calculateImpact(slaveCell);
+                slaveCell.setImpact(slaveImpact);
+
+                //If slave cell is being active then add it to active list
+                if (slaveImpact == Constants.NON_ACTIVE_IMPACT) continue;
+                activeCells.add(slaveCell);
+            }
+        }
+
+        for (Cell activeCell: activeCells) {
+            activeCell.defineCellState();
         }
     }
 
@@ -203,6 +252,10 @@ public class GameFieldModel {
 
     public int getRows() {
         return rows;
+    }
+
+    public boolean isLifeRunning() {
+        return isLifeRunning;
     }
 
     public Mode getMode() {
@@ -231,6 +284,10 @@ public class GameFieldModel {
         initField();
 
         //уведомить View о смене параметра
+    }
+
+    public void setLifeRunning(boolean lifeRunning) {
+        isLifeRunning = lifeRunning;
     }
 
     public Cell[][] getField() {
