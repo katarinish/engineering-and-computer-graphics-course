@@ -207,15 +207,32 @@ public class GameFieldModel {
             return;
         }
 
-        //Update all (active + potentially active) cells impact
+//        for (Cell[] aCellField : field) {
+//            for (Cell cell : aCellField) {
+//                if (cell == null) continue;
+//
+//                double newImpact = calculateImpact(cell);
+//                cell.setImpact(newImpact);
+//            }
+//        }
+//
+//        for (Cell[] aCellField : field) {
+//            for (Cell cell : aCellField) {
+//                if (cell == null) continue;
+//                cell.defineCellState();
+//            }
+//        }
+
+//        Update all (active + potentially active) cells impact
         for (Cell activeCell: new HashSet<>(activeCells)) {
-            //Updating own impact
-            double newImpact = calculateImpact(activeCell);
-            activeCell.setImpact(newImpact);
-            if (newImpact == Constants.NON_ACTIVE_IMPACT) {
+            if (activeCell.getImpact() == Constants.NON_ACTIVE_IMPACT) {
                 activeCells.remove(activeCell);
                 continue;
             }
+
+            //Updating own impact
+            double newImpact = calculateImpact(activeCell);
+            activeCell.setImpact(newImpact);
 
             //Updating first-ring slave cells impact
             for (Cell slaveCell: firstNeighboursRing(activeCell)) {

@@ -113,6 +113,7 @@ public class LifeGameController {
     private void makeItDead(Cell cell) {
         cell.setImpact(Constants.START_DEAD_IMPACT);
         cell.setCellState(CellState.DEAD);
+        cell.defineColor();
 
         gameFieldModel.getActiveCells().remove(cell);
     }
@@ -120,6 +121,7 @@ public class LifeGameController {
     private void makeItAlive(Cell cell) {
         cell.setImpact(Constants.START_ALIVE_IMPACT);
         cell.setCellState(CellState.ALIVE);
+        cell.defineColor();
 
         gameFieldModel.getActiveCells().add(cell);
     }
@@ -129,6 +131,13 @@ public class LifeGameController {
         for(Cell activeCell: gameFieldModel.getActiveCells()) {
             hexagonView.drawFullCell(activeCell);
         }
+
+//        for (Cell[] aCellField : gameFieldModel.getField()) {
+//            for (Cell cell : aCellField) {
+//                if (cell == null) continue;
+//                hexagonView.drawFullCell(cell);
+//            }
+//        }
         gameFieldView.updateField();
     }
 }

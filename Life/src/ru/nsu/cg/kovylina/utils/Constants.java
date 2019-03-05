@@ -3,12 +3,12 @@ package ru.nsu.cg.kovylina.utils;
 import java.awt.*;
 
 public class Constants {
-    public static int ROWS = 50;
-    public static int COLUMNS = 50;
-    public static int HEX_SIDE = 15;
-    public static int BOUNDARY_WIDTH = 2;
+    public static int ROWS = 100;
+    public static int COLUMNS = 100;
+    public static int HEX_SIDE = 5;
+    public static int BOUNDARY_WIDTH = 1;
 
-    public static Mode MODE = Mode.XOR;
+    public static Mode MODE = Mode.REPLACE;
 
     public static double LIFE_BEGIN = 2.0;
     public static double LIFE_END = 3.3;

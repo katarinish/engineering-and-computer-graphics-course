@@ -1,5 +1,7 @@
 package ru.nsu.cg.kovylina.buisness_logic;
 
+import ru.nsu.cg.kovylina.utils.Constants;
+
 import java.awt.*;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ public class Cell {
 
     private CellState cellState;
     private double impact;
+    private Color color;
     private Map<LifeParameters, Double> lifeParameters;
 
     public Cell(Point position,
@@ -37,21 +40,70 @@ public class Cell {
         this.lifeParameters = lifeParams;
 
         defineCellState();
+//        defineColor();
+    }
+
+    //TODO: брать значения из конфига --- из лайф параметерс
+    // TODO: вынести цвета в константы
+    public void defineColor() {
+//        if (cellState == CellState.ALIVE) {
+//            color = new Color(47,42,64);
+//        } else {
+//            color = new Color(222,224,226);
+//        }
+        if (impact >= Constants.BIRTH_BEGIN && impact <= Constants.BIRTH_END) {
+            if (cellState == CellState.ALIVE) {
+                color = new Color(47,42,64);
+            } else {
+                color = new Color(141,178,180);
+            }
+        } else if ((impact >= Constants.LIFE_BEGIN && impact < Constants.BIRTH_BEGIN)
+                || (impact > Constants.BIRTH_END && impact <= Constants.LIFE_END)) {
+            if (cellState == CellState.ALIVE) {
+                color = new Color(144,73,99);
+            } else {
+                color = new Color(63,113,107);
+            }
+        } else {
+            color = new Color(222,224,226);
+        }
+
+//        if (impact >= Constants.BIRTH_BEGIN && impact <= Constants.BIRTH_END) {
+//            if (cellState == CellState.ALIVE) {
+//                color = Color.GREEN;
+//            } else {
+//                color = Color.BLUE;
+//            }
+//        } else if ((impact >= Constants.LIFE_BEGIN && impact < Constants.BIRTH_BEGIN)
+//                || (impact > Constants.BIRTH_END && impact <= Constants.LIFE_END)) {
+//            if (cellState == CellState.ALIVE) {
+//                color = Color.YELLOW;
+//            } else {
+//                color = Color.PINK;
+//            }
+//        } else {
+//            color = new Color(222,224,226);
+//        }
     }
 
     public void defineCellState() {
-        if (cellState == CellState.DEAD
+        if (cellState != CellState.ALIVE
             && impact >= lifeParameters.get(LifeParameters.BIRTH_BEGIN)
             && impact <= lifeParameters.get(LifeParameters.BIRTH_END)){
-            cellState = CellState.READY_TO_BORN;
-        } else if (impact >= lifeParameters.get(LifeParameters.LIVE_BEGIN)
-            && impact <= lifeParameters.get(LifeParameters.LIVE_END)) {
             cellState = CellState.ALIVE;
-        } else if (impact < lifeParameters.get(LifeParameters.LIVE_BEGIN)) {
+        } else if (impact >= lifeParameters.get(LifeParameters.LIVE_BEGIN)
+            && impact <= lifeParameters.get(LifeParameters.LIVE_END)
+            && cellState == CellState.ALIVE) {
+            cellState = CellState.ALIVE;
+        } else if (impact < lifeParameters.get(LifeParameters.LIVE_BEGIN)
+                && cellState == CellState.ALIVE) {
             cellState = CellState.LONELY;
-        } else if (impact > lifeParameters.get(LifeParameters.LIVE_END)) {
+        } else if (impact > lifeParameters.get(LifeParameters.LIVE_END)
+                && cellState == CellState.ALIVE) {
             cellState = CellState.OVERPOPULATED;
         }
+
+        defineColor();
     }
 
     public void setVertexes(Point[] vertexes) {
@@ -74,6 +126,10 @@ public class Cell {
 
     public int getCenterY() {
         return centerY;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public Point[] getVertexes() {

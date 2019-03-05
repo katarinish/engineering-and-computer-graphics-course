@@ -31,7 +31,8 @@ public class HexagonView {
     public void fillCell(Cell hex){
         DrawingUtils.fillWithSpan(
                 image,
-                hex.getCellState().getColor(),
+                hex.getColor(),
+//                hex.getCellState().getColor(),
                 hex.getCenterX(), hex.getCenterY());
     }
 
