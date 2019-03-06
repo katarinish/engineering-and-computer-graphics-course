@@ -2,6 +2,7 @@ package ru.nsu.cg.kovylina.view;
 
 import ru.nsu.cg.kovylina.buisness_logic.Cell;
 import ru.nsu.cg.kovylina.controller.LifeGameController;
+import ru.nsu.cg.kovylina.utils.ColorMode;
 import ru.nsu.cg.kovylina.utils.Constants;
 
 import java.awt.*;
@@ -45,12 +46,12 @@ public class GameFieldView extends JPanel {
         });
     }
 
-    public void drawField(Cell[][] cellField) {
+    public void drawField(Cell[][] cellField, ColorMode colorMode, boolean showImpact) {
         for (Cell[] aCellField : cellField) {
             for (Cell cell : aCellField) {
                 if (cell == null) continue;
 
-                hexagonView.drawFullCell(cell);
+                hexagonView.drawFullCell(cell, colorMode, showImpact);
             }
         }
 
@@ -59,10 +60,6 @@ public class GameFieldView extends JPanel {
 
     public void updateField() {
         repaint();
-    }
-
-    public void setController(LifeGameController controller) {
-        this.controller = controller;
     }
 
     public void setImage(BufferedImage image) {

@@ -1,5 +1,7 @@
 package ru.nsu.cg.kovylina.model;
 
+import ru.nsu.cg.kovylina.utils.Configuration;
+
 import javax.swing.event.SwingPropertyChangeSupport;
 import java.awt.*;
 
@@ -27,6 +29,13 @@ public class HexagonModel {
         initParameters();
     }
 
+    public HexagonModel(Configuration c) {
+        this.size = c.getHexSide();
+        this.boundaryWidth = c.getBoundaryWidth();
+
+        initParameters();
+    }
+
     private void initParameters() {
         this.t = this.size / 2;
         this.r = (int) (this.size * Math.cos(Math.toRadians(30)));
@@ -36,6 +45,13 @@ public class HexagonModel {
 
         this.hor = this.width;
         this.vert = this.size + this.t;
+    }
+
+    public void setParamsByConfig(Configuration c) {
+        this.size = c.getHexSide();
+        this.boundaryWidth = c.getBoundaryWidth();
+
+        initParameters();
     }
 
     public Point[] getAllVertexes(int centerX, int centerY) {

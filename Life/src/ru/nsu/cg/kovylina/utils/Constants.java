@@ -3,12 +3,14 @@ package ru.nsu.cg.kovylina.utils;
 import java.awt.*;
 
 public class Constants {
-    public static int ROWS = 100;
-    public static int COLUMNS = 100;
+    public static int ROWS = 120;
+    public static int COLUMNS = 170;
     public static int HEX_SIDE = 5;
     public static int BOUNDARY_WIDTH = 1;
 
     public static Mode MODE = Mode.REPLACE;
+    public static ColorMode COLOR_MODE = ColorMode.CELL_STATE;
+    public static boolean SHOW_IMPACT = false;
 
     public static double LIFE_BEGIN = 2.0;
     public static double LIFE_END = 3.3;

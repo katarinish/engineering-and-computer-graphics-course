@@ -35,7 +35,6 @@ public class DrawingUtils {
             if (directionX < 0) directionX = -1;
 
             for (int i = 0; i < deltaX; ++i) {
-//                image.setRGB(x1, y1, boundaryColor.getRGB());
                 g.drawLine(x1, y1, x1, y1);
                 x1 += directionX;
                 error += deltaErr;
@@ -59,7 +58,6 @@ public class DrawingUtils {
 
             for (int i = 0; i < deltaY; ++i) {
                 g.drawLine(x1, y1, x1, y1);
-//                image.setRGB(x1, y1, boundaryColor.getRGB());
                 y1 += directionY;
                 error += deltaErr;
 

@@ -10,13 +10,16 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class GameFieldModel {
+    private Configuration configuration;
+
     private int columns;
     private int rows;
 
     private BufferedImage image;
     private Mode mode;
+    private ColorMode colorMode;
+    private boolean showImpact;
 
-    //TODO: проверять корректность параметров
     private Map<LifeParameters, Double> lifeParameters = new HashMap<>();
 
     private Cell[][] field = null;
@@ -25,19 +28,28 @@ public class GameFieldModel {
     private HexagonModel hexagonModel;
     private boolean isLifeRunning = false;
 
-    public GameFieldModel(int columns, int rows, Mode mode, HexagonModel hexModel) {
-        this.columns = columns;
-        this.rows = rows;
-        this.mode = mode;
-
+    public GameFieldModel(Configuration c, HexagonModel hexModel) {
+        configuration = c;
         this.hexagonModel = hexModel;
 
-        initImage();
+        setParamsByConfig();
+
         initLifeParameters(
                 Constants.LIFE_BEGIN, Constants.LIFE_END,
                 Constants.BIRTH_BEGIN, Constants.BIRTH_END,
                 Constants.FIRST_IMPACT, Constants.SECOND_IMPACT);
         initField();
+    }
+
+    private void setParamsByConfig() {
+        columns = configuration.getColumns();
+        rows = configuration.getRows();
+
+        mode = configuration.getMode();
+        colorMode = configuration.getColorMode();
+        showImpact = configuration.isShowImpact();
+
+        initImage();
     }
 
     private void initImage() {
@@ -60,7 +72,7 @@ public class GameFieldModel {
         lifeParameters.put(LifeParameters.SND_IMPACT, sndImpact);
     }
 
-    private void initField() {
+    public void initField() {
         field = new Cell[this.rows][this.columns];
 
         for (int i = 0; i < this.rows; ++i) {
@@ -80,6 +92,11 @@ public class GameFieldModel {
                         lifeParameters);
             }
         }
+    }
+
+    public void clearField() {
+        initField();
+        activeCells.clear();
     }
 
     public ArrayList<Cell> firstNeighboursRing(Cell cell) {
@@ -140,7 +157,6 @@ public class GameFieldModel {
         ArrayList<Cell> firstNghbrs = firstNeighboursRing(cell);
         ArrayList<Cell> secondNghbrs = secondNeighboursRing(cell);
 
-        //TODO: брать импакт из конфига
         for (Cell fstN: firstNghbrs) {
             if (fstN.getCellState() == CellState.ALIVE) impact += Constants.FIRST_IMPACT;
         }
@@ -148,7 +164,6 @@ public class GameFieldModel {
             if (sndN.getCellState() == CellState.ALIVE) impact += Constants.SECOND_IMPACT;
         }
 
-//        return impact;
         return new BigDecimal(impact).setScale(1, RoundingMode.HALF_UP).doubleValue();
     }
 
@@ -207,29 +222,8 @@ public class GameFieldModel {
             return;
         }
 
-//        for (Cell[] aCellField : field) {
-//            for (Cell cell : aCellField) {
-//                if (cell == null) continue;
-//
-//                double newImpact = calculateImpact(cell);
-//                cell.setImpact(newImpact);
-//            }
-//        }
-//
-//        for (Cell[] aCellField : field) {
-//            for (Cell cell : aCellField) {
-//                if (cell == null) continue;
-//                cell.defineCellState();
-//            }
-//        }
-
 //        Update all (active + potentially active) cells impact
         for (Cell activeCell: new HashSet<>(activeCells)) {
-//            if (activeCell.getImpact() == Constants.NON_ACTIVE_IMPACT) {
-//                activeCells.remove(activeCell);
-//                continue;
-//            }
-
             //Updating own impact
             double newImpact = calculateImpact(activeCell);
             activeCell.setImpact(newImpact);
@@ -271,6 +265,18 @@ public class GameFieldModel {
         return rows;
     }
 
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public ColorMode getColorMode() {
+        return colorMode;
+    }
+
+    public boolean isShowImpact() {
+        return showImpact;
+    }
+
     public boolean isLifeRunning() {
         return isLifeRunning;
     }
@@ -307,6 +313,14 @@ public class GameFieldModel {
         isLifeRunning = lifeRunning;
     }
 
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+
+        setParamsByConfig();
+        initField();
+
+    }
+
     public Cell[][] getField() {
         return field;
     }
@@ -315,7 +329,4 @@ public class GameFieldModel {
         this.mode = mode;
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
 }

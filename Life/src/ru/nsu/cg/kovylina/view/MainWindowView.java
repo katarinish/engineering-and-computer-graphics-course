@@ -4,13 +4,12 @@ import ru.nsu.cg.kovylina.utils.MenuItemActionListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class MainWindowView extends JFrame {
-    Font font;
-    JMenuBar menuBar;
-    JToolBar toolBar;
+    private Font font;
+    private JMenuBar menuBar;
+    private JToolBar toolBar;
     private LifeGameController controller;
 
     public MainWindowView(LifeGameController controller) {
@@ -45,7 +44,6 @@ public class MainWindowView extends JFrame {
         addMenuItem(gameMenu, "Next Generation", controller::handleNextGen);
         addMenuItem(gameMenu, "Pause", controller::handlePauseGame);
 
-
         menuBar.add(fileMenu);
         menuBar.add(gameMenu);
 
@@ -63,5 +61,55 @@ public class MainWindowView extends JFrame {
         toolBar = new JToolBar("Main toolbar");
         toolBar.setRollover(true);
         add(toolBar, BorderLayout.PAGE_START);
+
+        addToolbarItem(toolBar, "Exit.png", "Выход", controller::addAction);
+
+        toolBar.addSeparator();
+
+        addToolbarItem(toolBar, "Play.png", "Запустить игру",
+                controller::handleStartGame);
+        addToolbarItem(toolBar, "Next.png", "Показать следующее поколение",
+                controller::handleNextGen);
+        addToolbarItem(toolBar, "Stop.png", "Остановить игру",
+                controller::handlePauseGame);
+
+        toolBar.addSeparator();
+
+        addToolbarItem(toolBar, "XOR.png", "Установить закраску XOR",
+                controller::handleSetXOR);
+        addToolbarItem(toolBar, "Replace.png", "Установить закраску Replace",
+                controller::handleSetReplace);
+
+        toolBar.addSeparator();
+
+        addToolbarItem(toolBar, "Refresh.png", "Очистить поле",
+                controller::handleClearField);
+        addToolbarItem(toolBar, "Settings.png", "Открыть настройки",
+                controller::handleOpenOptions);
+
+        toolBar.addSeparator();
+
+        addToolbarItem(toolBar, "About.png", "Об авторе",
+                this::handleOnAbout);
+    }
+
+    private void addToolbarItem(JToolBar toolBar,
+                                String icon, String tooltip,
+                                MenuItemActionListener listener) {
+        JButton button = new JButton();
+        Image img = new ImageIcon(getClass().getResource("resources/" + icon))
+                .getImage().getScaledInstance(18, 18, java.awt.Image.SCALE_SMOOTH);
+        button.setIcon(new ImageIcon(img));
+        button.setToolTipText(tooltip);
+        button.addActionListener(e -> listener.execute());
+
+        toolBar.add(button);
+    }
+
+    public void handleOnAbout() {
+        JOptionPane.showMessageDialog(this,
+                "2019 Kovylina Yekaterina, FIT, group 16205",
+                "About",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }

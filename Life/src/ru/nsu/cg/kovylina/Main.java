@@ -11,6 +11,8 @@ public class Main {
                 Constants.COLUMNS,
                 Constants.HEX_SIDE,
                 Constants.BOUNDARY_WIDTH,
+                Constants.COLOR_MODE,
+                Constants.SHOW_IMPACT,
                 Constants.MODE
         );
 

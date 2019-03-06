@@ -15,13 +15,12 @@ public class LifeGameController {
 
     private HexagonView hexagonView;
     private GameFieldView gameFieldView;
+    private OptionsView optionsView;
 
     private HexagonModel hexagonModel;
     private GameFieldModel gameFieldModel;
 
-    Timer timer;
-
-//    private boolean isLifeRunning = false;
+    private Timer timer;
 
     public LifeGameController(Configuration c) {
         this.config = c;
@@ -34,13 +33,15 @@ public class LifeGameController {
             nextGeneration();
         });
 
+        optionsView = new OptionsView(this);
+
         initModels();
         initViews();
     }
 
     private void initViews() {
         this.hexagonView = new HexagonView(
-                config.getBoundaryWidth(), gameFieldModel.getImage());
+                hexagonModel.getBoundaryWidth(), gameFieldModel.getImage());
         this.gameFieldView = new GameFieldView(
                 this.hexagonView,
                 this.gameFieldModel.getImage(),
@@ -48,18 +49,15 @@ public class LifeGameController {
     }
 
     private void initModels() {
-        this.hexagonModel = new HexagonModel(
-                config.getHexSide(),config.getBoundaryWidth());
-        this.gameFieldModel = new GameFieldModel(
-                config.getColumns(),
-                config.getRows(),
-                config.getMode(),
-                this.hexagonModel);
+        this.hexagonModel = new HexagonModel(config);
+        this.gameFieldModel = new GameFieldModel(config, this.hexagonModel);
     }
 
     public void start() {
         MainWindowView window = new MainWindowView(this.gameFieldView, this);
-        gameFieldView.drawField(gameFieldModel.getField());
+        gameFieldView.drawField(gameFieldModel.getField(),
+                gameFieldModel.getColorMode(),
+                gameFieldModel.isShowImpact());
         window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
@@ -94,7 +92,8 @@ public class LifeGameController {
                 break;
         }
 
-        hexagonView.fillCell(clickedCell);
+        hexagonView.fillCell(clickedCell,
+                gameFieldModel.getColorMode());
         gameFieldView.updateField();
     }
 
@@ -130,23 +129,46 @@ public class LifeGameController {
     private void nextGeneration() {
         gameFieldModel.nextGeneration();
         for(Cell activeCell: new HashSet<>(gameFieldModel.getActiveCells())) {
-            hexagonView.drawFullCell(activeCell);
+            hexagonView.drawFullCell(activeCell,
+                    gameFieldModel.getColorMode(),
+                    gameFieldModel.isShowImpact());
             if (activeCell.getImpact() == Constants.NON_ACTIVE_IMPACT) {
                 gameFieldModel.getActiveCells().remove(activeCell);
             }
         }
 
-//        for (Cell[] aCellField : gameFieldModel.getField()) {
-//            for (Cell cell : aCellField) {
-//                if (cell == null) continue;
-//                hexagonView.drawFullCell(cell);
-//            }
-//        }
         gameFieldView.updateField();
     }
 
     public void handleNextGen() {
         gameFieldModel.setLifeRunning(true);
         nextGeneration();
+    }
+
+    public void handleOpenOptions() {
+        optionsView.open();
+    }
+
+    public void handleClearField() {
+        gameFieldModel.clearField();
+        gameFieldView.drawField(gameFieldModel.getField(),
+                gameFieldModel.getColorMode(),
+                gameFieldModel.isShowImpact());
+    }
+
+    public void handleSetXOR() {
+        gameFieldModel.setMode(Mode.XOR);
+    }
+
+    public void handleSetReplace() {
+        gameFieldModel.setMode(Mode.REPLACE);
+    }
+
+    public void handleAcceptSettings(Configuration c) {
+        if (validateParams(c)) gameFieldModel.setConfiguration(c);
+    }
+
+    private boolean validateParams(Configuration c) {
+        return true;
     }
 }

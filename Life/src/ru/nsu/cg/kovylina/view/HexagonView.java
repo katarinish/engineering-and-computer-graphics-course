@@ -2,6 +2,7 @@ package ru.nsu.cg.kovylina.view;
 
 import ru.nsu.cg.kovylina.buisness_logic.Cell;
 import ru.nsu.cg.kovylina.model.HexagonModel;
+import ru.nsu.cg.kovylina.utils.ColorMode;
 import ru.nsu.cg.kovylina.utils.DrawingUtils;
 
 import java.awt.*;
@@ -23,16 +24,19 @@ public class HexagonView {
         this.image = image;
     }
 
-    public void drawFullCell(Cell hex) {
+    public void drawFullCell(Cell hex, ColorMode mode, boolean isShowImpact) {
         drawBoundaries(hex);
-        fillCell(hex);
+        fillCell(hex, mode);
+        if (isShowImpact) printImpact(hex);
     }
 
-    public void fillCell(Cell hex){
+    public void fillCell(Cell hex, ColorMode mode){
+        Color colorToFill = (mode == ColorMode.IMPACT)
+                ? hex.getColor()
+                : hex.getCellState().getColor();
         DrawingUtils.fillWithSpan(
                 image,
-                hex.getColor(),
-//                hex.getCellState().getColor(),
+                colorToFill,
                 hex.getCenterX(), hex.getCenterY());
     }
 
@@ -59,6 +63,12 @@ public class HexagonView {
         this.stroke = stroke;
 
         // Надо ли перерисовываться?
+    }
+
+    public void setBoundaryWidth(int w) {
+        this.stroke = new BasicStroke(w,
+                BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND,
+                10);
     }
 
     public void setImage(BufferedImage image) {
