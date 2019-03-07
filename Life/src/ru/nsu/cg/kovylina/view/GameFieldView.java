@@ -65,6 +65,8 @@ public class GameFieldView extends JPanel {
     public void setImage(BufferedImage image) {
         this.image = image;
         updateField();
+
+        revalidate();
     }
 
     @Override

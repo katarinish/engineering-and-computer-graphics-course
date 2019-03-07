@@ -5,7 +5,6 @@ import ru.nsu.cg.kovylina.utils.MenuItemActionListener;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class MainWindowView extends JFrame {
     private Font font;
     private JMenuBar menuBar;
@@ -98,7 +97,8 @@ public class MainWindowView extends JFrame {
                                 MenuItemActionListener listener) {
         JButton button = new JButton();
         Image img = new ImageIcon(getClass().getResource("resources/" + icon))
-                .getImage().getScaledInstance(18, 18, java.awt.Image.SCALE_SMOOTH);
+                .getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+
         button.setIcon(new ImageIcon(img));
         button.setToolTipText(tooltip);
         button.addActionListener(e -> listener.execute());

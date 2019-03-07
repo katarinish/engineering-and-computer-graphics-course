@@ -24,6 +24,9 @@ public class Constants {
     public static double NON_ACTIVE_IMPACT = 0.0;
 
     public static int TIMER_DELAY = 100;
+    public static int MAX_ROWS = 200;
+    public static int MAX_COLUMNS = 200;
+    public static int MAX_BOUNDARY = 30;
 
 
     public static int TRANSPARENT_COLOR_RGB = 0;

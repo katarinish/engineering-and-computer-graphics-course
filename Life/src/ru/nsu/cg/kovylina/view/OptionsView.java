@@ -1,6 +1,10 @@
 package ru.nsu.cg.kovylina.view;
 
 import ru.nsu.cg.kovylina.controller.LifeGameController;
+import ru.nsu.cg.kovylina.utils.ColorMode;
+import ru.nsu.cg.kovylina.utils.Configuration;
+import ru.nsu.cg.kovylina.utils.Constants;
+import ru.nsu.cg.kovylina.utils.Mode;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -11,24 +15,19 @@ public class OptionsView extends JFrame{
     private JPanel rootPanel;
 
     private JRadioButton XOR;
-    private JRadioButton Replace;
+
     private JSlider cellSizeSlider;
     private JTextField cellSizeTextField;
+
     private JRadioButton impactRadioButton;
-    private JRadioButton cellStateRadioButton;
-    private JTextField boundaryTextField;
-    private JLabel boundaryLabel;
-    private JPanel rightPanel;
-    private JPanel leftPanel;
+
     private JTextField rowsTextField;
     private JTextField columnsTextField;
-    private JPanel gameModeContainer;
-    private JPanel colorModeContainer;
-    private JPanel fieldSizeContainer;
-    private JLabel rowsLabel;
-    private JLabel columnsLabel;
 
     private JButton acceptButton;
+
+    private JCheckBox impactCheck;
+    private JTextField lineWidthField;
 
     public OptionsView(LifeGameController controller) {
         this.controller = controller;
@@ -40,10 +39,28 @@ public class OptionsView extends JFrame{
 
     private void initActionPerformances() {
         acceptButton.addActionListener(e -> {
-//            String columns = columnsTextField.getText();
-//
-//            Configuration с = new Configuration()
-//            controller.handleAcceptSettings(с);
+            int rows = Integer.parseInt(rowsTextField.getText());
+            int col = Integer.parseInt(columnsTextField.getText());
+
+            int hex = Integer.parseInt(cellSizeTextField.getText());
+            int boundaryWidth = Integer.parseInt(lineWidthField.getText());
+
+            Mode mode = XOR.isSelected() ? Mode.XOR : Mode.REPLACE;
+            ColorMode colorMode = impactRadioButton.isSelected()
+                    ? ColorMode.IMPACT : ColorMode.CELL_STATE;
+
+            boolean showImpact = impactCheck.isSelected();
+
+            Configuration c = new Configuration(rows, col,
+                    hex, boundaryWidth,
+                    colorMode, showImpact, mode);
+
+            if (!controller.handleAcceptSettings(c)) {
+                JOptionPane.showMessageDialog(this,
+                        "Bad settings parameters",
+                        "Error",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
 
             close();
         });
@@ -58,8 +75,8 @@ public class OptionsView extends JFrame{
                 String typed = cellSizeTextField.getText();
                 cellSizeSlider.setValue(0);
 
-                if (isInteger(typed)) {
-                    cellSizeTextField.setText("");
+                if (!isInteger(typed)) {
+                    cellSizeTextField.setText(String.valueOf(Constants.HEX_SIDE));
                     return;
                 }
 
@@ -69,6 +86,39 @@ public class OptionsView extends JFrame{
                     cellSizeTextField.setText(String.valueOf(value));
                 }
                 cellSizeSlider.setValue(value);
+            }
+        });
+
+        rowsTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String typed = rowsTextField.getText();
+
+                if (!isInteger(typed)) {
+                    rowsTextField.setText(String.valueOf(Constants.ROWS));
+                }
+            }
+        });
+
+        columnsTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String typed = columnsTextField.getText();
+
+                if (!isInteger(typed)) {
+                    columnsTextField.setText(String.valueOf(Constants.COLUMNS));
+                }
+            }
+        });
+
+        lineWidthField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String typed = lineWidthField.getText();
+
+                if (!isInteger(typed)) {
+                    lineWidthField.setText("");
+                }
             }
         });
     }

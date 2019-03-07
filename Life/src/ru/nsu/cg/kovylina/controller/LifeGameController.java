@@ -164,11 +164,49 @@ public class LifeGameController {
         gameFieldModel.setMode(Mode.REPLACE);
     }
 
-    public void handleAcceptSettings(Configuration c) {
-        if (validateParams(c)) gameFieldModel.setConfiguration(c);
+    public boolean handleAcceptSettings(Configuration c) {
+        if (!validateParams(c)) return false;
+
+        HashSet<Cell> activeCells = new HashSet<>(gameFieldModel.getActiveCells());
+
+        hexagonModel.setParamsByConfig(c);
+        gameFieldModel.setConfiguration(c);
+
+        BufferedImage newImage = gameFieldModel.getImage();
+
+        hexagonView.setImage(newImage);
+        hexagonView.setBoundaryWidth(c.getBoundaryWidth());
+
+        gameFieldView.setImage(newImage);
+        gameFieldView.drawField(gameFieldModel.getField(),
+                gameFieldModel.getColorMode(), gameFieldModel.isShowImpact());
+
+        for (Cell activeCell: activeCells) {
+            int x = activeCell.getRowPosition();
+            int y = activeCell.getColumnPosition();
+
+            if (gameFieldModel.isInField(x, y)
+                    && activeCell.getCellState() == CellState.ALIVE) {
+                Cell cellToDraw = gameFieldModel.getField()[x][y];
+
+                makeItAlive(cellToDraw);
+                hexagonView.drawFullCell(cellToDraw,
+                        gameFieldModel.getColorMode(),
+                        gameFieldModel.isShowImpact());
+            }
+        }
+
+        gameFieldView.updateField();
+        return true;
     }
 
     private boolean validateParams(Configuration c) {
-        return true;
+        int rows = c.getRows();
+        int cols = c.getColumns();
+        int width = c.getBoundaryWidth();
+
+        return !(rows >= Constants.MAX_ROWS
+                || cols >= Constants.MAX_COLUMNS
+                || width >= Constants.MAX_BOUNDARY);
     }
 }

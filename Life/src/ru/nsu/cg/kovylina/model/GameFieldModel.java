@@ -144,7 +144,7 @@ public class GameFieldModel {
         return neighbors;
     }
 
-    private boolean isInField(int x, int y) {
+    public boolean isInField(int x, int y) {
         if (x >= rows || y >= columns
                 || x < 0 || y < 0) return false;
 
@@ -257,14 +257,6 @@ public class GameFieldModel {
         }
     }
 
-    public int getColumns() {
-        return columns;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
     public Configuration getConfiguration() {
         return configuration;
     }
@@ -293,22 +285,6 @@ public class GameFieldModel {
         return activeCells;
     }
 
-    public void setColumns(int columns) {
-        this.columns = columns;
-        initImage();
-        initField();
-
-        //уведомить View о смене параметра
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
-        initImage();
-        initField();
-
-        //уведомить View о смене параметра
-    }
-
     public void setLifeRunning(boolean lifeRunning) {
         isLifeRunning = lifeRunning;
     }
@@ -317,8 +293,7 @@ public class GameFieldModel {
         this.configuration = configuration;
 
         setParamsByConfig();
-        initField();
-
+        clearField();
     }
 
     public Cell[][] getField() {
