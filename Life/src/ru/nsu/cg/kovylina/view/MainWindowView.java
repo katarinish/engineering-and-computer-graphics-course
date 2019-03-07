@@ -42,9 +42,24 @@ public class MainWindowView extends JFrame {
         addMenuItem(gameMenu, "Start", controller::handleStartGame);
         addMenuItem(gameMenu, "Next Generation", controller::handleNextGen);
         addMenuItem(gameMenu, "Pause", controller::handlePauseGame);
+        gameMenu.addSeparator();
+        addMenuItem(gameMenu, "Clear Field", controller::handleClearField);
+
+        JMenu modeMenu = new JMenu("Mode");
+        modeMenu.setFont(font);
+        addMenuItem(modeMenu, "XOR", controller::handleSetXOR);
+        addMenuItem(modeMenu, "Replace", controller::handleSetReplace);
+        gameMenu.addSeparator();
+        gameMenu.add(modeMenu);
+
+        JMenu helpMenu = new JMenu("Help");
+        helpMenu.setFont(font);
+        addMenuItem(helpMenu, "About", this::handleOnAbout);
+        addMenuItem(helpMenu, "Settings", controller::handleOpenOptions);
 
         menuBar.add(fileMenu);
         menuBar.add(gameMenu);
+        menuBar.add(helpMenu);
 
         this.setJMenuBar(menuBar);
     }

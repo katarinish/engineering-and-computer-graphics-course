@@ -15,19 +15,25 @@ public class OptionsView extends JFrame{
     private JPanel rootPanel;
 
     private JRadioButton XOR;
-
+    private JRadioButton Replace;
     private JSlider cellSizeSlider;
     private JTextField cellSizeTextField;
-
     private JRadioButton impactRadioButton;
-
+    private JRadioButton cellStateRadioButton;
+    private JPanel rightPanel;
+    private JPanel leftPanel;
     private JTextField rowsTextField;
     private JTextField columnsTextField;
+    private JPanel gameModeContainer;
+    private JPanel colorModeContainer;
+    private JPanel fieldSizeContainer;
+    private JLabel rowsLabel;
+    private JLabel columnsLabel;
 
     private JButton acceptButton;
-
     private JCheckBox impactCheck;
     private JTextField lineWidthField;
+    private JPanel drawParamsContainer;
 
     public OptionsView(LifeGameController controller) {
         this.controller = controller;

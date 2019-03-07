@@ -39,8 +39,13 @@ public class GameFieldView extends JPanel {
         });
 
         this.addMouseMotionListener(new MouseMotionAdapter() {
+            private Cell currentCell = null;
+
             @Override
             public void mouseDragged(MouseEvent e) {
+                Cell clickedCell = controller.getCellByCoordinates(e.getPoint());
+                if (clickedCell.equals(currentCell)) return;
+                currentCell = clickedCell;
                 controller.handleGameFieldClick(e);
             }
         });

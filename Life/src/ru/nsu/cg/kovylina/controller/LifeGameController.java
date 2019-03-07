@@ -6,6 +6,7 @@ import ru.nsu.cg.kovylina.utils.*;
 import ru.nsu.cg.kovylina.view.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
@@ -162,6 +163,10 @@ public class LifeGameController {
 
     public void handleSetReplace() {
         gameFieldModel.setMode(Mode.REPLACE);
+    }
+
+    public Cell getCellByCoordinates(Point p) {
+        return gameFieldModel.getCell(p.x, p.y);
     }
 
     public boolean handleAcceptSettings(Configuration c) {

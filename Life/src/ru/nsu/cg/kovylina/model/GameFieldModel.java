@@ -303,5 +303,4 @@ public class GameFieldModel {
     public void setMode(Mode mode) {
         this.mode = mode;
     }
-
 }

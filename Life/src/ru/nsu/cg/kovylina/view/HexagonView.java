@@ -59,12 +59,6 @@ public class HexagonView {
         }
     }
 
-    public void setStroke(Stroke stroke) {
-        this.stroke = stroke;
-
-        // Надо ли перерисовываться?
-    }
-
     public void setBoundaryWidth(int w) {
         this.stroke = new BasicStroke(w,
                 BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND,
