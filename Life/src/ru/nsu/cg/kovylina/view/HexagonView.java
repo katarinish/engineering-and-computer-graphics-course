@@ -3,10 +3,13 @@ package ru.nsu.cg.kovylina.view;
 import ru.nsu.cg.kovylina.buisness_logic.Cell;
 import ru.nsu.cg.kovylina.model.HexagonModel;
 import ru.nsu.cg.kovylina.utils.ColorMode;
+import ru.nsu.cg.kovylina.utils.Constants;
 import ru.nsu.cg.kovylina.utils.DrawingUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class HexagonView {
     private Stroke stroke;
@@ -41,7 +44,14 @@ public class HexagonView {
     }
 
     public void printImpact(Cell hex){
+        DecimalFormat df = new DecimalFormat("#.#");
+        df.setRoundingMode(RoundingMode.HALF_UP);
 
+        String impact = df.format(hex.getImpact());
+
+        Graphics g = image.getGraphics();
+        g.setColor(Constants.FONT_COLOR);
+        g.drawString(impact, hex.getCenterX() - 5 , hex.getCenterY() + 5);
     }
 
     public void drawBoundaries(Cell hex) {

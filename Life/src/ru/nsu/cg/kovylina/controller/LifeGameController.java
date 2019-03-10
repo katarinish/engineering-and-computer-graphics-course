@@ -142,7 +142,7 @@ public class LifeGameController {
     }
 
     public void handleNextGen() {
-        gameFieldModel.setLifeRunning(true);
+        gameFieldModel.setLifeRunning(false);
         nextGeneration();
     }
 
@@ -151,6 +151,8 @@ public class LifeGameController {
     }
 
     public void handleClearField() {
+        gameFieldModel.setLifeRunning(false);
+
         gameFieldModel.clearField();
         gameFieldView.drawField(gameFieldModel.getField(),
                 gameFieldModel.getColorMode(),
