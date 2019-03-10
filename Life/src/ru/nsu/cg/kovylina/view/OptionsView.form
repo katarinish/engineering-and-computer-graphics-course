@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ru.nsu.cg.kovylina.view.OptionsView">
+  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="true" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="20" y="20" width="586" height="637"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="c1576" class="javax.swing.JButton" binding="acceptButton">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <text value="Set Settings"/>
+          <verticalAlignment value="0"/>
+        </properties>
+      </component>
+      <grid id="a19c0" binding="leftPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="10" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="true"/>
+        </constraints>
+        <properties/>
+        <border type="none">
+          <title-color color="-14079703"/>
+        </border>
+        <children>
+          <grid id="5c337" binding="gameModeContainer" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="10" bottom="10" right="10"/>
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="line" title="Game Mode" title-justification="2">
+              <title-color color="-14079703"/>
+              <color color="-14079703"/>
+            </border>
+            <children>
+              <component id="91f02" class="javax.swing.JRadioButton" binding="XOR">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="170" height="19"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="XOR"/>
+                </properties>
+              </component>
+              <component id="a6098" class="javax.swing.JRadioButton" binding="Replace">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="170" height="19"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <selected value="true"/>
+                  <text value="Replace"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <vspacer id="80a8a">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="f68fa">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <grid id="74c40" binding="fieldSizeContainer" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="10" bottom="10" right="10"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="line" title="Field Size" title-justification="2" title-position="2">
+              <title-color color="-14079703"/>
+              <color color="-14079703"/>
+            </border>
+            <children>
+              <component id="9f7b9" class="javax.swing.JLabel" binding="rowsLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Rows"/>
+                </properties>
+              </component>
+              <component id="d3c29" class="javax.swing.JLabel" binding="columnsLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Columns"/>
+                </properties>
+              </component>
+              <component id="c0361" class="javax.swing.JTextField" binding="rowsTextField">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="40" height="30"/>
+                    <preferred-size width="40" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="40"/>
+                </properties>
+              </component>
+              <component id="536bd" class="javax.swing.JTextField" binding="columnsTextField">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="40" height="30"/>
+                    <preferred-size width="40" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="50"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="7c062" binding="colorModeContainer" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="10" bottom="10" right="10"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="1" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="line" title="Color Mode" title-justification="2">
+              <title-color color="-14079703"/>
+              <color color="-14079703"/>
+            </border>
+            <children>
+              <component id="7aed3" class="javax.swing.JRadioButton" binding="impactRadioButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Impact"/>
+                </properties>
+              </component>
+              <component id="b9ac5" class="javax.swing.JRadioButton" binding="cellStateRadioButton" default-binding="true">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="4" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="81" height="17"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <selected value="true"/>
+                  <text value="Cell State"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="b8dd3" binding="rightPanel" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="10" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="true"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <vspacer id="7801b">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="1b03e" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Cell Size"/>
+            </properties>
+          </component>
+          <component id="7fd70" class="javax.swing.JTextField" binding="cellSizeTextField">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="2" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="40" height="30"/>
+                <preferred-size width="40" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <columns value="0"/>
+              <horizontalAlignment value="0"/>
+              <text value="30"/>
+            </properties>
+          </component>
+          <component id="ed17f" class="javax.swing.JSlider" binding="cellSizeSlider">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <inverted value="false"/>
+              <majorTickSpacing value="5"/>
+              <maximum value="50"/>
+              <minimum value="5"/>
+              <orientation value="1"/>
+              <value value="25"/>
+              <valueIsAdjusting value="true"/>
+            </properties>
+          </component>
+          <grid id="bf73d" binding="drawParamsContainer" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="10" bottom="10" right="10"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="line" title="Drawing utils">
+              <title-color color="-14079703"/>
+              <color color="-14079703"/>
+            </border>
+            <children>
+              <component id="68535" class="javax.swing.JCheckBox" binding="impactCheck">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Show impact"/>
+                </properties>
+              </component>
+              <component id="c90ba" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Line width"/>
+                </properties>
+              </component>
+              <component id="5d2cd" class="javax.swing.JTextField" binding="lineWidthField">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="2"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <vspacer id="6c259">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+    </children>
+  </grid>
+  <buttonGroups>
+    <group name="modeGroup">
+      <member id="91f02"/>
+      <member id="a6098"/>
+    </group>
+    <group name="colorModeGroup">
+      <member id="7aed3"/>
+      <member id="b9ac5"/>
+    </group>
+  </buttonGroups>
+</form>
