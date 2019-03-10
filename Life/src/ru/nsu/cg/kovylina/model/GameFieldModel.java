@@ -152,7 +152,7 @@ public class GameFieldModel {
         return cell != null;
     }
 
-    private double calculateImpact(Cell cell) {
+    public double calculateImpact(Cell cell) {
         double impact = 0.0;
         ArrayList<Cell> firstNghbrs = firstNeighboursRing(cell);
         ArrayList<Cell> secondNghbrs = secondNeighboursRing(cell);

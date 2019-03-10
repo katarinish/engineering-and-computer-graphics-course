@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class LifeGameController {
@@ -93,9 +94,30 @@ public class LifeGameController {
                 break;
         }
 
+        if (gameFieldModel.isShowImpact()) {
+            calculateSurroundingImpact(clickedCell);
+        }
+
         hexagonView.fillCell(clickedCell,
                 gameFieldModel.getColorMode());
         gameFieldView.updateField();
+    }
+
+    private void calculateSurroundingImpact(Cell clickedCell) {
+        ArrayList<Cell> firstNghbr = gameFieldModel.firstNeighboursRing(clickedCell);
+        ArrayList<Cell> secondNghbr = gameFieldModel.secondNeighboursRing(clickedCell);
+
+        for (Cell firstN: firstNghbr) {
+            firstN.setImpact(gameFieldModel.calculateImpact(firstN));
+            hexagonView.drawFullCell(
+                    firstN, gameFieldModel.getColorMode(), gameFieldModel.isShowImpact());
+        }
+
+        for (Cell secondN: secondNghbr) {
+            secondN.setImpact(gameFieldModel.calculateImpact(secondN));
+            hexagonView.drawFullCell(
+                    secondN, gameFieldModel.getColorMode(), gameFieldModel.isShowImpact());
+        }
     }
 
     public void handleStartGame() {
