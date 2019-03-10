@@ -45,6 +45,16 @@ public class OptionsView extends JFrame{
 
     private void initActionPerformances() {
         acceptButton.addActionListener(e -> {
+            if (!nonEmptyValidation()) {
+                JOptionPane.showMessageDialog(this,
+                        "Bad settings parameters",
+                        "Error",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                close();
+                return;
+            }
+
             int rows = Integer.parseInt(rowsTextField.getText());
             int col = Integer.parseInt(columnsTextField.getText());
 
@@ -78,6 +88,8 @@ public class OptionsView extends JFrame{
         cellSizeTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+                if (!(e.getKeyCode() == KeyEvent.VK_ENTER)) return;
+
                 String typed = cellSizeTextField.getText();
                 cellSizeSlider.setValue(0);
 
@@ -98,6 +110,8 @@ public class OptionsView extends JFrame{
         rowsTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+                if (!(e.getKeyCode() == KeyEvent.VK_ENTER)) return;
+
                 String typed = rowsTextField.getText();
 
                 if (!isInteger(typed)) {
@@ -109,6 +123,8 @@ public class OptionsView extends JFrame{
         columnsTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+                if (!(e.getKeyCode() == KeyEvent.VK_ENTER)) return;
+
                 String typed = columnsTextField.getText();
 
                 if (!isInteger(typed)) {
@@ -120,10 +136,12 @@ public class OptionsView extends JFrame{
         lineWidthField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+                if (!(e.getKeyCode() == KeyEvent.VK_ENTER)) return;
+
                 String typed = lineWidthField.getText();
 
                 if (!isInteger(typed)) {
-                    lineWidthField.setText("");
+                    lineWidthField.setText(String.valueOf(Constants.BOUNDARY_WIDTH));
                 }
             }
         });
@@ -138,6 +156,19 @@ public class OptionsView extends JFrame{
     }
 
     private boolean isInteger(String s) {
+        if (isEmptyString(s)) return false;
+
         return s.matches("^\\d+$");
+    }
+
+    private boolean isEmptyString(String s) {
+        return  s.equals("");
+    }
+
+    private boolean nonEmptyValidation() {
+        return !isEmptyString(rowsTextField.getText())
+                && !isEmptyString(columnsTextField.getText())
+                && !isEmptyString(cellSizeTextField.getText())
+                && !isEmptyString(lineWidthField.getText());
     }
 }
