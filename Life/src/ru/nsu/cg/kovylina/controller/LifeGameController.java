@@ -9,12 +9,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class LifeGameController {
     private Configuration config;
 
+    private MainWindowView mainWindowView;
     private HexagonView hexagonView;
     private GameFieldView gameFieldView;
     private OptionsView optionsView;
@@ -56,13 +59,13 @@ public class LifeGameController {
     }
 
     public void start() {
-        MainWindowView window = new MainWindowView(this.gameFieldView, this);
+        mainWindowView = new MainWindowView(this.gameFieldView, this);
         gameFieldView.drawField(gameFieldModel.getField(),
                 gameFieldModel.getColorMode(),
                 gameFieldModel.isShowImpact());
-        window.pack();
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        mainWindowView.pack();
+        mainWindowView.setLocationRelativeTo(null);
+        mainWindowView.setVisible(true);
     }
 
     public void handleGameFieldClick(MouseEvent e) {
@@ -237,5 +240,86 @@ public class LifeGameController {
         return !(rows >= Constants.MAX_ROWS
                 || cols >= Constants.MAX_COLUMNS
                 || width >= Constants.MAX_BOUNDARY);
+    }
+
+    public void handleReadModel() {
+        File fileToRead = FileUtils.getOpenFileName(mainWindowView, "txt", "");
+        if (fileToRead == null) return;
+
+        try {
+            FileReader fr = new FileReader(fileToRead);
+            Scanner scanner = new Scanner(fr);
+            String[] strArr;
+
+            strArr = scanner.nextLine().split(" ");
+            int rows = Integer.parseInt(strArr[0]);
+            int cols = Integer.parseInt(strArr[1]);
+
+            strArr = scanner.nextLine().split(" ");
+            int boundaryWidth = Integer.parseInt(strArr[0]);
+
+            strArr = scanner.nextLine().split(" ");
+            int cellSize = Integer.parseInt(strArr[0]);
+
+            strArr = scanner.nextLine().split(" ");
+            int aliveCellCount = Integer.parseInt(strArr[0]);
+
+            Configuration c = new Configuration(
+                    rows, cols, cellSize, boundaryWidth,
+                    gameFieldModel.getColorMode(), gameFieldModel.isShowImpact(),
+                    gameFieldModel.getMode()
+            );
+
+            handleClearField();
+            handleAcceptSettings(c);
+
+            Cell[][] field = gameFieldModel.getField();
+            for (int i = 0 ; i < aliveCellCount ; ++i) {
+                strArr = scanner.nextLine().split(" ");
+                int row = Integer.parseInt(strArr[0]);
+                int col = Integer.parseInt(strArr[1]);
+
+                Cell cell = field[row][col];
+                makeItAlive(cell);
+                hexagonView.drawFullCell(cell,
+                        gameFieldModel.getColorMode(),
+                        gameFieldModel.isShowImpact());
+
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error reading model from a file");
+        }
+
+    }
+
+    public void handleWriteModel() {
+        File fileToSave = FileUtils.getSaveFileName(mainWindowView, "txt", "");
+        if (fileToSave == null) return;
+
+        try {
+            HashSet<Cell> aliveCells = new HashSet<>();
+
+            FileWriter fw = new FileWriter(fileToSave);
+            fw.write(gameFieldModel.getRows() + " "
+                    + gameFieldModel.getColumns() + "\n");
+            fw.write(hexagonModel.getBoundaryWidth() + "\n");
+            fw.write(hexagonModel.getSize() + "\n");
+
+            for (Cell cell: gameFieldModel.getActiveCells()) {
+                if (cell.getCellState() == CellState.ALIVE) aliveCells.add(cell);
+            }
+
+            fw.write(aliveCells.size() + "\n");
+
+            for (Cell cell: aliveCells) {
+                fw.write(cell.getRowPosition() + " " + cell.getColumnPosition() + "\n");
+            }
+            fw.write("\n");
+
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error writing model to a file");
+        }
     }
 }

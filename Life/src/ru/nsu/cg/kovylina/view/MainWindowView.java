@@ -1,5 +1,6 @@
 package ru.nsu.cg.kovylina.view;
 import ru.nsu.cg.kovylina.controller.LifeGameController;
+import ru.nsu.cg.kovylina.utils.MainFrame;
 import ru.nsu.cg.kovylina.utils.MenuItemActionListener;
 
 import javax.swing.*;
@@ -32,8 +33,8 @@ public class MainWindowView extends JFrame {
         JMenu fileMenu = new JMenu("File");
         fileMenu.setFont(font);
         addMenuItem(fileMenu, "New Document", controller::addAction);
-        addMenuItem(fileMenu, "Read from...", controller::addAction);
-        addMenuItem(fileMenu, "Write to...", controller::addAction);
+        addMenuItem(fileMenu, "Read from...", controller::handleReadModel);
+        addMenuItem(fileMenu, "Write to...", controller::handleWriteModel);
         fileMenu.addSeparator();
         addMenuItem(fileMenu, "Exit", controller::addAction);
 

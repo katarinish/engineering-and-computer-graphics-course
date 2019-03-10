@@ -281,6 +281,14 @@ public class GameFieldModel {
         return image;
     }
 
+    public int getColumns() {
+        return columns;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
     public HashSet<Cell> getActiveCells() {
         return activeCells;
     }
