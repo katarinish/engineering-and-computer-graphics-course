@@ -44,6 +44,7 @@ public class OptionsView extends JFrame{
     }
 
     public void setCustomSettings(Configuration c) {
+        cellSizeSlider.setValue(c.getHexSide());
         cellSizeTextField.setText(String.valueOf(c.getHexSide()));
         rowsTextField.setText(String.valueOf(c.getRows()));
         columnsTextField.setText(String.valueOf(c.getColumns()));

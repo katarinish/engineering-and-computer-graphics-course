@@ -1,9 +1,17 @@
 package ru.nsu.cg.kovylina.controller;
 
-import ru.nsu.cg.kovylina.buisness_logic.*;
-import ru.nsu.cg.kovylina.model.*;
-import ru.nsu.cg.kovylina.utils.*;
-import ru.nsu.cg.kovylina.view.*;
+import ru.nsu.cg.kovylina.buisness_logic.Cell;
+import ru.nsu.cg.kovylina.buisness_logic.CellState;
+import ru.nsu.cg.kovylina.model.GameFieldModel;
+import ru.nsu.cg.kovylina.model.HexagonModel;
+import ru.nsu.cg.kovylina.utils.Configuration;
+import ru.nsu.cg.kovylina.utils.Constants;
+import ru.nsu.cg.kovylina.utils.FileUtils;
+import ru.nsu.cg.kovylina.utils.Mode;
+import ru.nsu.cg.kovylina.view.GameFieldView;
+import ru.nsu.cg.kovylina.view.HexagonView;
+import ru.nsu.cg.kovylina.view.MainWindowView;
+import ru.nsu.cg.kovylina.view.OptionsView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,8 +111,8 @@ public class LifeGameController {
             calculateSurroundingImpact(clickedCell);
         }
 
-        hexagonView.fillCell(clickedCell,
-                gameFieldModel.getColorMode());
+        hexagonView.drawFullCell(clickedCell, gameFieldModel.getColorMode(),
+                gameFieldModel.isShowImpact());
         gameFieldView.updateField();
     }
 
@@ -227,6 +235,10 @@ public class LifeGameController {
                 hexagonView.drawFullCell(cellToDraw,
                         gameFieldModel.getColorMode(),
                         gameFieldModel.isShowImpact());
+
+                if (gameFieldModel.isShowImpact()) {
+                    calculateSurroundingImpact(activeCell);
+                }
             }
         }
 
@@ -288,6 +300,9 @@ public class LifeGameController {
                         gameFieldModel.getColorMode(),
                         gameFieldModel.isShowImpact());
 
+                if (gameFieldModel.isShowImpact()) {
+                    calculateSurroundingImpact(cell);
+                }
             }
 
         } catch (FileNotFoundException e) {
