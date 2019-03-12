@@ -42,6 +42,8 @@ public class LifeGameController {
 
         initModels();
         initViews();
+
+        optionsView.setCustomSettings(gameFieldModel.getConfiguration());
     }
 
     private void initViews() {
@@ -272,6 +274,7 @@ public class LifeGameController {
 
             handleClearField();
             handleAcceptSettings(c);
+            optionsView.setCustomSettings(gameFieldModel.getConfiguration());
 
             Cell[][] field = gameFieldModel.getField();
             for (int i = 0 ; i < aliveCellCount ; ++i) {

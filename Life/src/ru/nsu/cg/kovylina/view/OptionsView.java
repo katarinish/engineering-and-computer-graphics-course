@@ -43,6 +43,23 @@ public class OptionsView extends JFrame{
         setLocationRelativeTo(null);
     }
 
+    public void setCustomSettings(Configuration c) {
+        cellSizeTextField.setText(String.valueOf(c.getHexSide()));
+        rowsTextField.setText(String.valueOf(c.getRows()));
+        columnsTextField.setText(String.valueOf(c.getColumns()));
+        lineWidthField.setText(String.valueOf(c.getBoundaryWidth()));
+        if ((c.getColorMode() == ColorMode.IMPACT)) {
+            impactRadioButton.setSelected(true);
+        } else {
+            cellStateRadioButton.setSelected(true);
+        }
+        if(c.getMode() == Mode.XOR) {
+            XOR.setSelected(true);
+        } else {
+            Replace.setSelected(false);
+        }
+    }
+
     private void initActionPerformances() {
         acceptButton.addActionListener(e -> {
             if (!nonEmptyValidation()) {
