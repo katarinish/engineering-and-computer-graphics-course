@@ -1,6 +1,5 @@
 package ru.nsu.cg.kovylina.view;
 import ru.nsu.cg.kovylina.controller.LifeGameController;
-import ru.nsu.cg.kovylina.utils.MainFrame;
 import ru.nsu.cg.kovylina.utils.MenuItemActionListener;
 
 import javax.swing.*;
