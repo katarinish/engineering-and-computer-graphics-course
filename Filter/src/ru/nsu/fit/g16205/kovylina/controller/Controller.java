@@ -3,7 +3,11 @@ package ru.nsu.fit.g16205.kovylina.controller;
 import ru.nsu.fit.g16205.kovylina.model.ModifiedZoneModel;
 import ru.nsu.fit.g16205.kovylina.model.OriginalZoneModel;
 import ru.nsu.fit.g16205.kovylina.model.ScaledZoneModel;
+import ru.nsu.fit.g16205.kovylina.utils.FileUtils;
 import ru.nsu.fit.g16205.kovylina.view.*;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class Controller {
     private MainWindowView mainWindowView;
@@ -26,6 +30,20 @@ public class Controller {
         mainWindowView.pack();
         mainWindowView.setLocationRelativeTo(null);
         mainWindowView.setVisible(true);
+
+        System.out.println("Current working directory : " + System.getProperty("user.dir"));
+    }
+
+    public void handleSelectImage() {
+        File fileToOpen = FileUtils.getOpenFile(mainWindowView);
+        if (fileToOpen == null) return;
+
+        BufferedImage bufferedImage = FileUtils.readImageFromFile(fileToOpen);
+
+        originalZoneModel.setImage(bufferedImage);
+        originalZoneView.displayImage();
+
+        //TODO: clear scaled and modified zone
     }
 
     private void initView() {
@@ -44,4 +62,6 @@ public class Controller {
         scaledZoneModel = new ScaledZoneModel();
         modifiedZoneModel = new ModifiedZoneModel();
     }
+
+    public void implementMeLater() {}
 }

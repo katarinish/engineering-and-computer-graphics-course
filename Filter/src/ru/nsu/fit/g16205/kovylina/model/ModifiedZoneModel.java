@@ -1,4 +1,6 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
-public class ModifiedZoneModel {
+import ru.nsu.fit.g16205.kovylina.utils.ImageZoneModel;
+
+public class ModifiedZoneModel extends ImageZoneModel {
 }

@@ -1,4 +1,9 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
-public class OriginalZoneModel {
+import ru.nsu.fit.g16205.kovylina.utils.ImageZoneModel;
+
+import java.awt.image.BufferedImage;
+
+public class OriginalZoneModel extends ImageZoneModel {
+
 }

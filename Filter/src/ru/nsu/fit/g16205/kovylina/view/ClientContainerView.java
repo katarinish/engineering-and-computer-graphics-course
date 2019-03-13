@@ -1,16 +1,16 @@
 package ru.nsu.fit.g16205.kovylina.view;
 
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
-import ru.nsu.fit.g16205.kovylina.utils.ImageZone;
+import ru.nsu.fit.g16205.kovylina.utils.ImageZoneView;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ClientContainerView extends JPanel {
 
-    private ImageZone originalZoneView;
-    private ImageZone scaledZoneView;
-    private ImageZone modifiedZoneView;
+    private ImageZoneView originalZoneView;
+    private ImageZoneView scaledZoneView;
+    private ImageZoneView modifiedZoneView;
 
 
     public ClientContainerView() {
@@ -18,9 +18,9 @@ public class ClientContainerView extends JPanel {
                 Constants.MARGIN, Constants.MARGIN));
     }
 
-    public ClientContainerView(ImageZone originalZoneView,
-                               ImageZone scaledZoneView,
-                               ImageZone modifiedZoneView) {
+    public ClientContainerView(ImageZoneView originalZoneView,
+                               ImageZoneView scaledZoneView,
+                               ImageZoneView modifiedZoneView) {
         this();
 
         this.originalZoneView = originalZoneView;
