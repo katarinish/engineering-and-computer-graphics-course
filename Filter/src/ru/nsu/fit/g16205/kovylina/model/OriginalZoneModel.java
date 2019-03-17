@@ -18,6 +18,17 @@ public class OriginalZoneModel extends ImageZoneModel {
         return subImageFrame;
     }
 
+    public BufferedImage getFullSizeImage() {
+        return fullSizeImage;
+    }
+
+    private double getScalingRatio() {
+        double original_width = fullSizeImage.getWidth();
+        double scaled_width = image.getWidth();
+
+        return scaled_width / original_width;
+    }
+
     @Override
     public void setImage(BufferedImage image) {
         fullSizeImage = image;
@@ -27,16 +38,20 @@ public class OriginalZoneModel extends ImageZoneModel {
     }
 
     private void setSubImageFrame() {
-        double original_width = fullSizeImage.getWidth();
-        double scaled_width = image.getWidth();
-
-        double k = scaled_width / original_width;
+        double k = getScalingRatio();
 
         int frameWidth = (int)(width * k);
         int frameHeight = (int)(height * k);
         this.subImageFrame = new SubImageFrame(frameWidth, frameHeight);
     }
 
+    private Point fromScaledToOriginal(Point p) {
+        double k = getScalingRatio();
+        int originX = (int) (p.x / k);
+        int originY = (int) (p.y / k);
+
+        return new Point(originX, originY);
+    }
 
     private BufferedImage validateImageSize(BufferedImage bi) {
         if (bi.getWidth() <= width && bi.getHeight() <= height) return bi;
@@ -81,6 +96,10 @@ public class OriginalZoneModel extends ImageZoneModel {
 
         public void setLeftCorner(Point leftCorner) {
             this.leftCorner = leftCorner;
+        }
+
+        public Point getOriginalLeftCorner() {
+            return fromScaledToOriginal(leftCorner);
         }
 
         public int getWidth() {

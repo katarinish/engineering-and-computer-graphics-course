@@ -8,6 +8,7 @@ import ru.nsu.fit.g16205.kovylina.utils.ImageZoneView;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class OriginalZoneView extends ImageZoneView {
     private Controller controller;
@@ -30,6 +31,15 @@ public class OriginalZoneView extends ImageZoneView {
                 controller.handleOrigZoneClick(e);
                 repaint();
             }
+        });
+
+        this.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (!model.isInImage(e.getPoint())) return;
+
+                controller.handleOrigZoneClick(e);
+                repaint();            }
         });
 
     }

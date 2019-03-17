@@ -6,6 +6,7 @@ import ru.nsu.fit.g16205.kovylina.model.ScaledZoneModel;
 import ru.nsu.fit.g16205.kovylina.utils.FileUtils;
 import ru.nsu.fit.g16205.kovylina.view.*;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -31,8 +32,6 @@ public class Controller {
         mainWindowView.pack();
         mainWindowView.setLocationRelativeTo(null);
         mainWindowView.setVisible(true);
-
-        System.out.println("Current working directory : " + System.getProperty("user.dir"));
     }
 
     public void handleSelectImage() {
@@ -44,11 +43,25 @@ public class Controller {
         originalZoneModel.setImage(bufferedImage);
         originalZoneView.displayImage();
 
-        //TODO: clear scaled and modified zone
+        displayModAndScaledPics();
     }
 
     public void handleOrigZoneClick(MouseEvent e) {
+        Point prevPoint = originalZoneModel.getSubImageFrame().getLeftCorner();
         originalZoneModel.getSubImageFrame().setCenter(e.getPoint());
+        Point currPoint = originalZoneModel.getSubImageFrame().getLeftCorner();
+        if (prevPoint.equals(currPoint)) return;
+
+        displayModAndScaledPics();
+    }
+
+    private void displayModAndScaledPics() {
+        scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
+                originalZoneModel.getSubImageFrame().getOriginalLeftCorner());
+        scaledZoneView.displayImage();
+
+        modifiedZoneModel.setImage(scaledZoneModel.getImage());
+        modifiedZoneView.displayImage();
     }
 
     private void initView() {
