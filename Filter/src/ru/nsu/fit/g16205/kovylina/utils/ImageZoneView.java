@@ -27,7 +27,7 @@ public class ImageZoneView extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(Constants.ZONE_WIDTH, Constants.ZONE_HEIGHT);
+        return new Dimension(model.getWidth(), model.getHeight());
     }
 
     @Override

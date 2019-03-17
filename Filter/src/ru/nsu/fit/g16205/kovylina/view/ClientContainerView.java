@@ -37,13 +37,4 @@ public class ClientContainerView extends JPanel {
         add(scaledZoneView);
         add(modifiedZoneView);
     }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(
-                originalZoneView.getPreferredSize().width
-                        + scaledZoneView.getPreferredSize().width
-                        + originalZoneView.getPreferredSize().width,
-                originalZoneView.getPreferredSize().height);
-    }
 }

@@ -16,8 +16,9 @@ public class FileUtils {
         File file = null;
         JFileChooser fc =  new JFileChooser();
 
+        fc.setCurrentDirectory(new File(System.getProperty("user.dir") + "/images"));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Picture",
-                "bmp", "png");
+                "bmp", "png", "jpeg", "jpg");
         fc.setFileFilter(filter);
 
         if (fc.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {

@@ -6,6 +6,7 @@ import ru.nsu.fit.g16205.kovylina.model.ScaledZoneModel;
 import ru.nsu.fit.g16205.kovylina.utils.FileUtils;
 import ru.nsu.fit.g16205.kovylina.view.*;
 
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -46,8 +47,12 @@ public class Controller {
         //TODO: clear scaled and modified zone
     }
 
+    public void handleOrigZoneClick(MouseEvent e) {
+        originalZoneModel.getSubImageFrame().setCenter(e.getPoint());
+    }
+
     private void initView() {
-        originalZoneView = new OriginalZoneView(originalZoneModel);
+        originalZoneView = new OriginalZoneView(this, originalZoneModel);
         scaledZoneView = new ScaledZoneView(scaledZoneModel);
         modifiedZoneView = new ModifiedZoneView(modifiedZoneModel);
 

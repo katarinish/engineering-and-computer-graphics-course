@@ -14,25 +14,25 @@ public class ImageZoneModel {
         height = Constants.ZONE_HEIGHT;
     }
 
+    public boolean isInImage(Point p) {
+        if (image == null) return false;
+
+        return (p.x <= image.getWidth() && (p.y <= image.getHeight()));
+    }
+
     public BufferedImage getImage() {
         return image;
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = validateImageSize(image);
+    public int getWidth() {
+        return width;
     }
 
-    private BufferedImage validateImageSize(BufferedImage bi) {
-        if (bi.getWidth() <= width && bi.getHeight() <= height) return bi;
+    public int getHeight() {
+        return height;
+    }
 
-        Dimension imageSize = new Dimension(bi.getWidth(), bi.getHeight());
-        Dimension boundary = new Dimension(width, height);
-
-        Dimension scaledDImension = FileUtils.getScaledDimension(imageSize, boundary);
-
-        Image scaledImage = bi.getScaledInstance(
-                scaledDImension.width, scaledDImension.height, Image.SCALE_SMOOTH);
-
-        return FileUtils.toBufferedImage(scaledImage);
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 }
