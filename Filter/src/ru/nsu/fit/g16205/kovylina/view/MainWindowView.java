@@ -60,6 +60,8 @@ public class MainWindowView extends JFrame {
                 "Применить сглаживающий фильтр", controller::handleBlurFilterClick);
         addToolbarItem(toolBar, "negative.png",
                 "Применить негативный фильтр", controller::handleNegativeFilterClick);
+        addToolbarItem(toolBar, "contour.png",
+                "Применить фильтр выделения границ", controller::handleContourFilterClick);
 
     }
 

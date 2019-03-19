@@ -80,6 +80,10 @@ public class Controller {
         setFilter(FilterType.NEGATIVE);
     }
 
+    public void handleContourFilterClick() {
+        setFilter(FilterType.CONTOUR);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());

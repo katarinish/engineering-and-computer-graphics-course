@@ -4,4 +4,5 @@ public enum  FilterType {
     BLUR,
     BLACK_N_WHITE,
     NEGATIVE,
+    CONTOUR,
 }
