@@ -1,25 +1,50 @@
 package ru.nsu.fit.g16205.kovylina.buisness_logic;
 
+import ru.nsu.fit.g16205.kovylina.utils.ColorChannel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Filter {
-    private int[][] matrix = null;
-    private int kernelSize = 50;
+    protected int[][] matrix = null;
+    protected int kernelSize ;
+    protected double div = 1;
+    protected int extension;
 
     public Filter() {
+        initParameters();
+
+        kernelSize = matrix.length;
+        extension = (kernelSize /2);
     }
 
-    public BufferedImage applyMatrix(BufferedImage img) {
+    public BufferedImage applyFilter(BufferedImage img) {
         if (matrix == null) return null;
 
-        BufferedImage filteredImage = getExtendedImage(img);
+        BufferedImage filteredImage = new BufferedImage(img.getWidth(), img.getHeight(),
+                BufferedImage.TYPE_INT_ARGB);
+        BufferedImage extendedImage = getExtendedImage(img);
+
+        for (int y = 0; y < filteredImage.getHeight(); ++y) {
+            for (int x = 0; x < filteredImage.getWidth(); x++) {
+                BufferedImage subImage = getSubImage(extendedImage,
+                        new Point(x + extension, y + extension));
+                int newColor = applyMatrix(subImage);
+                filteredImage.setRGB(x, y, newColor);
+            }
+        }
+
         return filteredImage;
     }
 
+    protected void initParameters() {
+        matrix = new int[][] {
+                {0, 0 , 0},
+                {0, 1, 0},
+                {0, 0, 0}};
+    }
 
     private BufferedImage getExtendedImage(BufferedImage image) {
-        int extension= (kernelSize / 2);
         BufferedImage extendedImage = new BufferedImage(image.getWidth() + extension * 2,
                 image.getHeight() + extension * 2 , BufferedImage.TYPE_INT_ARGB);
 
@@ -86,5 +111,51 @@ public class Filter {
 
         g2d.dispose();
         return extendedImage;
+    }
+
+    private BufferedImage getSubImage(BufferedImage img, Point pixel) {
+        return img.getSubimage(pixel.x - extension, pixel.y - extension,
+                kernelSize, kernelSize);
+    }
+
+    private int applyMatrix(BufferedImage subImage) {
+
+        int RED = multiplyMatrix(subImage, ColorChannel.RED);
+        int GREEN = multiplyMatrix(subImage, ColorChannel.GREEN);
+        int BLUE = multiplyMatrix(subImage, ColorChannel.BLUE);
+
+        return new Color(RED, GREEN, BLUE).getRGB();
+    }
+
+    private int multiplyMatrix(BufferedImage subImage, ColorChannel channel) {
+        int sum = 0;
+
+        for (int y = 0; y < kernelSize; ++y) {
+            for (int x = 0; x < kernelSize; ++x) {
+                int channelValue = 0;
+                Color c = new Color(subImage.getRGB(x, y));
+
+                switch (channel) {
+                    case RED:
+                        channelValue = c.getRed();
+                        break;
+                    case BLUE:
+                        channelValue = c.getBlue();
+                        break;
+                    case GREEN:
+                        channelValue = c.getGreen();
+                        break;
+                }
+
+                sum += channelValue * matrix[y][x];
+            }
+        }
+
+        sum = (int)(sum * (1 / div));
+
+        sum = sum > 255 ? 255 : sum;
+        sum = sum < 0 ? 0 : sum;
+
+        return sum;
     }
 }
