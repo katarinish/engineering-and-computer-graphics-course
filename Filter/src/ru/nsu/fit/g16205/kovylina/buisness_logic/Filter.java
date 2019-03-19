@@ -153,9 +153,13 @@ public class Filter {
 
         sum = (int)(sum * (1 / div));
 
-        sum = sum > 255 ? 255 : sum;
-        sum = sum < 0 ? 0 : sum;
+        return validateColorScale(sum);
+    }
 
-        return sum;
+    protected int validateColorScale(int color) {
+        color = color > 255 ? 255 : color;
+        color = color < 0 ? 0 : color;
+
+        return color;
     }
 }

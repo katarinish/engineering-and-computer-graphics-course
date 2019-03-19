@@ -20,6 +20,10 @@ public class ImageZoneModel {
         return (p.x <= image.getWidth() && (p.y <= image.getHeight()));
     }
 
+    public void clear() {
+        this.image = null;
+    }
+
     public BufferedImage getImage() {
         return image;
     }

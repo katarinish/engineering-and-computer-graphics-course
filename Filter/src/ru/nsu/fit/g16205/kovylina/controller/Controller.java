@@ -4,6 +4,7 @@ import ru.nsu.fit.g16205.kovylina.model.ModifiedZoneModel;
 import ru.nsu.fit.g16205.kovylina.model.OriginalZoneModel;
 import ru.nsu.fit.g16205.kovylina.model.ScaledZoneModel;
 import ru.nsu.fit.g16205.kovylina.utils.FileUtils;
+import ru.nsu.fit.g16205.kovylina.utils.FilterType;
 import ru.nsu.fit.g16205.kovylina.view.*;
 
 import java.awt.*;
@@ -46,6 +47,16 @@ public class Controller {
         displayModAndScaledPics();
     }
 
+    public void handleClearZones() {
+        originalZoneModel.clear();
+        scaledZoneModel.clear();
+        modifiedZoneModel.clear();
+
+        originalZoneView.displayImage();
+        scaledZoneView.displayImage();
+        modifiedZoneView.displayImage();
+    }
+
     public void handleOrigZoneClick(MouseEvent e) {
         Point prevPoint = originalZoneModel.getSubImageFrame().getLeftCorner();
         originalZoneModel.getSubImageFrame().setCenter(e.getPoint());
@@ -53,6 +64,16 @@ public class Controller {
         if (prevPoint.equals(currPoint)) return;
 
         displayModAndScaledPics();
+    }
+
+    public void handleBlurFilterClick() {
+        modifiedZoneModel.setFilter(FilterType.BLUR);
+        modifiedZoneView.displayImage();
+    }
+
+    public void handleBnWFilterClick() {
+        modifiedZoneModel.setFilter(FilterType.BLACK_N_WHITE);
+        modifiedZoneView.displayImage();
     }
 
     private void displayModAndScaledPics() {

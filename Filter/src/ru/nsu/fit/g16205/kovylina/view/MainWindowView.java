@@ -42,6 +42,23 @@ public class MainWindowView extends JFrame {
     }
 
     private void initToolBar() {
+        JToolBar toolBar = new JToolBar();
+
+        toolBar.setRollover(true);
+        add(toolBar, BorderLayout.PAGE_START);
+
+        addToolbarItem(toolBar, "select.png",
+                "Выбрать изображение", controller::handleSelectImage);
+        addToolbarItem(toolBar, "clear.png",
+                "Очистить зоны", controller::handleClearZones);
+
+        toolBar.addSeparator();
+
+        addToolbarItem(toolBar, "bw.png",
+                "Применить черно-белый фильтр", controller::handleBnWFilterClick);
+        addToolbarItem(toolBar, "smooth.png",
+                "Применить сглаживающий фильтр", controller::handleBlurFilterClick);
+
     }
 
     private void addMenuItem(JMenu menu, String item, ActionHandler handler) {
@@ -49,6 +66,20 @@ public class MainWindowView extends JFrame {
         menuItem.setFont(font);
         menu.add(menuItem);
         menuItem.addActionListener(e -> handler.run());
+    }
+
+    private void addToolbarItem(JToolBar toolBar,
+                                String icon, String tooltip,
+                                ActionHandler handler) {
+        JButton button = new JButton();
+        Image img = new ImageIcon(getClass().getResource("resources/" + icon))
+                .getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+
+        button.setIcon(new ImageIcon(img));
+        button.setToolTipText(tooltip);
+        button.addActionListener(e -> handler.run());
+
+        toolBar.add(button);
     }
 
     private JMenu createMenu(String menu) {

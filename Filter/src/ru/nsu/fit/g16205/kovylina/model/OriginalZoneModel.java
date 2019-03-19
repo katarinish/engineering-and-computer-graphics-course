@@ -22,6 +22,14 @@ public class OriginalZoneModel extends ImageZoneModel {
         return fullSizeImage;
     }
 
+    @Override
+    public void clear() {
+        fullSizeImage = null;
+        subImageFrame = null;
+
+        super.clear();
+    }
+
     private double getScalingRatio() {
         double original_width = fullSizeImage.getWidth();
         double scaled_width = image.getWidth();
