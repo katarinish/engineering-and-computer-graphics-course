@@ -84,6 +84,10 @@ public class Controller {
         setFilter(FilterType.CONTOUR);
     }
 
+    public void handleSharpFilterClick() {
+        setFilter(FilterType.SHARP);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());

@@ -60,9 +60,16 @@ public class MainWindowView extends JFrame {
                 "Применить сглаживающий фильтр", controller::handleBlurFilterClick);
         addToolbarItem(toolBar, "negative.png",
                 "Применить негативный фильтр", controller::handleNegativeFilterClick);
+
+        toolBar.addSeparator();
+
         addToolbarItem(toolBar, "contour.png",
                 "Применить фильтр выделения границ", controller::handleContourFilterClick);
 
+        toolBar.addSeparator();
+
+        addToolbarItem(toolBar, "sharp.png",
+                "Применить фильтр увеличения резкости", controller::handleSharpFilterClick);
     }
 
     private void addMenuItem(JMenu menu, String item, ActionHandler handler) {

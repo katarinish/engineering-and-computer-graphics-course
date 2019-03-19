@@ -12,6 +12,13 @@ public class Contour extends Filter {
                 {0, -1, 0},
                 {-1, 4, -1},
                 {0, -1, 0}};
+
+//        matrix = new int[][] {
+//                {-1, 0, 1},
+//                {-2, 0, 2},
+//                {-1, 0, 1}};
+//
+//        div = 4;
     }
 
     @Override

@@ -5,4 +5,5 @@ public enum  FilterType {
     BLACK_N_WHITE,
     NEGATIVE,
     CONTOUR,
+    SHARP,
 }

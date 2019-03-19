@@ -1,9 +1,6 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
-import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.BlackAndWhite;
-import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.Blur;
-import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.Contour;
-import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.Negative;
+import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.*;
 import ru.nsu.fit.g16205.kovylina.utils.FilterType;
 import ru.nsu.fit.g16205.kovylina.utils.ImageZoneModel;
 
@@ -41,6 +38,9 @@ public class ModifiedZoneModel extends ImageZoneModel {
                 break;
             case CONTOUR:
                 filteredImage = new Contour().applyFilter(image);
+                break;
+            case SHARP:
+                filteredImage = new Sharp().applyFilter(image);
                 break;
         }
 
