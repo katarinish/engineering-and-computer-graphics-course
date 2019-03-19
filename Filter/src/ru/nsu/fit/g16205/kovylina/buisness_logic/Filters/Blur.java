@@ -1,6 +1,8 @@
-package ru.nsu.fit.g16205.kovylina.buisness_logic;
+package ru.nsu.fit.g16205.kovylina.buisness_logic.Filters;
 
-public class Blur extends Filter{
+import ru.nsu.fit.g16205.kovylina.buisness_logic.Filter;
+
+public class Blur extends Filter {
 
     public Blur() {
         super();

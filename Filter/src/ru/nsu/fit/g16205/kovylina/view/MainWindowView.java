@@ -58,6 +58,8 @@ public class MainWindowView extends JFrame {
                 "Применить черно-белый фильтр", controller::handleBnWFilterClick);
         addToolbarItem(toolBar, "smooth.png",
                 "Применить сглаживающий фильтр", controller::handleBlurFilterClick);
+        addToolbarItem(toolBar, "negative.png",
+                "Применить негативный фильтр", controller::handleNegativeFilterClick);
 
     }
 
@@ -73,7 +75,7 @@ public class MainWindowView extends JFrame {
                                 ActionHandler handler) {
         JButton button = new JButton();
         Image img = new ImageIcon(getClass().getResource("resources/" + icon))
-                .getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
+                .getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 
         button.setIcon(new ImageIcon(img));
         button.setToolTipText(tooltip);

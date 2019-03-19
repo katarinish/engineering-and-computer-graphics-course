@@ -36,6 +36,8 @@ public class Controller {
     }
 
     public void handleSelectImage() {
+        handleClearZones();
+
         File fileToOpen = FileUtils.getOpenFile(mainWindowView);
         if (fileToOpen == null) return;
 
@@ -67,13 +69,15 @@ public class Controller {
     }
 
     public void handleBlurFilterClick() {
-        modifiedZoneModel.setFilter(FilterType.BLUR);
-        modifiedZoneView.displayImage();
+        setFilter(FilterType.BLUR);
     }
 
     public void handleBnWFilterClick() {
-        modifiedZoneModel.setFilter(FilterType.BLACK_N_WHITE);
-        modifiedZoneView.displayImage();
+        setFilter(FilterType.BLACK_N_WHITE);
+    }
+
+    public void handleNegativeFilterClick() {
+        setFilter(FilterType.NEGATIVE);
     }
 
     private void displayModAndScaledPics() {
@@ -100,6 +104,11 @@ public class Controller {
         originalZoneModel = new OriginalZoneModel();
         scaledZoneModel = new ScaledZoneModel();
         modifiedZoneModel = new ModifiedZoneModel();
+    }
+
+    private void setFilter(FilterType filter) {
+        modifiedZoneModel.setFilter(filter);
+        modifiedZoneView.displayImage();
     }
 
     public void implementMeLater() {}

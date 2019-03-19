@@ -1,11 +1,12 @@
-package ru.nsu.fit.g16205.kovylina.buisness_logic;
+package ru.nsu.fit.g16205.kovylina.buisness_logic.Filters;
+
+import ru.nsu.fit.g16205.kovylina.buisness_logic.Filter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class BlackAndWhite extends Filter {
-
-    public BlackAndWhite() {}
+public class Negative extends Filter {
+    public Negative() {}
 
     @Override
     public BufferedImage applyFilter(BufferedImage img) {
@@ -16,14 +17,11 @@ public class BlackAndWhite extends Filter {
             for (int x = 0; x < img.getWidth(); ++x) {
                 Color color = new Color(img.getRGB(x, y));
 
-                int red = (int) (color.getRed() * 0.299);
-                int green = (int) (color.getGreen() * 0.587);
-                int blue = (int) (color.getBlue() * 0.114);
+                int red = 255 - color.getRed();
+                int green = 255 - color.getGreen();
+                int blue = 255 - color.getBlue();
 
-                int grayScale = red + green + blue;
-                grayScale = validateColorScale(grayScale);
-
-                Color newColor = new Color(grayScale, grayScale, grayScale);
+                Color newColor = new Color(red, green, blue);
                 filteredImage.setRGB(x, y , newColor.getRGB());
             }
         }
