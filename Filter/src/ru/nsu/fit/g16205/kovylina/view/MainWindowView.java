@@ -72,6 +72,8 @@ public class MainWindowView extends JFrame {
                 "Применить фильтр увеличения резкости", controller::handleSharpFilter);
         addToolbarItem(toolBar, "aqua.png",
                 "Применить фильтр акварелизации", controller::handleAquarelleFilter);
+        addToolbarItem(toolBar, "emboss.png",
+                "Применить фильтр тиснения", controller::handleEmbossFilter);
     }
 
     private void addMenuItem(JMenu menu, String item, ActionHandler handler) {

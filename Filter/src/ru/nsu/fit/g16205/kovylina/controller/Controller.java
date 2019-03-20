@@ -92,6 +92,10 @@ public class Controller {
         setFilter(FilterType.AQUARELLE);
     }
 
+    public void handleEmbossFilter() {
+        setFilter(FilterType.EMBOSS);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());

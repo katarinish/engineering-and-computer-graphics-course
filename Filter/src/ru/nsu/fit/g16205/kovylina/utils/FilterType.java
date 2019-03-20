@@ -7,4 +7,5 @@ public enum  FilterType {
     CONTOUR,
     SHARP,
     AQUARELLE,
+    EMBOSS,
 }
