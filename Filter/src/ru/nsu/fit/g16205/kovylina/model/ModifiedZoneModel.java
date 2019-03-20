@@ -42,6 +42,9 @@ public class ModifiedZoneModel extends ImageZoneModel {
             case SHARP:
                 filteredImage = new Sharp().applyFilter(image);
                 break;
+            case AQUARELLE:
+                filteredImage = new Aquarelle().applyFilter(image);
+                break;
         }
 
         super.setImage(filteredImage);

@@ -68,24 +68,28 @@ public class Controller {
         displayModAndScaledPics();
     }
 
-    public void handleBlurFilterClick() {
+    public void handleBlurFilter() {
         setFilter(FilterType.BLUR);
     }
 
-    public void handleBnWFilterClick() {
+    public void handleBnWFilter() {
         setFilter(FilterType.BLACK_N_WHITE);
     }
 
-    public void handleNegativeFilterClick() {
+    public void handleNegativeFilter() {
         setFilter(FilterType.NEGATIVE);
     }
 
-    public void handleContourFilterClick() {
+    public void handleContourFilter() {
         setFilter(FilterType.CONTOUR);
     }
 
-    public void handleSharpFilterClick() {
+    public void handleSharpFilter() {
         setFilter(FilterType.SHARP);
+    }
+
+    public void handleAquarelleFilter() {
+        setFilter(FilterType.AQUARELLE);
     }
 
     private void displayModAndScaledPics() {

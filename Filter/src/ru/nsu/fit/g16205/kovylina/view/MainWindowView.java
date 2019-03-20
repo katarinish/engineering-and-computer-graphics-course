@@ -55,21 +55,23 @@ public class MainWindowView extends JFrame {
         toolBar.addSeparator();
 
         addToolbarItem(toolBar, "bw.png",
-                "Применить черно-белый фильтр", controller::handleBnWFilterClick);
+                "Применить черно-белый фильтр", controller::handleBnWFilter);
         addToolbarItem(toolBar, "smooth.png",
-                "Применить сглаживающий фильтр", controller::handleBlurFilterClick);
+                "Применить сглаживающий фильтр", controller::handleBlurFilter);
         addToolbarItem(toolBar, "negative.png",
-                "Применить негативный фильтр", controller::handleNegativeFilterClick);
+                "Применить негативный фильтр", controller::handleNegativeFilter);
 
         toolBar.addSeparator();
 
         addToolbarItem(toolBar, "contour.png",
-                "Применить фильтр выделения границ", controller::handleContourFilterClick);
+                "Применить фильтр выделения границ", controller::handleContourFilter);
 
         toolBar.addSeparator();
 
         addToolbarItem(toolBar, "sharp.png",
-                "Применить фильтр увеличения резкости", controller::handleSharpFilterClick);
+                "Применить фильтр увеличения резкости", controller::handleSharpFilter);
+        addToolbarItem(toolBar, "aqua.png",
+                "Применить фильтр акварелизации", controller::handleAquarelleFilter);
     }
 
     private void addMenuItem(JMenu menu, String item, ActionHandler handler) {

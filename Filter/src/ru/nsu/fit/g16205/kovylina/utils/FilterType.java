@@ -6,4 +6,5 @@ public enum  FilterType {
     NEGATIVE,
     CONTOUR,
     SHARP,
+    AQUARELLE,
 }

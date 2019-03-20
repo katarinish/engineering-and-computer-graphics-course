@@ -118,7 +118,7 @@ public class Filter {
                 kernelSize, kernelSize);
     }
 
-    private int applyMatrix(BufferedImage subImage) {
+    protected int applyMatrix(BufferedImage subImage) {
 
         int RED = multiplyMatrix(subImage, ColorChannel.RED);
         int GREEN = multiplyMatrix(subImage, ColorChannel.GREEN);
@@ -127,7 +127,7 @@ public class Filter {
         return new Color(RED, GREEN, BLUE).getRGB();
     }
 
-    private int multiplyMatrix(BufferedImage subImage, ColorChannel channel) {
+    protected int multiplyMatrix(BufferedImage subImage, ColorChannel channel) {
         int sum = 0;
 
         for (int y = 0; y < kernelSize; ++y) {
