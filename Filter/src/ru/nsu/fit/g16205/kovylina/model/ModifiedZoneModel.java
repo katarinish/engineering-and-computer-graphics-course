@@ -51,6 +51,9 @@ public class ModifiedZoneModel extends ImageZoneModel {
             case ROBERTS:
                 filteredImage = new RobertsOperator().applyFilter(image);
                 break;
+            case SOBEL:
+                filteredImage = new SobelOperator().applyFilter(image);
+                break;
         }
 
         super.setImage(filteredImage);

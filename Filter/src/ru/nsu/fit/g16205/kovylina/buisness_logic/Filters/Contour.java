@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 
 public class Contour extends Filter {
 
+    int c = 30;
+
     @Override
     protected void initParameters() {
         matrix = new int[][] {
@@ -25,5 +27,10 @@ public class Contour extends Filter {
     public BufferedImage applyFilter(BufferedImage img) {
         BufferedImage bwImage = new BlackAndWhite().applyFilter(img);
         return super.applyFilter(bwImage);
+    }
+
+    @Override
+    protected int validateColorScale(int color) {
+        return color > c ? 255 : 0;
     }
 }

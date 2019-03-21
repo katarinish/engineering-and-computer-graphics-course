@@ -100,6 +100,10 @@ public class Controller {
         setFilter(FilterType.ROBERTS);
     }
 
+    public void handleSobelFilter() {
+        setFilter(FilterType.SOBEL);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());

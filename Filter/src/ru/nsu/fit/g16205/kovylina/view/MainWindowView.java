@@ -63,6 +63,8 @@ public class MainWindowView extends JFrame {
 
         toolBar.addSeparator();
 
+        addToolbarItem(toolBar, "sobel.png",
+                "Применить оператор Собеля", controller::handleSobelFilter);
         addToolbarItem(toolBar, "roberts.png",
                 "Применить оператор Робертса", controller::handleRobertsFilter);
         addToolbarItem(toolBar, "contour.png",

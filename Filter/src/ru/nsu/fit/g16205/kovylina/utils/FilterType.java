@@ -9,4 +9,5 @@ public enum  FilterType {
     AQUARELLE,
     EMBOSS,
     ROBERTS,
+    SOBEL,
 }
