@@ -8,4 +8,5 @@ public enum  FilterType {
     SHARP,
     AQUARELLE,
     EMBOSS,
+    ROBERTS,
 }

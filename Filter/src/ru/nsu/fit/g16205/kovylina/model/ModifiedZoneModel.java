@@ -48,6 +48,9 @@ public class ModifiedZoneModel extends ImageZoneModel {
             case EMBOSS:
                 filteredImage = new Emboss().applyFilter(image);
                 break;
+            case ROBERTS:
+                filteredImage = new RobertsOperator().applyFilter(image);
+                break;
         }
 
         super.setImage(filteredImage);

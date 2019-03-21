@@ -44,7 +44,7 @@ public class Filter {
                 {0, 0, 0}};
     }
 
-    private BufferedImage getExtendedImage(BufferedImage image) {
+    protected BufferedImage getExtendedImage(BufferedImage image) {
         BufferedImage extendedImage = new BufferedImage(image.getWidth() + extension * 2,
                 image.getHeight() + extension * 2 , BufferedImage.TYPE_INT_ARGB);
 
@@ -113,7 +113,7 @@ public class Filter {
         return extendedImage;
     }
 
-    private BufferedImage getSubImage(BufferedImage img, Point pixel) {
+    protected BufferedImage getSubImage(BufferedImage img, Point pixel) {
         return img.getSubimage(pixel.x - extension, pixel.y - extension,
                 kernelSize, kernelSize);
     }

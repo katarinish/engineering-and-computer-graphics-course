@@ -96,6 +96,10 @@ public class Controller {
         setFilter(FilterType.EMBOSS);
     }
 
+    public void handleRobertsFilter() {
+        setFilter(FilterType.ROBERTS);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());

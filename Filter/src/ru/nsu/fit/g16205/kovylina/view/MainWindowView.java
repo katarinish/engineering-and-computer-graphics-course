@@ -63,6 +63,8 @@ public class MainWindowView extends JFrame {
 
         toolBar.addSeparator();
 
+        addToolbarItem(toolBar, "roberts.png",
+                "Применить оператор Робертса", controller::handleRobertsFilter);
         addToolbarItem(toolBar, "contour.png",
                 "Применить фильтр выделения границ", controller::handleContourFilter);
 
