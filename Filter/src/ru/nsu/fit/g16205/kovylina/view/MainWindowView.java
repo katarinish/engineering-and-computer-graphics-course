@@ -35,6 +35,7 @@ public class MainWindowView extends JFrame {
         JMenu fileMenu = createMenu("File");
         addMenuItem(fileMenu, "New document", controller::implementMeLater);
         addMenuItem(fileMenu, "Select", controller::handleSelectImage);
+        addMenuItem(fileMenu, "Save Image", controller::handleSaveImage);
 
         menuBar.add(fileMenu);
 

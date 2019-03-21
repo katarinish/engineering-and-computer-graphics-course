@@ -30,10 +30,11 @@ public class FileUtils {
 
     public static File getSaveFile(JFrame parent) {
         File file = null;
-        JFileChooser fc =  new JFileChooser();
+        JFileChooser fc = new JFileChooser();
 
+        fc.setCurrentDirectory(new File(System.getProperty("user.dir")));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Picture",
-                "bmp", "png");
+                "bmp", "png", "jpeg", "jpg");
         fc.setFileFilter(filter);
 
         if (fc.showSaveDialog(parent) == JFileChooser.APPROVE_OPTION) {

@@ -49,6 +49,16 @@ public class Controller {
         displayModAndScaledPics();
     }
 
+    public void handleSaveImage() {
+        BufferedImage imageToSave = modifiedZoneModel.getImage();
+        if (imageToSave == null) return;
+
+        File fileToSave = FileUtils.getSaveFile(mainWindowView);
+        if (fileToSave == null) return;
+
+        FileUtils.writeImageIntoFile(imageToSave, fileToSave);
+    }
+
     public void handleClearZones() {
         originalZoneModel.clear();
         scaledZoneModel.clear();
