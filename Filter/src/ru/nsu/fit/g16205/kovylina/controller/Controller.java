@@ -114,6 +114,10 @@ public class Controller {
         setFilter(FilterType.SOBEL);
     }
 
+    public void handleOrderedDithering() {
+        setFilter(FilterType.ORDERED_DITHERING);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());

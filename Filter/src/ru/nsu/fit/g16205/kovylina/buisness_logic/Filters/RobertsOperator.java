@@ -13,6 +13,11 @@ public class RobertsOperator extends Filter {
     }
 
     @Override
+    public BufferedImage applyFilter(BufferedImage img) {
+        return super.applyFilter(new BlackAndWhite().applyFilter(img));
+    }
+
+    @Override
     protected void initParameters() {
         matrix = new int[][] {
                 {1, -1},
@@ -65,6 +70,6 @@ public class RobertsOperator extends Filter {
 
     @Override
     protected int validateColorScale(int color) {
-        return  color > c ? 255 : 0;
+        return  color > c ? 0 : 255;
     }
 }

@@ -79,6 +79,11 @@ public class MainWindowView extends JFrame {
                 "Применить фильтр акварелизации", controller::handleAquarelleFilter);
         addToolbarItem(toolBar, "emboss.png",
                 "Применить фильтр тиснения", controller::handleEmbossFilter);
+
+        toolBar.addSeparator();
+
+        addToolbarItem(toolBar, "ordered.png",
+                "Применить упорядоченный дизеринг", controller::handleOrderedDithering);
     }
 
     private void addMenuItem(JMenu menu, String item, ActionHandler handler) {

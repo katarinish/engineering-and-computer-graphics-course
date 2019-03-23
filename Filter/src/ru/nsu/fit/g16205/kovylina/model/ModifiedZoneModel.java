@@ -54,6 +54,9 @@ public class ModifiedZoneModel extends ImageZoneModel {
             case SOBEL:
                 filteredImage = new SobelOperator().applyFilter(image);
                 break;
+            case ORDERED_DITHERING:
+                filteredImage = new OrderedDithering().applyFilter(image);
+                break;
         }
 
         super.setImage(filteredImage);

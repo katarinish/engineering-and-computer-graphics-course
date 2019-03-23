@@ -9,6 +9,11 @@ import java.awt.image.BufferedImage;
 public class SobelOperator extends Filter {
 
     @Override
+    public BufferedImage applyFilter(BufferedImage img) {
+        return super.applyFilter(new BlackAndWhite().applyFilter(img));
+    }
+
+    @Override
     protected void initParameters() {
         matrix = new int[][] {
                 {1, 1, 1},

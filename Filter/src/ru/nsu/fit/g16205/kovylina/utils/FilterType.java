@@ -10,4 +10,5 @@ public enum  FilterType {
     EMBOSS,
     ROBERTS,
     SOBEL,
+    ORDERED_DITHERING,
 }
