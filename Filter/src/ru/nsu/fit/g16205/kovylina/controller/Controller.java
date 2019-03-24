@@ -126,6 +126,10 @@ public class Controller {
         setFilter(FilterType.FLOYD_DITHERING);
     }
 
+    public void handleZoom() {
+        setFilter(FilterType.ZOOM);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());

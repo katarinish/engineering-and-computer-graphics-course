@@ -63,6 +63,8 @@ public class MainWindowView extends JFrame {
                 "Применить негативный фильтр", controller::handleNegativeFilter);
         addToolbarItem(toolBar, "gamma.png",
                 "Гамма коррекция", controller::handleGamma);
+        addToolbarItem(toolBar, "zoom.png",
+                "Увеличение в 2 раза", controller::handleZoom);
 
         toolBar.addSeparator();
 

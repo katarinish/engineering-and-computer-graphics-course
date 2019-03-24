@@ -12,5 +12,7 @@ public enum  FilterType {
     SOBEL,
     ORDERED_DITHERING,
     FLOYD_DITHERING,
-    GAMMA
+    GAMMA,
+    ZOOM,
+    ROTATION
 }

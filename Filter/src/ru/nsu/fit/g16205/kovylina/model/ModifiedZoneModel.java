@@ -63,6 +63,9 @@ public class ModifiedZoneModel extends ImageZoneModel {
             case GAMMA:
                 filteredImage = new Gamma().applyFilter(image);
                 break;
+            case ZOOM:
+                filteredImage = new Zoom().applyFilter(image);
+                break;
         }
 
         super.setImage(filteredImage);
