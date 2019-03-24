@@ -66,6 +66,9 @@ public class ModifiedZoneModel extends ImageZoneModel {
             case ZOOM:
                 filteredImage = new Zoom().applyFilter(image);
                 break;
+            case ROTATION:
+                filteredImage = new Rotation().applyFilter(image);
+                break;
         }
 
         super.setImage(filteredImage);

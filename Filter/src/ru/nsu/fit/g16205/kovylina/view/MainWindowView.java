@@ -65,6 +65,8 @@ public class MainWindowView extends JFrame {
                 "Гамма коррекция", controller::handleGamma);
         addToolbarItem(toolBar, "zoom.png",
                 "Увеличение в 2 раза", controller::handleZoom);
+        addToolbarItem(toolBar, "rotate.png",
+                "Поворот", controller::handleRotation);
 
         toolBar.addSeparator();
 

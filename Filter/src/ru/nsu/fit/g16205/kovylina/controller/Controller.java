@@ -130,6 +130,10 @@ public class Controller {
         setFilter(FilterType.ZOOM);
     }
 
+    public void handleRotation() {
+        setFilter(FilterType.ROTATION);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());
