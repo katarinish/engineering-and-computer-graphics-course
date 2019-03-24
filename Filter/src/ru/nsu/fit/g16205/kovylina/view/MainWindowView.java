@@ -61,6 +61,8 @@ public class MainWindowView extends JFrame {
                 "Применить сглаживающий фильтр", controller::handleBlurFilter);
         addToolbarItem(toolBar, "negative.png",
                 "Применить негативный фильтр", controller::handleNegativeFilter);
+        addToolbarItem(toolBar, "gamma.png",
+                "Гамма коррекция", controller::handleGamma);
 
         toolBar.addSeparator();
 

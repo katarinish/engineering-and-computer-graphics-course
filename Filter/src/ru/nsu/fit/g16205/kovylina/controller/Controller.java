@@ -118,6 +118,10 @@ public class Controller {
         setFilter(FilterType.ORDERED_DITHERING);
     }
 
+    public void handleGamma() {
+        setFilter(FilterType.GAMMA);
+    }
+
     public void handleFloydDithering() {
         setFilter(FilterType.FLOYD_DITHERING);
     }

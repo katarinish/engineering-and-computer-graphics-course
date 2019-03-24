@@ -60,6 +60,9 @@ public class ModifiedZoneModel extends ImageZoneModel {
             case FLOYD_DITHERING:
                 filteredImage = new FloydDithering().applyFilter(image);
                 break;
+            case GAMMA:
+                filteredImage = new Gamma().applyFilter(image);
+                break;
         }
 
         super.setImage(filteredImage);
