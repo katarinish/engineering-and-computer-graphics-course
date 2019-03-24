@@ -38,10 +38,11 @@ public class Controller {
     }
 
     public void handleSelectImage() {
-        handleClearZones();
 
         File fileToOpen = FileUtils.getOpenFile(mainWindowView);
         if (fileToOpen == null) return;
+
+        handleClearZones();
 
         BufferedImage bufferedImage = FileUtils.readImageFromFile(fileToOpen);
 
