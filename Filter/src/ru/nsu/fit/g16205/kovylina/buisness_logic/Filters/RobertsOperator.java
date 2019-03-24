@@ -72,4 +72,8 @@ public class RobertsOperator extends Filter {
     protected int validateColorScale(int color) {
         return  color > c ? 0 : 255;
     }
+
+    public void setC(int c) {
+        this.c = c;
+    }
 }

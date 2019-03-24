@@ -1,7 +1,7 @@
 package ru.nsu.fit.g16205.kovylina.controller;
 
 import ru.nsu.fit.g16205.kovylina.buisness_logic.Filter;
-import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.Rotation;
+import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.*;
 import ru.nsu.fit.g16205.kovylina.model.ModifiedZoneModel;
 import ru.nsu.fit.g16205.kovylina.model.OriginalZoneModel;
 import ru.nsu.fit.g16205.kovylina.model.ScaledZoneModel;
@@ -93,7 +93,8 @@ public class Controller {
     }
 
     public void handleContourFilter() {
-        setFilterType(FilterType.CONTOUR);
+        if (modifiedZoneModel.getOriginalImage() == null) return;
+        new Option(this::handleSetContourLimit, 0, 255).open();
     }
 
     public void handleSharpFilter() {
@@ -109,11 +110,13 @@ public class Controller {
     }
 
     public void handleRobertsFilter() {
-        setFilterType(FilterType.ROBERTS);
+        if (modifiedZoneModel.getOriginalImage() == null) return;
+        new Option(this::handleSetRobertsLimit, 0, 255).open();
     }
 
     public void handleSobelFilter() {
-        setFilterType(FilterType.SOBEL);
+        if (modifiedZoneModel.getOriginalImage() == null) return;
+        new Option(this::handleSetSobelLimit, 0, 255).open();
     }
 
     public void handleOrderedDithering() {
@@ -125,7 +128,8 @@ public class Controller {
     }
 
     public void handleFloydDithering() {
-        setFilterType(FilterType.FLOYD_DITHERING);
+        if (modifiedZoneModel.getOriginalImage() == null) return;
+        new Option(this::handleSetFloydPalette, 1, 255).open();
     }
 
     public void handleZoom() {
@@ -140,6 +144,34 @@ public class Controller {
     public void handleSetRotationAngle(int angle) {
         Rotation filter = new Rotation();
         filter.setAngle(angle);
+
+        setFilter(filter);
+    }
+
+    public void handleSetRobertsLimit(int limit) {
+        RobertsOperator filter = new RobertsOperator();
+        filter.setC(limit);
+
+        setFilter(filter);
+    }
+
+    public void handleSetSobelLimit(int limit) {
+        SobelOperator filter = new SobelOperator();
+        filter.setLimit(limit);
+
+        setFilter(filter);
+    }
+
+    public void handleSetFloydPalette(int palette) {
+        FloydDithering filter = new FloydDithering();
+        filter.setPaletteFactor(palette);
+
+        setFilter(filter);
+    }
+
+    public void handleSetContourLimit(int limit) {
+        Contour filter = new Contour();
+        filter.setC(limit);
 
         setFilter(filter);
     }

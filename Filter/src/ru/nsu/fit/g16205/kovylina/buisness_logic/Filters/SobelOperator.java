@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SobelOperator extends Filter {
+    int limit = 50;
 
     @Override
     public BufferedImage applyFilter(BufferedImage img) {
@@ -77,4 +78,15 @@ public class SobelOperator extends Filter {
         return validateColorScale(res);
     }
 
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    @Override
+    protected int validateColorScale(int color) {
+        color = color > limit ? 255 : color;
+        color = color < 0 ? 0 : color;
+
+        return color;
+    }
 }

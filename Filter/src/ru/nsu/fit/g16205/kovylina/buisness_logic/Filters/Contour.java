@@ -33,4 +33,8 @@ public class Contour extends Filter {
     protected int validateColorScale(int color) {
         return color > c ? 255 : 0;
     }
+
+    public void setC(int c) {
+        this.c = c;
+    }
 }

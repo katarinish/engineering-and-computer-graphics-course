@@ -9,12 +9,13 @@ import java.awt.image.BufferedImage;
 
 public class ModifiedZoneModel extends ImageZoneModel {
     private BufferedImage originalImage = null;
-    private FilterType filter = null;
+    private FilterType filterType = null;
+    private Filter filter = null;
 
     @Override
     public void clear() {
         originalImage = null;
-        filter = null;
+        filterType = null;
 
         super.clear();
     }
@@ -24,10 +25,18 @@ public class ModifiedZoneModel extends ImageZoneModel {
         originalImage = image;
         BufferedImage filteredImage = null;
 
-        if (this.filter == null
-            || image == null) return;
+        if (image == null) return;
 
-        switch (this.filter) {
+        if (this.filterType == null) {
+            if (filter != null) {
+                filteredImage = filter.applyFilter(image);
+                super.setImage(filteredImage);
+            }
+
+            return;
+        }
+
+        switch (this.filterType) {
             case BLUR:
                 filteredImage = new Blur().applyFilter(image);
                 break;
@@ -76,16 +85,19 @@ public class ModifiedZoneModel extends ImageZoneModel {
     }
 
     public void setFilterType(FilterType filter) {
-        this.filter = filter;
+        this.filterType = filter;
 
         setImage(originalImage);
     }
 
     public void setFilter(Filter filter) {
         if (originalImage == null) return;
-        BufferedImage filtredImage = filter.applyFilter(originalImage);
 
-        super.setImage(filtredImage);
+        this.filter = filter;
+        this.filterType = null;
+
+        BufferedImage filteredImage = filter.applyFilter(originalImage);
+        super.setImage(filteredImage);
     }
 
     public BufferedImage getOriginalImage() {

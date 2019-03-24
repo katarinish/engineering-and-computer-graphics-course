@@ -117,4 +117,8 @@ public class FloydDithering extends Filter {
                 break;
         }
     }
+
+    public void setPaletteFactor(int paletteFactor) {
+        this.paletteFactor = paletteFactor;
+    }
 }

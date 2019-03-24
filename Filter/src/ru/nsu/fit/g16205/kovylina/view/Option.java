@@ -12,12 +12,16 @@ public class Option extends JFrame {
     private JSlider slider;
     private JButton okButton;
     private JPanel rootPanel;
+    private JButton disposeButton;
 
     public Option(OptionHandler handler, int min, int max) {
         this.handler = handler;
 
         slider.setMinimum(min);
         slider.setMaximum(max);
+
+        slider.setValue((min + max) / 2);
+        textField.setText(String.valueOf(slider.getValue()));
 
         initActionPerformances();
 
@@ -47,6 +51,8 @@ public class Option extends JFrame {
 
             handler.run(val);
         });
+
+        disposeButton.addActionListener(e -> close());
     }
 
     public void open() {
