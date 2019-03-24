@@ -35,17 +35,7 @@ public class Aquarelle extends Filter {
                 int channelValue = 0;
                 Color c = new Color(subImage.getRGB(x, y));
 
-                switch (channel) {
-                    case RED:
-                        channelValue = c.getRed();
-                        break;
-                    case BLUE:
-                        channelValue = c.getBlue();
-                        break;
-                    case GREEN:
-                        channelValue = c.getGreen();
-                        break;
-                }
+                channelValue = getChannelColor(c, channel);
 
                 arrayList.add(channelValue);
             }

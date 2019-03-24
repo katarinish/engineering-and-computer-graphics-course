@@ -11,4 +11,5 @@ public enum  FilterType {
     ROBERTS,
     SOBEL,
     ORDERED_DITHERING,
+    FLOYD_DITHERING,
 }

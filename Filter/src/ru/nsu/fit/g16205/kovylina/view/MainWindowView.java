@@ -84,6 +84,8 @@ public class MainWindowView extends JFrame {
 
         addToolbarItem(toolBar, "ordered.png",
                 "Применить упорядоченный дизеринг", controller::handleOrderedDithering);
+        addToolbarItem(toolBar, "floyd.png",
+               "Применить дизернинг по Флойду", controller::handleFloydDithering);
     }
 
     private void addMenuItem(JMenu menu, String item, ActionHandler handler) {

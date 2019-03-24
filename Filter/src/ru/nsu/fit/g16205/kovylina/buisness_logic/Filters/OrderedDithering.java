@@ -59,17 +59,8 @@ public class OrderedDithering extends Filter {
         int matrixValue = matrix[y][x];
         int channelValue = 0;
 
-        switch (channel) {
-            case RED:
-                channelValue = c.getRed();
-                break;
-            case BLUE:
-                channelValue = c.getBlue();
-                break;
-            case GREEN:
-                channelValue = c.getGreen();
-                break;
-        }
+        channelValue = getChannelColor(c, channel);
+
         int halftones = kernelSize * kernelSize + 1;
         int normalizedValue = (channelValue / halftones)
                 + (channelValue % halftones == 0 ? 0 : 1);

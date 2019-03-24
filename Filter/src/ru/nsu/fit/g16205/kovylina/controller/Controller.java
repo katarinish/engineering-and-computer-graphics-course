@@ -118,6 +118,10 @@ public class Controller {
         setFilter(FilterType.ORDERED_DITHERING);
     }
 
+    public void handleFloydDithering() {
+        setFilter(FilterType.FLOYD_DITHERING);
+    }
+
     private void displayModAndScaledPics() {
         scaledZoneModel.createImage(originalZoneModel.getFullSizeImage(),
                 originalZoneModel.getSubImageFrame().getOriginalLeftCorner());

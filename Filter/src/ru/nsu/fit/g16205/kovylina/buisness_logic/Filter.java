@@ -135,17 +135,7 @@ public class Filter {
                 int channelValue = 0;
                 Color c = new Color(subImage.getRGB(x, y));
 
-                switch (channel) {
-                    case RED:
-                        channelValue = c.getRed();
-                        break;
-                    case BLUE:
-                        channelValue = c.getBlue();
-                        break;
-                    case GREEN:
-                        channelValue = c.getGreen();
-                        break;
-                }
+                channelValue = getChannelColor(c, channel);
 
                 sum += channelValue * matrix[y][x];
             }
@@ -161,5 +151,23 @@ public class Filter {
         color = color < 0 ? 0 : color;
 
         return color;
+    }
+
+    protected int getChannelColor(Color c, ColorChannel channel) {
+        int channelValue = 0;
+
+        switch (channel) {
+            case RED:
+                channelValue = c.getRed();
+                break;
+            case BLUE:
+                channelValue = c.getBlue();
+                break;
+            case GREEN:
+                channelValue = c.getGreen();
+                break;
+        }
+
+        return channelValue;
     }
 }
