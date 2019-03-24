@@ -27,4 +27,8 @@ public class Rotation extends Filter {
 
         return filteredImage;
     }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
 }

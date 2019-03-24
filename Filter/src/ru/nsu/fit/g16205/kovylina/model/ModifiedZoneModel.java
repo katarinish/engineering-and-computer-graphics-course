@@ -1,5 +1,6 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
+import ru.nsu.fit.g16205.kovylina.buisness_logic.Filter;
 import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.*;
 import ru.nsu.fit.g16205.kovylina.utils.FilterType;
 import ru.nsu.fit.g16205.kovylina.utils.ImageZoneModel;
@@ -74,9 +75,20 @@ public class ModifiedZoneModel extends ImageZoneModel {
         super.setImage(filteredImage);
     }
 
-    public void setFilter(FilterType filter) {
+    public void setFilterType(FilterType filter) {
         this.filter = filter;
 
         setImage(originalImage);
+    }
+
+    public void setFilter(Filter filter) {
+        if (originalImage == null) return;
+        BufferedImage filtredImage = filter.applyFilter(originalImage);
+
+        super.setImage(filtredImage);
+    }
+
+    public BufferedImage getOriginalImage() {
+        return originalImage;
     }
 }

@@ -1,5 +1,7 @@
 package ru.nsu.fit.g16205.kovylina.controller;
 
+import ru.nsu.fit.g16205.kovylina.buisness_logic.Filter;
+import ru.nsu.fit.g16205.kovylina.buisness_logic.Filters.Rotation;
 import ru.nsu.fit.g16205.kovylina.model.ModifiedZoneModel;
 import ru.nsu.fit.g16205.kovylina.model.OriginalZoneModel;
 import ru.nsu.fit.g16205.kovylina.model.ScaledZoneModel;
@@ -79,59 +81,67 @@ public class Controller {
     }
 
     public void handleBlurFilter() {
-        setFilter(FilterType.BLUR);
+        setFilterType(FilterType.BLUR);
     }
 
     public void handleBnWFilter() {
-        setFilter(FilterType.BLACK_N_WHITE);
+        setFilterType(FilterType.BLACK_N_WHITE);
     }
 
     public void handleNegativeFilter() {
-        setFilter(FilterType.NEGATIVE);
+        setFilterType(FilterType.NEGATIVE);
     }
 
     public void handleContourFilter() {
-        setFilter(FilterType.CONTOUR);
+        setFilterType(FilterType.CONTOUR);
     }
 
     public void handleSharpFilter() {
-        setFilter(FilterType.SHARP);
+        setFilterType(FilterType.SHARP);
     }
 
     public void handleAquarelleFilter() {
-        setFilter(FilterType.AQUARELLE);
+        setFilterType(FilterType.AQUARELLE);
     }
 
     public void handleEmbossFilter() {
-        setFilter(FilterType.EMBOSS);
+        setFilterType(FilterType.EMBOSS);
     }
 
     public void handleRobertsFilter() {
-        setFilter(FilterType.ROBERTS);
+        setFilterType(FilterType.ROBERTS);
     }
 
     public void handleSobelFilter() {
-        setFilter(FilterType.SOBEL);
+        setFilterType(FilterType.SOBEL);
     }
 
     public void handleOrderedDithering() {
-        setFilter(FilterType.ORDERED_DITHERING);
+        setFilterType(FilterType.ORDERED_DITHERING);
     }
 
     public void handleGamma() {
-        setFilter(FilterType.GAMMA);
+        setFilterType(FilterType.GAMMA);
     }
 
     public void handleFloydDithering() {
-        setFilter(FilterType.FLOYD_DITHERING);
+        setFilterType(FilterType.FLOYD_DITHERING);
     }
 
     public void handleZoom() {
-        setFilter(FilterType.ZOOM);
+        setFilterType(FilterType.ZOOM);
     }
 
     public void handleRotation() {
-        setFilter(FilterType.ROTATION);
+        if (modifiedZoneModel.getOriginalImage() == null) return;
+        new Option(this::handleSetRotationAngle, 0, 180).open();
+    }
+
+    public void handleSetRotationAngle(int angle) {
+        Rotation filter = new Rotation();
+        filter.setAngle(angle);
+
+        setFilter(filter);
     }
 
     private void displayModAndScaledPics() {
@@ -160,7 +170,12 @@ public class Controller {
         modifiedZoneModel = new ModifiedZoneModel();
     }
 
-    private void setFilter(FilterType filter) {
+    private void setFilterType(FilterType filter) {
+        modifiedZoneModel.setFilterType(filter);
+        modifiedZoneView.displayImage();
+    }
+
+    private void setFilter(Filter filter) {
         modifiedZoneModel.setFilter(filter);
         modifiedZoneView.displayImage();
     }
