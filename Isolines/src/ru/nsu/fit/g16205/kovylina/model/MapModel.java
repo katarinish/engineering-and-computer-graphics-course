@@ -1,10 +1,13 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
+import ru.nsu.fit.g16205.kovylina.logic.CustomFunction;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
 
 import java.awt.image.BufferedImage;
 
 public class MapModel {
+    private CustomFunction function = new CustomFunction();
+
     private BufferedImage image = null;
 
     private int width;

@@ -1,5 +1,6 @@
 package ru.nsu.fit.g16205.kovylina.view;
 
+import ru.nsu.fit.g16205.kovylina.logic.CustomFunction;
 import ru.nsu.fit.g16205.kovylina.model.MapModel;
 
 import javax.swing.*;
