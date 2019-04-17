@@ -26,6 +26,8 @@ public class MainWindowView extends JFrame {
     public MainWindowView(Controller controller, JPanel panel) {
         this(controller);
         add(new JScrollPane(panel));
+
+        this.setMinimumSize(panel.getPreferredSize());
     }
 
     private void initMenu() {

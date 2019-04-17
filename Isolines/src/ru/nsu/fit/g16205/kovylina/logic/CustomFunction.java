@@ -37,6 +37,15 @@ public class CustomFunction {
         return minValue;
     }
 
+    public Double getValue(int x, int y) {
+        if (x >= absDomainHeight || y >= absDomainWidth) {
+            System.out.println("Out of values-array bounds!");
+            return null;
+        }
+
+        return values[x][y];
+    }
+
     private double foo(int x, int y) {
         return Math.cos(x) * Math.sin(y);
     }
@@ -56,8 +65,8 @@ public class CustomFunction {
     private void calculateDomainValues() {
         for (int i = 0; i < absDomainHeight; ++i) {
             for (int j = 0; j < absDomainWidth; ++j) {
-                int x = domainA + j;
-                int y = domainC + i;
+                int y = domainA + j;
+                int x = domainC + i;
 
                 double value = foo(x, y);
                 checkIfExtremum(value);

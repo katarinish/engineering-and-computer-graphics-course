@@ -1,16 +1,17 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
+import ru.nsu.fit.g16205.kovylina.controller.Grid;
 import ru.nsu.fit.g16205.kovylina.logic.CustomFunction;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
 
 import java.awt.image.BufferedImage;
 
 public class MapModel {
-    private CustomFunction function = new CustomFunction();
+    private CustomFunction function = null;
 
-    private BufferedImage map = null;
-    private BufferedImage isolines = null;
-    private BufferedImage grid = null;
+    private BufferedImage mapImage = null;
+    private BufferedImage isolinesImage = null;
+    private BufferedImage gridImage = null;
 
     private int width;
     private int height;
@@ -18,10 +19,11 @@ public class MapModel {
     // Grid size
     private int k;
     private int m;
+    private Grid grid = null;
 
     //Number of isovalues
     private int n;
-    private double[] keyIsovalues;
+    private double[] keyIsovalues = null;
 
     public MapModel() {
         this.width = Constants.WIDTH;
@@ -36,15 +38,15 @@ public class MapModel {
     }
 
     public BufferedImage getMapImage() {
-        return map;
+        return mapImage;
     }
 
     public BufferedImage getIsolinesImage() {
-        return isolines;
+        return isolinesImage;
     }
 
     public BufferedImage getGridImage() {
-        return grid;
+        return gridImage;
     }
 
     public int getWidth() {
@@ -57,7 +59,16 @@ public class MapModel {
 
 
     private void initParameters() {
+        function = new CustomFunction();
+        grid = new Grid(k - 1, m - 1, function);
+
         calculateKeyValues();
+        initIsolinesImage();
+    }
+
+    private void initIsolinesImage() {
+        isolinesImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
     }
 
     private void calculateKeyValues() {
