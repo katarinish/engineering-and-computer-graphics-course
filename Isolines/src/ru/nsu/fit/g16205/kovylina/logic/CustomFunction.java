@@ -8,8 +8,8 @@ public class CustomFunction {
     private int domainC;
     private int domainD;
 
-    private int absWidth;
-    private int absHeight;
+    private int absDomainWidth;
+    private int absDomainHeight;
 
     private Double maxValue = null;
     private Double minValue = null;
@@ -21,12 +21,20 @@ public class CustomFunction {
         calculateDomainValues();
     }
 
-    public int getAbsWidth() {
-        return absWidth;
+    public int getAbsDomainWidth() {
+        return absDomainWidth;
     }
 
-    public int getAbsHeight() {
-        return absHeight;
+    public int getAbsDomainHeight() {
+        return absDomainHeight;
+    }
+
+    public Double getMaxValue() {
+        return maxValue;
+    }
+
+    public Double getMinValue() {
+        return minValue;
     }
 
     private double foo(int x, int y) {
@@ -39,15 +47,15 @@ public class CustomFunction {
         domainC = Constants.C;
         domainD = Constants.D;
 
-        absWidth = Math.abs(domainB - domainA) + 1;
-        absHeight = Math.abs(domainD - domainC) + 1;
+        absDomainWidth = Math.abs(domainB - domainA) + 1;
+        absDomainHeight = Math.abs(domainD - domainC) + 1;
 
-        values = new double[absHeight][absWidth];
+        values = new double[absDomainHeight][absDomainWidth];
     }
 
     private void calculateDomainValues() {
-        for (int i = 0; i < absHeight; ++i) {
-            for (int j = 0; j < absWidth; ++j) {
+        for (int i = 0; i < absDomainHeight; ++i) {
+            for (int j = 0; j < absDomainWidth; ++j) {
                 int x = domainA + j;
                 int y = domainC + i;
 
