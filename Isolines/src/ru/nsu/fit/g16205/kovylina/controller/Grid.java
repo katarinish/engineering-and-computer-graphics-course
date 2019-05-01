@@ -8,11 +8,17 @@ public class Grid {
     private int height;
     private int width;
 
+    private int k;
+    private int m;
+
     private Cell[][] cells;
 
-    public Grid(int height, int width, CustomFunction f) {
-        this.height = height;
-        this.width = width;
+    public Grid(int k, int m, CustomFunction f) {
+        this.height = f.getAbsDomainHeight();
+        this.width = f.getAbsDomainWidth();
+
+        this.k = k;
+        this.m = m;
 
         this.function = f;
 
@@ -24,22 +30,22 @@ public class Grid {
     }
 
     private void initCells() {
-        int deltaW = function.getAbsDomainWidth() / height;
-        int deltaH = function.getAbsDomainHeight() / height;
+        int deltaW = width / k;
+        int deltaH = height / m;
 
-        cells = new Cell[height][width];
+        cells = new Cell[m][k];
 
-        for (int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j) {
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < k; ++j) {
                 Cell cell = new Cell();
 
-                int topLeftX = i * deltaH;
-                int topLeftY = j * deltaW;
+                int topLeftX = function.getDomainA() + i * deltaH;
+                int topLeftY = function.getDomainC() + j  * deltaW;
 
-                cell.setLeftTopCorner(function.getValue(topLeftX, topLeftY));
-                cell.setRightTopCorner(function.getValue(topLeftX, topLeftY + deltaW));
-                cell.setRigthBottomCorner(function.getValue(topLeftX + deltaH, topLeftY + deltaW));
-                cell.setLeftBottomCorner(function.getValue(topLeftX + deltaH, topLeftY));
+                cell.setLeftTopCorner(function.foo(topLeftX, topLeftY));
+                cell.setRightTopCorner(function.foo(topLeftX, topLeftY + deltaW));
+                cell.setRigthBottomCorner(function.foo(topLeftX + deltaH, topLeftY + deltaW));
+                cell.setLeftBottomCorner(function.foo(topLeftX + deltaH, topLeftY));
 
                 cells[i][j] = cell;
             }

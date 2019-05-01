@@ -46,7 +46,7 @@ public class CustomFunction {
         return values[x][y];
     }
 
-    private double foo(int x, int y) {
+    public double foo(int x, int y) {
         return Math.cos(x) * Math.sin(y);
     }
 
@@ -80,4 +80,19 @@ public class CustomFunction {
         if ((minValue == null) || (value < minValue)) minValue = value;
     }
 
+    public int getDomainA() {
+        return domainA;
+    }
+
+    public int getDomainB() {
+        return domainB;
+    }
+
+    public int getDomainC() {
+        return domainC;
+    }
+
+    public int getDomainD() {
+        return domainD;
+    }
 }
