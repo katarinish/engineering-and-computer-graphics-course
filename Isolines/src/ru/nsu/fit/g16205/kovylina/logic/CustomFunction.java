@@ -11,14 +11,21 @@ public class CustomFunction {
     private int absDomainWidth;
     private int absDomainHeight;
 
+    private int viewWidth;
+    private int viewHeight;
+
     private Double maxValue = null;
     private Double minValue = null;
 
     private double[][] values;
 
-    public CustomFunction() {
+    public CustomFunction() {}
+
+    public CustomFunction(int viewWidth, int viewHeight) {
+        this.viewWidth = viewWidth;
+        this.viewHeight = viewHeight;
+
         initParameters();
-        calculateDomainValues();
     }
 
     public int getAbsDomainWidth() {
@@ -46,7 +53,7 @@ public class CustomFunction {
         return values[x][y];
     }
 
-    public double foo(int x, int y) {
+    public double foo(double x, double y) {
         return Math.cos(x) * Math.sin(y);
     }
 
@@ -59,14 +66,22 @@ public class CustomFunction {
         absDomainWidth = Math.abs(domainB - domainA) + 1;
         absDomainHeight = Math.abs(domainD - domainC) + 1;
 
-        values = new double[absDomainHeight][absDomainWidth];
+        initFieldValues();
+    }
+
+    private void initFieldValues() {
+        values = new double[viewHeight][viewWidth];
+        calculateDomainValues();
     }
 
     private void calculateDomainValues() {
-        for (int i = 0; i < absDomainHeight; ++i) {
-            for (int j = 0; j < absDomainWidth; ++j) {
-                int y = domainA + j;
-                int x = domainC + i;
+        double deltaW = absDomainWidth / (double) viewWidth;
+        double deltaH = absDomainHeight / (double) viewHeight;
+
+        for (int i = 0; i < viewHeight; ++i) {
+            for (int j = 0; j < viewWidth; ++j) {
+                double x = domainA + j * deltaW;
+                double y = domainC + i * deltaH;
 
                 double value = foo(x, y);
                 checkIfExtremum(value);
@@ -80,19 +95,22 @@ public class CustomFunction {
         if ((minValue == null) || (value < minValue)) minValue = value;
     }
 
-    public int getDomainA() {
-        return domainA;
+    public void setViewWidth(int viewWidth) {
+        this.viewWidth = viewWidth;
+        initFieldValues();
     }
 
-    public int getDomainB() {
-        return domainB;
+    public void setViewHeight(int viewHeight) {
+        this.viewHeight = viewHeight;
+        initFieldValues();
+    }
+
+    public int getDomainA() {
+        return domainA;
     }
 
     public int getDomainC() {
         return domainC;
     }
 
-    public int getDomainD() {
-        return domainD;
-    }
 }

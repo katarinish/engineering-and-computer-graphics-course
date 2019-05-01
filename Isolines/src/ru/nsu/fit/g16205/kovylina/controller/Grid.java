@@ -30,8 +30,8 @@ public class Grid {
     }
 
     private void initCells() {
-        int deltaW = width / k;
-        int deltaH = height / m;
+        double deltaW = width / (double) k;
+        double deltaH = height / (double) m;
 
         cells = new Cell[m][k];
 
@@ -39,8 +39,8 @@ public class Grid {
             for (int j = 0; j < k; ++j) {
                 Cell cell = new Cell();
 
-                int topLeftX = function.getDomainA() + i * deltaH;
-                int topLeftY = function.getDomainC() + j  * deltaW;
+                double topLeftX = function.getDomainA() + i * deltaH;
+                double topLeftY = function.getDomainC() + j  * deltaW;
 
                 cell.setLeftTopCorner(function.foo(topLeftX, topLeftY));
                 cell.setRightTopCorner(function.foo(topLeftX, topLeftY + deltaW));
