@@ -24,7 +24,6 @@ public class MapModel {
 
     //Number of isovalues
     private int n;
-    private double[] keyIsovalues = null;
     private Color[] colors = null;
 
     public MapModel() {
@@ -75,12 +74,15 @@ public class MapModel {
     }
 
     private void initParameters() {
-        function = new CustomFunction(width, height);
+        function = new CustomFunction(width, height, n);
         grid = new Grid(k - 1, m - 1, function);
 
-        calculateKeyValues();
         initMapImage();
         initGridImage();
+        initIsolinesImage();
+    }
+
+    private void initIsolinesImage() {
     }
 
     private void initMapImage() {
@@ -113,24 +115,13 @@ public class MapModel {
     }
 
     private int getColor(double value) {
+        double[] keyIsovalues = function.getKeyIsovalues();
+
         for (int i = 1; i < keyIsovalues.length; ++i) {
             if (keyIsovalues[i] > value) return colors[i - 1].getRGB();
         }
 
         return colors[keyIsovalues.length - 1].getRGB();
-    }
-
-    private void calculateKeyValues() {
-        int arrLength = n + 1;
-        keyIsovalues = new double[arrLength];
-
-        double absLength = function.getMaxValue() - function.getMinValue();
-        double delta = absLength / (n + 1);
-        double startValue = function.getMinValue();
-
-        for (int i = 0; i < arrLength; ++i ) {
-            keyIsovalues[i] = startValue + delta * i;
-        }
     }
 
     private void updateImages() {
@@ -139,5 +130,6 @@ public class MapModel {
 
         initMapImage();
         initGridImage();
+        initIsolinesImage();
     }
 }

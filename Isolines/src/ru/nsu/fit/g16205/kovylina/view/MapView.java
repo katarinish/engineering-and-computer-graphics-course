@@ -1,6 +1,5 @@
 package ru.nsu.fit.g16205.kovylina.view;
 
-import ru.nsu.fit.g16205.kovylina.logic.CustomFunction;
 import ru.nsu.fit.g16205.kovylina.model.MapModel;
 
 import javax.swing.*;
@@ -26,7 +25,7 @@ public class MapView extends JPanel {
         model.setHeight(this.getHeight());
 
         g.drawImage(model.getMapImage(), 0, 0 , null);
-        g.drawImage(model.getGridImage(), 0, 0, null);
+//        g.drawImage(model.getGridImage(), 0, 0, null);
         setBackground(Color.CYAN);
     }
 }

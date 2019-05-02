@@ -19,11 +19,14 @@ public class CustomFunction {
 
     private double[][] values;
 
-    public CustomFunction() {}
+    private int n;
+    private double[] keyIsovalues = null;
 
-    public CustomFunction(int viewWidth, int viewHeight) {
+    public CustomFunction(int viewWidth, int viewHeight, int n) {
         this.viewWidth = viewWidth;
         this.viewHeight = viewHeight;
+
+        this.n = n;
 
         initParameters();
     }
@@ -34,14 +37,6 @@ public class CustomFunction {
 
     public int getAbsDomainHeight() {
         return absDomainHeight;
-    }
-
-    public Double getMaxValue() {
-        return maxValue;
-    }
-
-    public Double getMinValue() {
-        return minValue;
     }
 
     public Double getValue(int x, int y) {
@@ -67,11 +62,24 @@ public class CustomFunction {
         absDomainHeight = Math.abs(domainD - domainC) + 1;
 
         initFieldValues();
+        calculateKeyValues();
     }
 
     private void initFieldValues() {
         values = new double[viewHeight][viewWidth];
         calculateDomainValues();
+    }
+
+    private void calculateKeyValues() {
+        int arrLength = n + 1;
+        keyIsovalues = new double[arrLength];
+
+        double absLength = maxValue - minValue;
+        double delta = absLength / (n + 1);
+
+        for (int i = 0; i < arrLength; ++i ) {
+            keyIsovalues[i] = minValue + delta * i;
+        }
     }
 
     private void calculateDomainValues() {
@@ -113,4 +121,7 @@ public class CustomFunction {
         return domainC;
     }
 
+    public double[] getKeyIsovalues() {
+        return keyIsovalues;
+    }
 }
