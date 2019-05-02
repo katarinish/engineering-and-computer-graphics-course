@@ -1,6 +1,4 @@
-package ru.nsu.fit.g16205.kovylina.controller;
-
-import ru.nsu.fit.g16205.kovylina.logic.CustomFunction;
+package ru.nsu.fit.g16205.kovylina.logic;
 
 public class Grid {
     private CustomFunction function;

@@ -1,4 +1,4 @@
-package ru.nsu.fit.g16205.kovylina.controller;
+package ru.nsu.fit.g16205.kovylina.logic;
 
 public class Cell {
     private double leftTopCorner;

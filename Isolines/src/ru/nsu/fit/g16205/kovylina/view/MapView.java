@@ -22,6 +22,11 @@ public class MapView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        model.setWidth(this.getWidth());
+        model.setHeight(this.getHeight());
+
+        g.drawImage(model.getMapImage(), 0, 0 , null);
+        g.drawImage(model.getGridImage(), 0, 0, null);
         setBackground(Color.CYAN);
     }
 }
