@@ -1,13 +1,18 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
+import ru.nsu.fit.g16205.kovylina.logic.Cell;
 import ru.nsu.fit.g16205.kovylina.logic.Grid;
 import ru.nsu.fit.g16205.kovylina.logic.CustomFunction;
+import ru.nsu.fit.g16205.kovylina.logic.Segment;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class MapModel {
+    private static final double EPS = 0.01;
+
     protected CustomFunction function = null;
 
     private BufferedImage mapImage = null;
@@ -81,7 +86,7 @@ public class MapModel {
 
     protected void initParameters() {
         function = new CustomFunction(width, height, n);
-        grid = new Grid(k - 1, m - 1, function);
+        grid = new Grid(k, m, function);
 
         initMapImage();
         initGridImage();
@@ -89,6 +94,81 @@ public class MapModel {
     }
 
     private void initIsolinesImage() {
+        isolinesImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = (Graphics2D) isolinesImage.getGraphics();
+
+        for (double isovalue: function.getKeyIsovalues()) {
+            ArrayList<Segment> segments = getIsoline(isovalue);
+            for (Segment segment : segments) {
+                Point p1 = segment.getPoint1();
+                Point p2 = segment.getPoint2();
+
+                g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
+            }
+
+        }
+    }
+
+    private ArrayList<Segment> getIsoline(double isovalue) {
+        ArrayList<Segment> segments = new ArrayList<>();
+
+        Cell[][] cells = grid.getCells();
+
+        int deltaX = width / k;
+        int deltaY = height / m;
+
+        for (int i = 0; i < m - 1; ++i) {
+            for (int j = 0; j < k - 1; ++j) {
+                Cell cell = cells[i][j];
+                ArrayList<Point> intersects = cell.getCrossingPoint(isovalue, deltaX, deltaY);
+
+                Point p1 = null;
+                Point p2 = null;
+                switch (intersects.size()) {
+                    case 0:
+                        break;
+                    case 2:
+                        p1 = new Point(intersects.get(0).x + deltaX * j,
+                                intersects.get(0).y + deltaY * i);
+                        p2 = new Point(intersects.get(1).x + deltaX * j,
+                                intersects.get(1).y + deltaY * i);
+                        segments.add(new Segment(p1, p2));
+                        break;
+                    case 4:
+                        if (cell.isSignumCenter(isovalue)) {
+                            p1 = new Point(intersects.get(0).x + deltaX * j,
+                                    intersects.get(0).y + deltaY * i);
+                            p2 = new Point(intersects.get(1).x + deltaX * j,
+                                    intersects.get(1).y + deltaY * i);
+                            segments.add(new Segment(p1, p2));
+
+                            p1 = new Point(intersects.get(2).x + deltaX * j,
+                                    intersects.get(2).y + deltaY * i);
+                            p2 = new Point(intersects.get(3).x + deltaX * j,
+                                    intersects.get(3).y + deltaY * i);
+                            segments.add(new Segment(p1, p2));
+                        } else {
+                            p1 = new Point(intersects.get(0).x + deltaX * j,
+                                    intersects.get(0).y + deltaY * i);
+                            p2 = new Point(intersects.get(3).x + deltaX * j,
+                                    intersects.get(3).y + deltaY * i);
+                            segments.add(new Segment(p1, p2));
+
+                            p1 = new Point(intersects.get(2).x + deltaX * j,
+                                    intersects.get(2).y + deltaY * i);
+                            p2 = new Point(intersects.get(1).x + deltaX * j,
+                                    intersects.get(1).y + deltaY * i);
+                            segments.add(new Segment(p1, p2));
+                        }
+                        break;
+                    default:
+                        return getIsoline(isovalue + EPS);
+                }
+
+            }
+        }
+
+        return segments;
     }
 
     protected void initMapImage() {
