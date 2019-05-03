@@ -8,14 +8,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class MapModel {
-    private CustomFunction function = null;
+    protected CustomFunction function = null;
 
     private BufferedImage mapImage = null;
     private BufferedImage isolinesImage = null;
     private BufferedImage gridImage = null;
 
-    private int width;
-    private int height;
+    protected int width;
+    protected int height;
 
     // Grid size
     private int k;
@@ -23,10 +23,12 @@ public class MapModel {
     private Grid grid = null;
 
     //Number of isovalues
-    private int n;
-    private Color[] colors = null;
+    protected int n;
+    protected Color[] colors = null;
 
-    public MapModel() {
+    public MapModel(){}
+
+    public MapModel(int a) {
         this.width = Constants.WIDTH;
         this.height = Constants.HEIGHT_MAP;
 
@@ -59,6 +61,10 @@ public class MapModel {
         return height;
     }
 
+    public double[] getKeyValues() {
+        return function.getKeyIsovalues();
+    }
+
     public void setWidth(int width) {
         if (width == this.width) return;
 
@@ -73,7 +79,7 @@ public class MapModel {
         updateImages();
     }
 
-    private void initParameters() {
+    protected void initParameters() {
         function = new CustomFunction(width, height, n);
         grid = new Grid(k - 1, m - 1, function);
 
@@ -85,7 +91,7 @@ public class MapModel {
     private void initIsolinesImage() {
     }
 
-    private void initMapImage() {
+    protected void initMapImage() {
         mapImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         for (int x = 0; x < mapImage.getHeight(); ++x) {
@@ -124,7 +130,7 @@ public class MapModel {
         return colors[keyIsovalues.length - 1].getRGB();
     }
 
-    private void updateImages() {
+    protected void updateImages() {
         function.setViewHeight(this.height);
         function.setViewWidth(this.width);
 

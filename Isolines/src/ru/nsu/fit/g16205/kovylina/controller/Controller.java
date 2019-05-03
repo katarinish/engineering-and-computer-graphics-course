@@ -33,8 +33,8 @@ public class Controller {
     }
 
     private void initModels() {
-        mapModel = new MapModel();
-        legendModel = new LegendModel();
+        mapModel = new MapModel(10);
+        legendModel = new LegendModel(mapModel.getKeyValues());
     }
 
     private void initViews() {

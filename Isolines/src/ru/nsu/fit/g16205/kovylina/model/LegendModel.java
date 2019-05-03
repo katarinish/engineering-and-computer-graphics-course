@@ -1,29 +1,59 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
+import ru.nsu.fit.g16205.kovylina.logic.LegendFunction;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
-public class LegendModel {
-    private BufferedImage image = null;
+public class LegendModel extends MapModel {
+    private BufferedImage keyValuesImage = null;
+    private double[] keyIsovalues;
 
-    private int width;
-    private int height;
+    public LegendModel(double[] keyIsovalues) {
+        this.keyIsovalues = keyIsovalues;
 
-    public LegendModel() {
         this.width = Constants.WIDTH;
         this.height = Constants.HEIGHT_LEGEND;
+
+        this.n = Constants.N;
+        this.colors = Constants.COLORS;
+
+        initParameters();
     }
 
-    public BufferedImage getImage() {
-        return image;
+    public BufferedImage getKeyValuesImage() {
+        return keyValuesImage;
     }
 
-    public int getWidth() {
-        return width;
+    @Override
+    protected void initParameters() {
+        function = new LegendFunction(width, height, n);
+        initMapImage();
+        initKeyValuesImage();
     }
 
-    public int getHeight() {
-        return height;
+    private void initKeyValuesImage() {
+        keyValuesImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d= (Graphics2D) keyValuesImage.getGraphics();
+
+        int deltaWidth = width / keyIsovalues.length;
+        for (int i = 1; i < keyIsovalues.length; ++i) {
+
+            int x = i * deltaWidth;
+
+            DecimalFormat df = new DecimalFormat("###.###");
+            g2d.drawString(df.format(keyIsovalues[i]), x - 7, 15);
+        }
+    }
+
+    @Override
+    protected void updateImages() {
+        function.setViewHeight(this.height);
+        function.setViewWidth(this.width);
+
+        initMapImage();
+        initKeyValuesImage();
     }
 }

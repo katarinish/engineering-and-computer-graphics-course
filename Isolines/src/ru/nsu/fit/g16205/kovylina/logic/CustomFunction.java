@@ -3,10 +3,10 @@ package ru.nsu.fit.g16205.kovylina.logic;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
 
 public class CustomFunction {
-    private int domainA;
-    private int domainB;
-    private int domainC;
-    private int domainD;
+    protected int domainA;
+    protected int domainB;
+    protected int domainC;
+    protected int domainD;
 
     private int absDomainWidth;
     private int absDomainHeight;

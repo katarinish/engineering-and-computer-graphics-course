@@ -21,6 +21,12 @@ public class LegendView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        setBackground(Color.BLUE);
+        model.setWidth(this.getWidth());
+        model.setHeight(this.getHeight());
+
+        g.drawImage(model.getMapImage(), 0, 20, null);
+        g.drawImage(model.getKeyValuesImage(), 0, 0, null);
+
+        setBackground(Color.DARK_GRAY);
     }
 }
