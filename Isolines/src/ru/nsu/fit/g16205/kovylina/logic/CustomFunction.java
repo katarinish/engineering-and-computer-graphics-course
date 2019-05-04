@@ -40,11 +40,6 @@ public class CustomFunction {
     }
 
     public Double getValue(int x, int y) {
-        if (x >= viewWidth || y >= viewWidth) {
-            System.out.println("Out of values-array bounds!");
-            return null;
-        }
-
         return values[x][y];
     }
 
