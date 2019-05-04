@@ -107,6 +107,13 @@ public class MapModel {
             }
 
         }
+//        ArrayList<Segment> segments = getIsoline(function.getKeyIsovalues()[1]);
+//        for (Segment segment : segments) {
+//            Point p1 = segment.getPoint1();
+//            Point p2 = segment.getPoint2();
+//
+//            g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
+//        }
     }
 
     private ArrayList<Segment> getIsoline(double isovalue) {
@@ -135,7 +142,7 @@ public class MapModel {
                         segments.add(new Segment(p1, p2));
                         break;
                     case 4:
-                        if (cell.isSignumCenter(isovalue)) {
+                        if (!cell.isSignumCenter(isovalue)) {
                             p1 = new Point(intersects.get(0).x + deltaX * j,
                                     intersects.get(0).y + deltaY * i);
                             p2 = new Point(intersects.get(1).x + deltaX * j,

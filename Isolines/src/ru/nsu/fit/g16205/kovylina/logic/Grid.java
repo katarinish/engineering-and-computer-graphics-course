@@ -10,6 +10,10 @@ public class Grid {
     private int m;
 
     private Cell[][] cells;
+    private double[][] values;
+
+    public Grid(CustomFunction f, int k, int m) {
+    }
 
     public Grid(int k, int m, CustomFunction f) {
         this.height = f.getAbsDomainHeight();
@@ -37,8 +41,8 @@ public class Grid {
             for (int j = 0; j < k; ++j) {
                 Cell cell = new Cell();
 
-                double topLeftX = function.getDomainA() + i * deltaH;
-                double topLeftY = function.getDomainC() + j  * deltaW;
+                double topLeftX = function.getDomainA() + j * deltaH;
+                double topLeftY = function.getDomainC() + i  * deltaW;
 
                 cell.setLeftTopCorner(function.foo(topLeftX, topLeftY));
                 cell.setRightTopCorner(function.foo(topLeftX, topLeftY + deltaW));
