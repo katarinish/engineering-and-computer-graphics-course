@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class MapModel {
-    private static final double EPS = 0.01;
+    private static final double EPS = 0.0000001;
 
     protected CustomFunction function = null;
 
@@ -124,8 +124,8 @@ public class MapModel {
         int deltaX = width / k;
         int deltaY = height / m;
 
-        for (int i = 0; i < m - 1; ++i) {
-            for (int j = 0; j < k - 1; ++j) {
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < k; ++j) {
                 Cell cell = cells[i][j];
                 ArrayList<Point> intersects = cell.getCrossingPoint(isovalue, deltaX, deltaY);
 

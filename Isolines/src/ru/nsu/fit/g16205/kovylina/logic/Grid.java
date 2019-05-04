@@ -41,13 +41,13 @@ public class Grid {
             for (int j = 0; j < k; ++j) {
                 Cell cell = new Cell();
 
-                double topLeftX = function.getDomainA() + j * deltaH;
-                double topLeftY = function.getDomainC() + i  * deltaW;
+                double topLeftX = function.getDomainA() + j * deltaW;
+                double topLeftY = function.getDomainC() + i  * deltaH;
 
                 cell.setLeftTopCorner(function.foo(topLeftX, topLeftY));
-                cell.setRightTopCorner(function.foo(topLeftX, topLeftY + deltaW));
-                cell.setRigthBottomCorner(function.foo(topLeftX + deltaH, topLeftY + deltaW));
-                cell.setLeftBottomCorner(function.foo(topLeftX + deltaH, topLeftY));
+                cell.setRightTopCorner(function.foo(topLeftX + deltaW, topLeftY));
+                cell.setRigthBottomCorner(function.foo(topLeftX + deltaW, topLeftY + deltaH));
+                cell.setLeftBottomCorner(function.foo(topLeftX, topLeftY + deltaH));
 
                 cells[i][j] = cell;
             }

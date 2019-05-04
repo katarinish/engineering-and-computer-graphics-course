@@ -63,12 +63,12 @@ public class Cell {
         }
 
         if (isCrossedWithIsoline(isovalue, rightBottomCorner, leftBottomCorner)) {
-            double x = dx * (isovalue - rightBottomCorner) / (leftBottomCorner - rightBottomCorner);
+            double x = dx * (isovalue - leftBottomCorner) / (rightBottomCorner - leftBottomCorner);
             intersects.add(new Point((int) x, dy));
         }
 
         if (isCrossedWithIsoline(isovalue, leftBottomCorner, leftTopCorner)) {
-            double y = dy * (isovalue - leftBottomCorner) / (leftTopCorner - leftBottomCorner);
+            double y = dy * (isovalue - leftTopCorner) / (leftBottomCorner - leftTopCorner);
             intersects.add(new Point(0, (int) y));
         }
 
