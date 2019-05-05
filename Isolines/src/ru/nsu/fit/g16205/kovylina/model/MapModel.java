@@ -14,8 +14,10 @@ public class MapModel {
     private static final double EPS = 0.0000001;
 
     protected CustomFunction function = null;
+    public State state = new State();
 
     private BufferedImage mapImage = null;
+    private BufferedImage interpolatedMapImage = null;
     private BufferedImage isolinesImage = null;
     private BufferedImage gridImage = null;
 
@@ -47,15 +49,21 @@ public class MapModel {
     }
 
     public BufferedImage getMapImage() {
+        if (state.isWithInterpolation())
+            return interpolatedMapImage;
         return mapImage;
     }
 
     public BufferedImage getIsolinesImage() {
-        return isolinesImage;
+        if (state.isWithIsoline())
+            return isolinesImage;
+        return null;
     }
 
     public BufferedImage getGridImage() {
-        return gridImage;
+        if (state.isWithGrid())
+            return gridImage;
+        return null;
     }
 
     public int getWidth() {
@@ -105,15 +113,7 @@ public class MapModel {
 
                 g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
             }
-
         }
-//        ArrayList<Segment> segments = getIsoline(function.getKeyIsovalues()[1]);
-//        for (Segment segment : segments) {
-//            Point p1 = segment.getPoint1();
-//            Point p2 = segment.getPoint2();
-//
-//            g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
-//        }
     }
 
     private ArrayList<Segment> getIsoline(double isovalue) {
@@ -224,5 +224,44 @@ public class MapModel {
         initMapImage();
         initGridImage();
         initIsolinesImage();
+    }
+
+    public class State {
+        private boolean isWithGrid = false;
+        private boolean isWithIsoline = true;
+        private boolean isWithInterpolation = false;
+        private boolean isWithIntersection = false;
+
+        public boolean isWithGrid() {
+            return isWithGrid;
+        }
+
+        public boolean isWithIsoline() {
+            return isWithIsoline;
+        }
+
+        public boolean isWithInterpolation() {
+            return isWithInterpolation;
+        }
+
+        public boolean isWithIntersection() {
+            return isWithIntersection;
+        }
+
+        public void setWithGrid(boolean withGrid) {
+            isWithGrid = withGrid;
+        }
+
+        public void setWithIsoline(boolean withIsoline) {
+            isWithIsoline = withIsoline;
+        }
+
+        public void setWithInterpolation(boolean withInterpolation) {
+            isWithInterpolation = withInterpolation;
+        }
+
+        public void setWithIntersection(boolean withIntersection) {
+            isWithIntersection = withIntersection;
+        }
     }
 }

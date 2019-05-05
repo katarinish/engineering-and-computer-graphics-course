@@ -17,6 +17,10 @@ public class LegendView extends JPanel {
         return new Dimension(model.getWidth(), model.getHeight());
     }
 
+    public void updateView() {
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

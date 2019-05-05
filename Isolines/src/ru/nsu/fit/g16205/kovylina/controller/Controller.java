@@ -32,6 +32,23 @@ public class Controller {
     public void implementMeLater() {
     }
 
+    public void handleToggleGrid() {
+        mapModel.state.setWithGrid(!mapModel.state.isWithGrid());
+        mapView.updateView();
+    }
+
+    public void handleToggleIsilones() {
+        mapModel.state.setWithIsoline(!mapModel.state.isWithIsoline());
+        mapView.updateView();
+    }
+
+    public void handleInterpolation() {
+        mapModel.state.setWithInterpolation(!mapModel.state.isWithInterpolation());
+        legendModel.state.setWithInterpolation(!legendModel.state.isWithInterpolation());
+        mapView.updateView();
+        legendView.updateView();
+    }
+
     private void initModels() {
         mapModel = new MapModel(10);
         legendModel = new LegendModel(mapModel.getKeyValues());

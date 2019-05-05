@@ -47,11 +47,20 @@ public class MainWindowView extends JFrame {
         toolBar.setRollover(true);
         add(toolBar, BorderLayout.PAGE_START);
 
-//        addToolbarItem(toolBar, "select.png",
-//                "Выбрать изображение", controller::handleSelectImage);
-//        addToolbarItem(toolBar, "clear.png",
-//                "Очистить зоны", controller::handleClearZones);
-//        toolBar.addSeparator();
+        addToolbarItem(toolBar, "new.png",
+                "Открыть новый файл", controller::implementMeLater);
+        toolBar.addSeparator();
+        addToolbarItem(toolBar, "circle.png",
+                "Отображать границу входа изолинии", controller::implementMeLater);
+        addToolbarItem(toolBar, "grid.png",
+                "Отобразить сетку", controller::handleToggleGrid);
+        addToolbarItem(toolBar, "isolines.png",
+                "Отобразить изолинии", controller::handleToggleIsilones);
+        addToolbarItem(toolBar, "interpolation.png",
+                "Включить интерполяцию цвета", controller::handleInterpolation);
+        toolBar.addSeparator();
+        addToolbarItem(toolBar, "clear.png",
+                "Очистить карту", controller::implementMeLater);
     }
 
     private void addMenuItem(JMenu menu, String item, ActionHandler handler) {
