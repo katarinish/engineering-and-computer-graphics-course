@@ -9,9 +9,9 @@ import java.text.DecimalFormat;
 
 public class LegendModel extends MapModel {
     private BufferedImage keyValuesImage = null;
-    private double[] keyIsovalues;
+    private Double[] keyIsovalues;
 
-    public LegendModel(double[] keyIsovalues) {
+    public LegendModel(Double[] keyIsovalues) {
         this.keyIsovalues = keyIsovalues;
 
         this.width = Constants.WIDTH;

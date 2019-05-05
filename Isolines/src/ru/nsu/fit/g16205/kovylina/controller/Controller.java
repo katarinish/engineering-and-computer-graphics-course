@@ -7,6 +7,8 @@ import ru.nsu.fit.g16205.kovylina.view.LegendView;
 import ru.nsu.fit.g16205.kovylina.view.MainWindowView;
 import ru.nsu.fit.g16205.kovylina.view.MapView;
 
+import java.awt.event.MouseEvent;
+
 public class Controller {
     private MainWindowView mainWindowView;
     private ClientContainerView clientContainerView;
@@ -54,13 +56,27 @@ public class Controller {
         mapView.updateView();
     }
 
+    public void handleCustomIsolineClick(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        mapModel.buildIsoline(x, y);
+        mapView.updateView();
+    }
+
+    public void handleDynamicDrag(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        mapModel.buildDynamicIsoline(x, y);
+        mapView.updateView();
+    }
+
     private void initModels() {
         mapModel = new MapModel(10);
         legendModel = new LegendModel(mapModel.getKeyValues());
     }
 
     private void initViews() {
-        mapView = new MapView(mapModel);
+        mapView = new MapView(mapModel, this);
         legendView = new LegendView(legendModel);
 
         clientContainerView = new ClientContainerView(mapView, legendView);

@@ -21,6 +21,8 @@ public class MapModel {
     private BufferedImage isolinesImage = null;
     private BufferedImage gridImage = null;
     private BufferedImage intersectionImage = null;
+    private BufferedImage dynamicIsolineImage = null;
+    private BufferedImage customIsolineImage = null;
 
     protected int width;
     protected int height;
@@ -36,6 +38,8 @@ public class MapModel {
     //Number of isovalues
     protected int n;
     protected Color[] colors = null;
+    private ArrayList<Double> customKeyValues = new ArrayList<>();
+    private Double[] dynamicIsovalue = new Double[1];
 
     public MapModel(){}
 
@@ -79,6 +83,18 @@ public class MapModel {
         return null;
     }
 
+    public BufferedImage getDynamicIsolineImage() {
+        if (state.isWithDynamicIsoline())
+            return dynamicIsolineImage;
+        return null;
+    }
+
+    public BufferedImage getCustomIsolineImage() {
+        if (state.isWithCustomIsoline())
+            return customIsolineImage;
+        return null;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -87,7 +103,7 @@ public class MapModel {
         return height;
     }
 
-    public double[] getKeyValues() {
+    public Double[] getKeyValues() {
         return function.getKeyIsovalues();
     }
 
@@ -105,6 +121,18 @@ public class MapModel {
         this.height = height;
         this.deltaY = height / m;
         updateImages();
+    }
+
+    public void buildIsoline(int x, int y) {
+        double value = function.getValue(y, x);
+        customKeyValues.add(value);
+        initCustomIsolineImage();
+    }
+
+    public void buildDynamicIsoline(int x, int y) {
+        double value = function.getValue(y, x);
+        dynamicIsovalue[0] = value;
+        initDynamicIsolineImage();
     }
 
     protected void initParameters() {
@@ -137,6 +165,16 @@ public class MapModel {
     private void initIsolinesImage() {
         isolinesImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         drawGeometry(isolinesImage, Types.ISOLINE);
+    }
+
+    private void initCustomIsolineImage() {
+        customIsolineImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        drawGeometry(customIsolineImage, Types.CUSTOM_ISOLINES);
+    }
+
+    private void initDynamicIsolineImage() {
+        dynamicIsolineImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        drawGeometry(dynamicIsolineImage, Types.DYNAMIC_ISOLINE);
     }
 
     private ArrayList<Segment> getIsoline(double isovalue) {
@@ -227,7 +265,7 @@ public class MapModel {
     }
 
     private int getColor(double value) {
-        double[] keyIsovalues = function.getKeyIsovalues();
+        Double[] keyIsovalues = function.getKeyIsovalues();
 
         for (int i = 1; i < keyIsovalues.length; ++i) {
             if (keyIsovalues[i] > value) return colors[i - 1].getRGB();
@@ -237,7 +275,7 @@ public class MapModel {
     }
 
     private int getInterpolatedColor(double value) {
-        double[] keyIsovalues = function.getKeyIsovalues();
+        Double[] keyIsovalues = function.getKeyIsovalues();
 
         int currentIndex = keyIsovalues.length - 1;
         for (int i = 1; i < keyIsovalues.length; ++i) {
@@ -290,7 +328,17 @@ public class MapModel {
         grid = new Grid(function, deltaX, deltaY);
         Graphics2D g2d = (Graphics2D) image.getGraphics();
 
-        for (double isovalue: function.getKeyIsovalues()) {
+        Double[] isoArray = function.getKeyIsovalues();
+        if (type == Types.CUSTOM_ISOLINES) {
+            isoArray = customKeyValues.toArray(new Double[isoArray.length]);
+        }
+        if (type == Types.DYNAMIC_ISOLINE) {
+            isoArray = dynamicIsovalue;
+        }
+
+        for (Double isovalue: isoArray) {
+            if (isovalue == null) break;
+
             ArrayList<Segment> segments = getIsoline(isovalue);
             for (Segment segment : segments) {
                 Point p1 = segment.getPoint1();
@@ -303,9 +351,7 @@ public class MapModel {
                             radius, radius);
                     g2d.drawOval(p2.x - radius / 2, p2.y - radius / 2,
                             radius, radius);
-                }
-
-                if (type == Types.ISOLINE) {
+                } else {
                     g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
                 }
             }
@@ -322,6 +368,8 @@ public class MapModel {
             initMapImage();
         }
 
+        initCustomIsolineImage();
+        initDynamicIsolineImage();
         initGridImage();
         initIsolinesImage();
         initIntersectionImage();
@@ -332,6 +380,16 @@ public class MapModel {
         private boolean isWithIsoline = true;
         private boolean isWithInterpolation = false;
         private boolean isWithIntersection = false;
+        private boolean isWithDynamicIsoline = true;
+        private boolean isWithCustomIsoline = false;
+
+        public boolean isWithDynamicIsoline() {
+            return isWithDynamicIsoline;
+        }
+
+        public boolean isWithCustomIsoline() {
+            return isWithCustomIsoline;
+        }
 
         public boolean isWithGrid() {
             return isWithGrid;
@@ -365,10 +423,20 @@ public class MapModel {
         public void setWithIntersection(boolean withIntersection) {
             isWithIntersection = withIntersection;
         }
+
+        public void setWithDynamicIsoline(boolean withDynamicIsoline) {
+            isWithDynamicIsoline = withDynamicIsoline;
+        }
+
+        public void setWithCustomIsoline(boolean withCustomIsoline) {
+            isWithCustomIsoline = withCustomIsoline;
+        }
     }
 
     private enum Types {
         INTERSECTION,
-        ISOLINE
+        ISOLINE,
+        CUSTOM_ISOLINES,
+        DYNAMIC_ISOLINE,
     }
 }
