@@ -19,8 +19,8 @@ public class LegendModel extends MapModel {
         this.width = Constants.WIDTH;
         this.height = Constants.HEIGHT_LEGEND;
 
-        this.n = Constants.N;
-        this.colors = Constants.COLORS;
+        this.n = configuration.getN();
+        this.colors = configuration.getColors();
 
         initParameters();
     }

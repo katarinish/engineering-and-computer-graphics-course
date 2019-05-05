@@ -48,7 +48,7 @@ public class MainWindowView extends JFrame {
         add(toolBar, BorderLayout.PAGE_START);
 
         addToolbarItem(toolBar, "new.png",
-                "Открыть новый файл", controller::implementMeLater);
+                "Открыть новый файл", controller::handleReadModel);
         toolBar.addSeparator();
         addToolbarItem(toolBar, "circle.png",
                 "Отображать границу входа изолинии", controller::handleIntersection);

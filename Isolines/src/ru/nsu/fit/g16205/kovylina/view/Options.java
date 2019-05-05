@@ -33,6 +33,8 @@ public class Options extends JFrame {
     }
 
     private void initActionPerformances() {
+        Configuration oldConfig = model.getConfiguration();
+
         acceptButton.addActionListener(e -> {
 
             int k = Integer.parseInt(kTF.getText());
@@ -43,13 +45,18 @@ public class Options extends JFrame {
             int c = Integer.parseInt(cTF.getText());
             int d = Integer.parseInt(dTF.getText());
 
-            Configuration oldConfig = model.getConfiguration();
-
             Configuration configuration = new Configuration(oldConfig.getN(),k, m, a, b, c, d,
                     oldConfig.getColors());
             controller.setNewSettings(configuration);
             close();
         });
+
+        kTF.setText(String.valueOf(oldConfig.getK()));
+        mTF.setText(String.valueOf(oldConfig.getM()));
+        aTF.setText(String.valueOf(oldConfig.getA()));
+        bTF.setText(String.valueOf(oldConfig.getB()));
+        cTF.setText(String.valueOf(oldConfig.getC()));
+        dTF.setText(String.valueOf(oldConfig.getD()));
 
         cancelButton.addActionListener(e -> close());
     }

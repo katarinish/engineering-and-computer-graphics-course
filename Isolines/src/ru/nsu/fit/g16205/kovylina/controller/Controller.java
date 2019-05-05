@@ -4,12 +4,15 @@ import ru.nsu.fit.g16205.kovylina.model.LegendModel;
 import ru.nsu.fit.g16205.kovylina.model.MapModel;
 import ru.nsu.fit.g16205.kovylina.utils.Configuration;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
-import ru.nsu.fit.g16205.kovylina.view.ClientContainerView;
-import ru.nsu.fit.g16205.kovylina.view.LegendView;
-import ru.nsu.fit.g16205.kovylina.view.MainWindowView;
-import ru.nsu.fit.g16205.kovylina.view.MapView;
+import ru.nsu.fit.g16205.kovylina.utils.FileUtils;
+import ru.nsu.fit.g16205.kovylina.view.*;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
 
 public class Controller {
     private Configuration configuration = new Configuration(
@@ -108,11 +111,61 @@ public class Controller {
     }
 
     public void hadleOpenSettings() {
+        new Options(mapModel, this).open();
     }
 
     public void setNewSettings(Configuration configuration) {
+        mainWindowView.setVisible(false);
+
         this.configuration = configuration;
+
         initModels();
         initViews();
+
+        mapView.updateView();
+        legendView.updateView();
+
+        mainWindowView.pack();
+        mainWindowView.setLocationRelativeTo(null);
+        mainWindowView.setVisible(true);
+    }
+
+    public void handleReadModel() {
+        File fileToOpen = FileUtils.getOpenFile(mainWindowView);
+        if (fileToOpen == null) return;
+        
+        try {
+            FileReader fr = new FileReader(fileToOpen);
+            Scanner scanner = new Scanner(fr);
+            String[] strArr;
+
+            strArr = scanner.nextLine().split(" ");
+            int k = Integer.parseInt(strArr[0]);
+            int m = Integer.parseInt(strArr[0]);
+
+            strArr = scanner.nextLine().split(" ");
+            int n = Integer.parseInt(strArr[0]);
+
+            Color[] colors = new Color[n + 1];
+            for (int i = 0; i <= n; ++i) {
+                strArr = scanner.nextLine().split(" ");
+                int r = Integer.parseInt(strArr[0]);
+                int g = Integer.parseInt(strArr[1]);
+                int b = Integer.parseInt(strArr[2]);
+
+                Color color = new Color(r, g, b);
+                colors[i] = color;
+            }
+
+            Configuration newConfig = new Configuration(n, k, m,
+                    configuration.getA(), configuration.getB(), configuration.getC(), configuration.getD(),
+                    colors);
+
+            setNewSettings(newConfig);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 }
