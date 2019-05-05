@@ -380,7 +380,7 @@ public class MapModel {
         private boolean isWithIsoline = true;
         private boolean isWithInterpolation = false;
         private boolean isWithIntersection = false;
-        private boolean isWithDynamicIsoline = true;
+        private boolean isWithDynamicIsoline = false;
         private boolean isWithCustomIsoline = false;
 
         public boolean isWithDynamicIsoline() {

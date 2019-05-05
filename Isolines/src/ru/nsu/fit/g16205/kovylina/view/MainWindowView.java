@@ -59,6 +59,12 @@ public class MainWindowView extends JFrame {
         addToolbarItem(toolBar, "interpolation.png",
                 "Включить интерполяцию цвета", controller::handleInterpolation);
         toolBar.addSeparator();
+        addToolbarItem(toolBar, "custom.png",
+                "Прорисовка изолинии точечного значения", controller::handleEnableCustomIsolines);
+        addToolbarItem(toolBar, "dynamic.png",
+                "Непрерывное отображение изолинии", controller::handleEnableDynamicIsolines);
+        toolBar.addSeparator();
+
         addToolbarItem(toolBar, "clear.png",
                 "Очистить карту", controller::implementMeLater);
     }

@@ -82,4 +82,14 @@ public class Controller {
         clientContainerView = new ClientContainerView(mapView, legendView);
         mainWindowView = new MainWindowView(this, clientContainerView);
     }
+
+    public void handleEnableCustomIsolines() {
+        mapModel.state.setWithCustomIsoline(!mapModel.state.isWithCustomIsoline());
+        mapView.updateView();
+    }
+
+    public void handleEnableDynamicIsolines() {
+        mapModel.state.setWithDynamicIsoline(!mapModel.state.isWithDynamicIsoline());
+        mapView.updateView();
+    }
 }
