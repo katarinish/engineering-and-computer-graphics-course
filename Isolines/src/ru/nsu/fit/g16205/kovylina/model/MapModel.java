@@ -20,6 +20,7 @@ public class MapModel {
     private BufferedImage interpolatedMapImage = null;
     private BufferedImage isolinesImage = null;
     private BufferedImage gridImage = null;
+    private BufferedImage intersectionImage = null;
 
     protected int width;
     protected int height;
@@ -74,6 +75,12 @@ public class MapModel {
         return null;
     }
 
+    public BufferedImage getIntersectionImage() {
+        if (state.isWithIntersection())
+            return intersectionImage;
+        return null;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -108,22 +115,17 @@ public class MapModel {
         initMapImage();
         initGridImage();
         initIsolinesImage();
+        initIntersectionImage();
+    }
+
+    private void initIntersectionImage() {
+        intersectionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        drawGeometry(intersectionImage, Types.INTERSECTION);
     }
 
     private void initIsolinesImage() {
-        grid = new Grid(function, deltaX, deltaY);
         isolinesImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = (Graphics2D) isolinesImage.getGraphics();
-
-        for (double isovalue: function.getKeyIsovalues()) {
-            ArrayList<Segment> segments = getIsoline(isovalue);
-            for (Segment segment : segments) {
-                Point p1 = segment.getPoint1();
-                Point p2 = segment.getPoint2();
-
-                g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
-            }
-        }
+        drawGeometry(isolinesImage, Types.ISOLINE);
     }
 
     private ArrayList<Segment> getIsoline(double isovalue) {
@@ -200,17 +202,10 @@ public class MapModel {
     private void initGridImage() {
         gridImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) gridImage.getGraphics();
+        g.setColor(Color.GRAY);
 
         int imageWidth = gridImage.getWidth();
         int imageHeight = gridImage.getHeight();
-
-//        for (int i = 0 ; i < k; ++i) {
-//            g.drawLine(deltaX * i, 0, deltaX * i, imageHeight);
-//        }
-//
-//        for (int i = 0 ; i < m; ++i) {
-//            g.drawLine(0, deltaY * i, imageWidth, deltaY * i);
-//        }
 
         for (int x = 0; x < imageWidth; x += deltaX) {
             g.drawLine(x, 0, x, imageHeight);
@@ -230,6 +225,32 @@ public class MapModel {
         return colors[keyIsovalues.length - 1].getRGB();
     }
 
+    private void drawGeometry(BufferedImage image, Types type) {
+        grid = new Grid(function, deltaX, deltaY);
+        Graphics2D g2d = (Graphics2D) image.getGraphics();
+
+        for (double isovalue: function.getKeyIsovalues()) {
+            ArrayList<Segment> segments = getIsoline(isovalue);
+            for (Segment segment : segments) {
+                Point p1 = segment.getPoint1();
+                Point p2 = segment.getPoint2();
+
+                if (type == Types.INTERSECTION) {
+                    int radius = deltaX / 10;
+                    g2d.setColor(Color.RED);
+                    g2d.drawOval(p1.x - radius / 2, p1.y - radius / 2,
+                            radius, radius);
+                    g2d.drawOval(p2.x - radius / 2, p2.y - radius / 2,
+                            radius, radius);
+                }
+
+                if (type == Types.ISOLINE) {
+                    g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
+                }
+            }
+        }
+    }
+
     protected void updateImages() {
         function.setViewHeight(this.height);
         function.setViewWidth(this.width);
@@ -237,6 +258,7 @@ public class MapModel {
         initMapImage();
         initGridImage();
         initIsolinesImage();
+        initIntersectionImage();
     }
 
     public class State {
@@ -276,5 +298,10 @@ public class MapModel {
         public void setWithIntersection(boolean withIntersection) {
             isWithIntersection = withIntersection;
         }
+    }
+
+    private enum Types {
+        INTERSECTION,
+        ISOLINE
     }
 }

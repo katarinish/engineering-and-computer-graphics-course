@@ -29,9 +29,8 @@ public class MapView extends JPanel {
         model.setHeight(this.getHeight());
 
         g.drawImage(model.getMapImage(), 0, 0 , null);
-        g.drawImage(model.getGridImage(), 0, 0, null);
         g.drawImage(model.getIsolinesImage(), 0, 0, null);
-
-        setBackground(Color.CYAN);
+        g.drawImage(model.getGridImage(), 0, 0, null);
+        g.drawImage(model.getIntersectionImage(), 0, 0, null);
     }
 }

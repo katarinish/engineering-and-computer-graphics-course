@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Constants {
     //Grid size
-    public static int K = 100;
-    public static int M = 100;
+    public static int K = 10;
+    public static int M = 10;
 
     //Number of Isoline's levels
     public static int N = 4;

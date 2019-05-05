@@ -51,7 +51,7 @@ public class MainWindowView extends JFrame {
                 "Открыть новый файл", controller::implementMeLater);
         toolBar.addSeparator();
         addToolbarItem(toolBar, "circle.png",
-                "Отображать границу входа изолинии", controller::implementMeLater);
+                "Отображать границу входа изолинии", controller::handleIntersection);
         addToolbarItem(toolBar, "grid.png",
                 "Отобразить сетку", controller::handleToggleGrid);
         addToolbarItem(toolBar, "isolines.png",

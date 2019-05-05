@@ -49,6 +49,11 @@ public class Controller {
         legendView.updateView();
     }
 
+    public void handleIntersection() {
+        mapModel.state.setWithIntersection(!mapModel.state.isWithIntersection());
+        mapView.updateView();
+    }
+
     private void initModels() {
         mapModel = new MapModel(10);
         legendModel = new LegendModel(mapModel.getKeyValues());
