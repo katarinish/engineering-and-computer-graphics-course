@@ -28,6 +28,22 @@ public class LegendModel extends MapModel {
     }
 
     @Override
+    public void setWidth(int width) {
+        if (width == this.width) return;
+
+        this.width = width;
+        updateImages();
+    }
+
+    @Override
+    public void setHeight(int height) {
+        if (height == this.height) return;
+
+        this.height = height;
+        updateImages();
+    }
+
+    @Override
     protected void initParameters() {
         function = new LegendFunction(width, height, n);
         initMapImage();

@@ -40,13 +40,20 @@ public class CustomFunction {
     }
 
     public Double getValue(int x, int y) {
+        if (y >= viewWidth) {
+             y = viewWidth - 1;
+        }
+
+        if (x >= viewHeight) {
+            x = viewHeight - 1;
+        }
         return values[x][y];
     }
 
     public double foo(double x, double y) {
-//        return Math.sin(x) * Math.sin(y);
+        return Math.sin(x) * Math.sin(y);
 //                    return x * x - y * y;
-            return -(y - 0.5) * Math.abs(Math.sin(3 * Math.atan((y - 0.5) / (x - 0.5))));
+//            return -(y - 0.5) * Math.abs(Math.sin(3 * Math.atan((y - 0.5) / (x - 0.5))));
 
     }
 
@@ -109,6 +116,14 @@ public class CustomFunction {
     public void setViewHeight(int viewHeight) {
         this.viewHeight = viewHeight;
         initFieldValues();
+    }
+
+    public int getViewWidth() {
+        return viewWidth;
+    }
+
+    public int getViewHeight() {
+        return viewHeight;
     }
 
     public int getDomainA() {

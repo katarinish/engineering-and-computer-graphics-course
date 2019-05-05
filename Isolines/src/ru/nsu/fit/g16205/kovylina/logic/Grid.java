@@ -3,37 +3,29 @@ package ru.nsu.fit.g16205.kovylina.logic;
 public class Grid {
     private CustomFunction function;
 
-    private int height;
-    private int width;
+    private int deltaX;
+    private int deltaY;
 
     private int k;
     private int m;
 
     private Cell[][] cells;
-    private double[][] values;
 
-    public Grid(CustomFunction f, int k, int m) {
-    }
-
-    public Grid(int k, int m, CustomFunction f) {
-        this.height = f.getAbsDomainHeight();
-        this.width = f.getAbsDomainWidth();
-
-        this.k = k;
-        this.m = m;
+    public Grid(CustomFunction f, int deltaX, int deltaY) {
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
 
         this.function = f;
 
         initCells();
     }
 
-    public Cell[][] getCells() {
-        return cells;
-    }
-
     private void initCells() {
-        double deltaW = width / (double) k;
-        double deltaH = height / (double) m;
+        int width = function.getViewWidth();
+        int height = function.getViewHeight();
+
+        this.k = width / deltaX;
+        this.m = height / deltaY;
 
         cells = new Cell[m][k];
 
@@ -41,16 +33,20 @@ public class Grid {
             for (int j = 0; j < k; ++j) {
                 Cell cell = new Cell();
 
-                double topLeftX = function.getDomainA() + j * deltaW;
-                double topLeftY = function.getDomainC() + i  * deltaH;
+                int topLeftX = deltaX * j;
+                int topLeftY = deltaY * i;
 
-                cell.setLeftTopCorner(function.foo(topLeftX, topLeftY));
-                cell.setRightTopCorner(function.foo(topLeftX + deltaW, topLeftY));
-                cell.setRigthBottomCorner(function.foo(topLeftX + deltaW, topLeftY + deltaH));
-                cell.setLeftBottomCorner(function.foo(topLeftX, topLeftY + deltaH));
+                cell.setLeftTopCorner(function.getValue(topLeftY, topLeftX));
+                cell.setRightTopCorner(function.getValue(topLeftY,topLeftX + deltaX));
+                cell.setRigthBottomCorner(function.getValue(topLeftY + deltaY,topLeftX + deltaX));
+                cell.setLeftBottomCorner(function.getValue(topLeftY + deltaY, topLeftX));
 
                 cells[i][j] = cell;
             }
         }
+    }
+
+    public Cell[][] getCells() {
+        return cells;
     }
 }

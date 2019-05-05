@@ -24,6 +24,9 @@ public class MapModel {
     protected int width;
     protected int height;
 
+    private int deltaX;
+    private int deltaY;
+
     // Grid size
     private int k;
     private int m;
@@ -36,11 +39,16 @@ public class MapModel {
     public MapModel(){}
 
     public MapModel(int a) {
+        this.k = Constants.K;
+        this.m = Constants.M;
+
         this.width = Constants.WIDTH;
         this.height = Constants.HEIGHT_MAP;
 
-        this.k = Constants.K;
-        this.m = Constants.M;
+        this.deltaX = width / k;
+        this.deltaY = height / m;
+//        this.deltaX = width / k + (width % k == 0 ? 0 : 1);
+//        this.deltaY = height / m + (height % m == 0 ? 0 : 1);
 
         this.n = Constants.N;
         this.colors = Constants.COLORS;
@@ -82,6 +90,7 @@ public class MapModel {
         if (width == this.width) return;
 
         this.width = width;
+        this.deltaX = width / k;
         updateImages();
     }
 
@@ -89,12 +98,12 @@ public class MapModel {
         if (height == this.height) return;
 
         this.height = height;
+        this.deltaY = height / m;
         updateImages();
     }
 
     protected void initParameters() {
         function = new CustomFunction(width, height, n);
-        grid = new Grid(k, m, function);
 
         initMapImage();
         initGridImage();
@@ -102,6 +111,7 @@ public class MapModel {
     }
 
     private void initIsolinesImage() {
+        grid = new Grid(function, deltaX, deltaY);
         isolinesImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = (Graphics2D) isolinesImage.getGraphics();
 
@@ -121,11 +131,8 @@ public class MapModel {
 
         Cell[][] cells = grid.getCells();
 
-        int deltaX = width / k;
-        int deltaY = height / m;
-
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < k; ++j) {
+        for (int i = 0; i < cells.length; ++i) {
+            for (int j = 0; j < cells[0].length; ++j) {
                 Cell cell = cells[i][j];
                 ArrayList<Point> intersects = cell.getCrossingPoint(isovalue, deltaX, deltaY);
 
@@ -194,10 +201,16 @@ public class MapModel {
         gridImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) gridImage.getGraphics();
 
-        int deltaX = width / k;
-        int deltaY = height / m;
         int imageWidth = gridImage.getWidth();
         int imageHeight = gridImage.getHeight();
+
+//        for (int i = 0 ; i < k; ++i) {
+//            g.drawLine(deltaX * i, 0, deltaX * i, imageHeight);
+//        }
+//
+//        for (int i = 0 ; i < m; ++i) {
+//            g.drawLine(0, deltaY * i, imageWidth, deltaY * i);
+//        }
 
         for (int x = 0; x < imageWidth; x += deltaX) {
             g.drawLine(x, 0, x, imageHeight);
@@ -227,7 +240,7 @@ public class MapModel {
     }
 
     public class State {
-        private boolean isWithGrid = false;
+        private boolean isWithGrid = true;
         private boolean isWithIsoline = true;
         private boolean isWithInterpolation = false;
         private boolean isWithIntersection = false;
