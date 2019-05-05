@@ -1,8 +1,10 @@
 package ru.nsu.fit.g16205.kovylina.logic;
 
+import ru.nsu.fit.g16205.kovylina.utils.Configuration;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
 
 public class CustomFunction {
+    private Configuration configuration;
     protected int domainA;
     protected int domainB;
     protected int domainC;
@@ -22,7 +24,8 @@ public class CustomFunction {
     private int n;
     private Double[] keyIsovalues = null;
 
-    public CustomFunction(int viewWidth, int viewHeight, int n) {
+    public CustomFunction(Configuration configuration,int viewWidth, int viewHeight, int n) {
+        this.configuration = configuration;
         this.viewWidth = viewWidth;
         this.viewHeight = viewHeight;
 
@@ -50,10 +53,10 @@ public class CustomFunction {
     }
 
     private void initParameters() {
-        domainA = Constants.A;
-        domainB = Constants.B;
-        domainC = Constants.C;
-        domainD = Constants.D;
+        domainA = configuration.getA();
+        domainB = configuration.getB();
+        domainC = configuration.getC();
+        domainD = configuration.getD();
 
         absDomainWidth = Math.abs(domainB - domainA) + 1;
         absDomainHeight = Math.abs(domainD - domainC) + 1;

@@ -1,6 +1,7 @@
 package ru.nsu.fit.g16205.kovylina.model;
 
 import ru.nsu.fit.g16205.kovylina.logic.LegendFunction;
+import ru.nsu.fit.g16205.kovylina.utils.Configuration;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
 
 import java.awt.*;
@@ -11,8 +12,9 @@ public class LegendModel extends MapModel {
     private BufferedImage keyValuesImage = null;
     private Double[] keyIsovalues;
 
-    public LegendModel(Double[] keyIsovalues) {
+    public LegendModel(Configuration configuration, Double[] keyIsovalues) {
         this.keyIsovalues = keyIsovalues;
+        this.configuration = configuration;
 
         this.width = Constants.WIDTH;
         this.height = Constants.HEIGHT_LEGEND;
@@ -45,7 +47,7 @@ public class LegendModel extends MapModel {
 
     @Override
     protected void initParameters() {
-        function = new LegendFunction(width, height, n);
+        function = new LegendFunction(configuration, width, height, n);
         initMapImage();
         initInterpolatedImage();
         initKeyValuesImage();

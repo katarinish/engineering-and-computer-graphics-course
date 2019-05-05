@@ -2,6 +2,8 @@ package ru.nsu.fit.g16205.kovylina.controller;
 
 import ru.nsu.fit.g16205.kovylina.model.LegendModel;
 import ru.nsu.fit.g16205.kovylina.model.MapModel;
+import ru.nsu.fit.g16205.kovylina.utils.Configuration;
+import ru.nsu.fit.g16205.kovylina.utils.Constants;
 import ru.nsu.fit.g16205.kovylina.view.ClientContainerView;
 import ru.nsu.fit.g16205.kovylina.view.LegendView;
 import ru.nsu.fit.g16205.kovylina.view.MainWindowView;
@@ -10,6 +12,17 @@ import ru.nsu.fit.g16205.kovylina.view.MapView;
 import java.awt.event.MouseEvent;
 
 public class Controller {
+    private Configuration configuration = new Configuration(
+            Constants.N,
+            Constants.K,
+            Constants.M,
+            Constants.A,
+            Constants.B,
+            Constants.C,
+            Constants.D,
+            Constants.COLORS
+    );
+
     private MainWindowView mainWindowView;
     private ClientContainerView clientContainerView;
 
@@ -71,8 +84,9 @@ public class Controller {
     }
 
     private void initModels() {
-        mapModel = new MapModel(10);
-        legendModel = new LegendModel(mapModel.getKeyValues());
+        mapModel = new MapModel(configuration);
+
+        legendModel = new LegendModel(configuration, mapModel.getKeyValues());
     }
 
     private void initViews() {
@@ -91,5 +105,14 @@ public class Controller {
     public void handleEnableDynamicIsolines() {
         mapModel.state.setWithDynamicIsoline(!mapModel.state.isWithDynamicIsoline());
         mapView.updateView();
+    }
+
+    public void hadleOpenSettings() {
+    }
+
+    public void setNewSettings(Configuration configuration) {
+        this.configuration = configuration;
+        initModels();
+        initViews();
     }
 }

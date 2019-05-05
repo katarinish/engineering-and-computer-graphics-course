@@ -4,6 +4,7 @@ import ru.nsu.fit.g16205.kovylina.logic.Cell;
 import ru.nsu.fit.g16205.kovylina.logic.Grid;
 import ru.nsu.fit.g16205.kovylina.logic.CustomFunction;
 import ru.nsu.fit.g16205.kovylina.logic.Segment;
+import ru.nsu.fit.g16205.kovylina.utils.Configuration;
 import ru.nsu.fit.g16205.kovylina.utils.Constants;
 
 import java.awt.*;
@@ -15,6 +16,7 @@ public class MapModel {
 
     protected CustomFunction function = null;
     public State state = new State();
+    protected Configuration configuration;
 
     private BufferedImage mapImage = null;
     private BufferedImage interpolatedMapImage = null;
@@ -43,9 +45,11 @@ public class MapModel {
 
     public MapModel(){}
 
-    public MapModel(int a) {
-        this.k = Constants.K;
-        this.m = Constants.M;
+    public MapModel(Configuration configuration) {
+        this.configuration = configuration;
+
+        this.k = configuration.getK();
+        this.m = configuration.getM();
 
         this.width = Constants.WIDTH;
         this.height = Constants.HEIGHT_MAP;
@@ -53,8 +57,8 @@ public class MapModel {
         this.deltaX = width / k;
         this.deltaY = height / m;
 
-        this.n = Constants.N;
-        this.colors = Constants.COLORS;
+        this.n = configuration.getN();
+        this.colors = configuration.getColors();
 
         initParameters();
     }
@@ -103,6 +107,10 @@ public class MapModel {
         return height;
     }
 
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
     public Double[] getKeyValues() {
         return function.getKeyIsovalues();
     }
@@ -136,7 +144,8 @@ public class MapModel {
     }
 
     protected void initParameters() {
-        function = new CustomFunction(width, height, n);
+        function = new CustomFunction(configuration,
+                width, height, n);
 
         initMapImage();
         initInterpolatedImage();

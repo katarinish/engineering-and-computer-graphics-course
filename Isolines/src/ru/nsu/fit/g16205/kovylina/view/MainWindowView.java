@@ -65,8 +65,8 @@ public class MainWindowView extends JFrame {
                 "Непрерывное отображение изолинии", controller::handleEnableDynamicIsolines);
         toolBar.addSeparator();
 
-        addToolbarItem(toolBar, "clear.png",
-                "Очистить карту", controller::implementMeLater);
+        addToolbarItem(toolBar, "settings.png",
+                "Очистить карту", controller::hadleOpenSettings);
     }
 
     private void addMenuItem(JMenu menu, String item, ActionHandler handler) {
