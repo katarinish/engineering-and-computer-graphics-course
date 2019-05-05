@@ -316,8 +316,12 @@ public class MapModel {
         function.setViewHeight(this.height);
         function.setViewWidth(this.width);
 
-        initMapImage();
-        initInterpolatedImage();
+        if (state.isWithInterpolation) {
+            initInterpolatedImage();
+        } else {
+            initMapImage();
+        }
+
         initGridImage();
         initIsolinesImage();
         initIntersectionImage();
@@ -355,6 +359,7 @@ public class MapModel {
 
         public void setWithInterpolation(boolean withInterpolation) {
             isWithInterpolation = withInterpolation;
+            updateImages();
         }
 
         public void setWithIntersection(boolean withIntersection) {

@@ -70,8 +70,12 @@ public class LegendModel extends MapModel {
         function.setViewHeight(this.height);
         function.setViewWidth(this.width);
 
-        initMapImage();
-        initInterpolatedImage();
+        if (state.isWithInterpolation()) {
+            initInterpolatedImage();
+        } else {
+            initMapImage();
+        }
+
         initKeyValuesImage();
     }
 }
