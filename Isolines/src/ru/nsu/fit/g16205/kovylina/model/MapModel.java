@@ -48,8 +48,6 @@ public class MapModel {
 
         this.deltaX = width / k;
         this.deltaY = height / m;
-//        this.deltaX = width / k + (width % k == 0 ? 0 : 1);
-//        this.deltaY = height / m + (height % m == 0 ? 0 : 1);
 
         this.n = Constants.N;
         this.colors = Constants.COLORS;
@@ -113,9 +111,22 @@ public class MapModel {
         function = new CustomFunction(width, height, n);
 
         initMapImage();
+        initInterpolatedImage();
         initGridImage();
         initIsolinesImage();
         initIntersectionImage();
+    }
+
+    protected void initInterpolatedImage() {
+        interpolatedMapImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        for (int x = 0; x < interpolatedMapImage.getHeight(); ++x) {
+            for (int y = 0; y < interpolatedMapImage.getWidth(); ++y) {
+                double value = function.getValue(x, y);
+                int color = getInterpolatedColor(value);
+                interpolatedMapImage.setRGB(y, x, color);
+            }
+        }
     }
 
     private void initIntersectionImage() {
@@ -225,6 +236,56 @@ public class MapModel {
         return colors[keyIsovalues.length - 1].getRGB();
     }
 
+    private int getInterpolatedColor(double value) {
+        double[] keyIsovalues = function.getKeyIsovalues();
+
+        int currentIndex = keyIsovalues.length - 1;
+        for (int i = 1; i < keyIsovalues.length; ++i) {
+            if (keyIsovalues[i] > value) {
+                currentIndex = i - 1;
+                break;
+            }
+        }
+
+        if (currentIndex == (keyIsovalues.length - 1)) {
+            return colors[currentIndex].getRGB();
+        }
+
+        int prevIndex = currentIndex;
+        int nextIndex = currentIndex + 1;
+
+        double prevKeyValue = keyIsovalues[prevIndex];
+        double nextKeyValue = keyIsovalues[nextIndex];
+
+        return interpolateColor(value,
+                colors[prevIndex], colors[nextIndex],
+                prevKeyValue, nextKeyValue);
+    }
+
+    private int interpolateColor(double value, Color prevColor, Color nextColor,
+                                 double prevValue, double nextValue) {
+        double r = prevColor.getRed() * (nextValue - value) / (nextValue - prevValue)
+                + nextColor.getRed() * (value - prevValue) / (nextValue - prevValue);
+        double g = prevColor.getGreen() * (nextValue - value) / (nextValue - prevValue)
+                + nextColor.getGreen() * (value - prevValue) / (nextValue - prevValue);
+        double b = prevColor.getBlue() * (nextValue - value) / (nextValue - prevValue)
+                + nextColor.getBlue() * (value - prevValue) / (nextValue - prevValue);
+
+
+        int r1 = validateColor((int)r);
+        int g1 = validateColor((int)g);
+        int b1 = validateColor((int)b);
+
+        return new Color(r1, g1, b1).getRGB();
+
+    }
+
+    private int validateColor(int r) {
+        if (r > 255) return 255;
+        if (r < 0) return 0;
+        return r;
+    }
+
     private void drawGeometry(BufferedImage image, Types type) {
         grid = new Grid(function, deltaX, deltaY);
         Graphics2D g2d = (Graphics2D) image.getGraphics();
@@ -256,6 +317,7 @@ public class MapModel {
         function.setViewWidth(this.width);
 
         initMapImage();
+        initInterpolatedImage();
         initGridImage();
         initIsolinesImage();
         initIntersectionImage();

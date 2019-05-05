@@ -51,8 +51,8 @@ public class CustomFunction {
     }
 
     public double foo(double x, double y) {
-        return Math.sin(x) * Math.sin(y);
-//                    return x * x - y * y;
+//        return Math.sin(x) * Math.sin(y);
+                    return x * x - y * y;
 //            return -(y - 0.5) * Math.abs(Math.sin(3 * Math.atan((y - 0.5) / (x - 0.5))));
 
     }

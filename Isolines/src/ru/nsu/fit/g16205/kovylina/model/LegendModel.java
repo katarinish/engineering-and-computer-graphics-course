@@ -47,6 +47,7 @@ public class LegendModel extends MapModel {
     protected void initParameters() {
         function = new LegendFunction(width, height, n);
         initMapImage();
+        initInterpolatedImage();
         initKeyValuesImage();
     }
 
@@ -70,6 +71,7 @@ public class LegendModel extends MapModel {
         function.setViewWidth(this.width);
 
         initMapImage();
+        initInterpolatedImage();
         initKeyValuesImage();
     }
 }
